@@ -1,0 +1,1319 @@
+[
+  {
+    "id": "variables",
+    "number": "01",
+    "title": "Variables & Scope",
+    "tagline": "Storing values and knowing where they live",
+    "items": [
+      {
+        "id": "let",
+        "title": "let",
+        "explain": "Declares a variable that can be reassigned later.",
+        "code": "let age = 18;\nage = 19;\nconsole.log(age);",
+        "output": "19"
+      },
+      {
+        "id": "const",
+        "title": "const",
+        "explain": "Declares a variable that cannot be reassigned (objects/arrays inside it can still be mutated).",
+        "code": "const person = { name: \"John\" };\nperson.name = \"Mike\"; // allowed\nperson = {};          // Error: reassign not allowed"
+      },
+      {
+        "id": "global-scope",
+        "title": "Global Scope",
+        "explain": "A variable declared outside any function is reachable from anywhere in the file.",
+        "code": "let a = 10;\nfunction show() {\n  console.log(a);\n}\nshow();",
+        "output": "10"
+      },
+      {
+        "id": "block-scope",
+        "title": "Block Scope",
+        "explain": "let and const only exist inside the { } block they were declared in.",
+        "code": "{\n  let x = 5;\n}\nconsole.log(x); // Error: x is not defined"
+      },
+      {
+        "id": "hoisting",
+        "title": "Hoisting",
+        "explain": "JavaScript moves declarations to the top of their scope, but let/const stay uninitialized until their line runs.",
+        "code": "console.log(a);\nlet a = 10;\n// ReferenceError: Cannot access 'a' before initialization"
+      }
+    ]
+  },
+  {
+    "id": "types",
+    "number": "02",
+    "title": "Data Types",
+    "tagline": "Every value in JS is either primitive or a reference",
+    "items": [
+      {
+        "id": "number",
+        "title": "Number",
+        "explain": "Represents both integers and decimals as a single numeric type.",
+        "code": "let a = 10;\nlet b = 3.14;\nconsole.log(0 / 0);",
+        "output": "NaN"
+      },
+      {
+        "id": "string",
+        "title": "String",
+        "explain": "Text data, wrapped in quotes, with built-in methods for reading and transforming it.",
+        "code": "let word = \"hello\";\nconsole.log(word.slice(1, 4));",
+        "output": "ell"
+      },
+      {
+        "id": "boolean",
+        "title": "Boolean",
+        "explain": "Only two possible values: true or false.",
+        "code": "let isAdult = true;"
+      },
+      {
+        "id": "undefined",
+        "title": "Undefined",
+        "explain": "The default value of a variable that has been declared but not assigned.",
+        "code": "let x;\nconsole.log(x);",
+        "output": "undefined"
+      },
+      {
+        "id": "null",
+        "title": "Null",
+        "explain": "Represents an intentional empty value, set explicitly by the developer.",
+        "code": "let user = null;"
+      },
+      {
+        "id": "bigint",
+        "title": "BigInt",
+        "explain": "Stores integers larger than Number can safely represent.",
+        "code": "let huge = 123456789123456789n;"
+      },
+      {
+        "id": "symbol",
+        "title": "Symbol",
+        "explain": "Creates a guaranteed unique identifier, often used as a hidden object key.",
+        "code": "let id = Symbol();"
+      },
+      {
+        "id": "object-array-function",
+        "title": "Object / Array / Function",
+        "explain": "The three reference types: objects group data, arrays order it, functions act on it.",
+        "code": "let person = { name: \"Sajin\" };\nlet nums = [1, 2, 3];\nfunction greet() {}"
+      },
+      {
+        "id": "typeof",
+        "title": "typeof",
+        "explain": "Returns a string naming the type of a value; famously reports \"object\" for null.",
+        "code": "typeof \"hello\"   // \"string\"\ntypeof null      // \"object\" (historical bug)"
+      }
+    ]
+  },
+  {
+    "id": "operators",
+    "number": "03",
+    "title": "Operators",
+    "tagline": "The symbols that combine, compare, and transform values",
+    "items": [
+      {
+        "id": "arithmetic",
+        "title": "Arithmetic",
+        "explain": "Perform math: add, subtract, multiply, divide, remainder, and exponent.",
+        "code": "+  -  *  /  %  **\n\n2 ** 3;",
+        "output": "8"
+      },
+      {
+        "id": "assignment",
+        "title": "Assignment",
+        "explain": "Assign a value, optionally combined with an operation (+=, -=, etc).",
+        "code": "let x = 10;\nx += 5; // same as x = x + 5",
+        "output": "15"
+      },
+      {
+        "id": "comparison",
+        "title": "Comparison (== vs ===)",
+        "explain": "== converts types before comparing; === checks value and type together. Prefer ===.",
+        "code": "5 == \"5\";   // true\n5 === \"5\";  // false"
+      },
+      {
+        "id": "logical",
+        "title": "Logical (&&, ||, !, ??)",
+        "explain": "Combine boolean expressions; ?? returns the right side only when the left is null/undefined.",
+        "code": "true && false;   // false\nnull ?? \"default\"; // \"default\""
+      },
+      {
+        "id": "increment",
+        "title": "Increment / Decrement",
+        "explain": "x++ returns the value then increases it; ++x increases it then returns the value.",
+        "code": "let x = 5;\nconsole.log(x++); // 5\nconsole.log(++x); // 7"
+      },
+      {
+        "id": "ternary-op",
+        "title": "Ternary",
+        "explain": "A compact one-line if/else that evaluates to a value.",
+        "code": "let age = 20;\nage >= 18 ? \"Adult\" : \"Minor\";",
+        "output": "\"Adult\""
+      },
+      {
+        "id": "bitwise",
+        "title": "Bitwise",
+        "explain": "Operate on the individual bits of a number: AND, OR, XOR, NOT, shifts.",
+        "code": "&  |  ^  ~  <<  >>  >>>"
+      },
+      {
+        "id": "spread-rest",
+        "title": "Spread / Rest (...)",
+        "explain": "Spread expands an iterable into elements; rest collects extra arguments into an array.",
+        "code": "let copy = [...arr];\nfunction total(...nums) { return nums; }\ntotal(1, 2, 3);",
+        "output": "[1, 2, 3]"
+      },
+      {
+        "id": "optional-chaining",
+        "title": "Optional Chaining (?.)",
+        "explain": "Safely reads a nested property, returning undefined instead of throwing if a link is missing.",
+        "code": "user.address?.city;"
+      },
+      {
+        "id": "nullish-assign",
+        "title": "Nullish Coalescing Assignment (??=)",
+        "explain": "Assigns a value only if the variable is currently null or undefined.",
+        "code": "let name;\nname ??= \"Guest\";",
+        "output": "\"Guest\""
+      },
+      {
+        "id": "type-ops",
+        "title": "typeof / instanceof",
+        "explain": "Check a value's primitive type, or whether it was built from a specific constructor.",
+        "code": "typeof 10;          // \"number\"\n[] instanceof Array; // true"
+      },
+      {
+        "id": "object-ops",
+        "title": "delete / in / new",
+        "explain": "delete removes a property, in checks for its existence, new constructs an instance.",
+        "code": "delete person.city;\n\"name\" in person;\nnew Date();"
+      },
+      {
+        "id": "comma-grouping",
+        "title": "Comma & Grouping",
+        "explain": "The comma operator evaluates multiple expressions; parentheses group and control precedence.",
+        "code": "let x = (1 + 2) * 3;",
+        "output": "9"
+      }
+    ]
+  },
+  {
+    "id": "conversion",
+    "number": "04",
+    "title": "Type Conversion",
+    "tagline": "Changing a value from one type into another",
+    "items": [
+      {
+        "id": "string-conv",
+        "title": "String Conversion",
+        "explain": "Explicitly turns any value into its string representation.",
+        "code": "String(100);",
+        "output": "\"100\""
+      },
+      {
+        "id": "number-conv",
+        "title": "Number Conversion",
+        "explain": "Turns a value into a number, or NaN if it can't be parsed.",
+        "code": "Number(\"50\");   // 50\nNumber(\"abc\");  // NaN"
+      },
+      {
+        "id": "boolean-conv",
+        "title": "Boolean Conversion & Truthy/Falsy",
+        "explain": "false, 0, \"\", null, undefined, and NaN convert to false; everything else converts to true.",
+        "code": "Boolean(0);       // false\nBoolean(\"hello\"); // true"
+      },
+      {
+        "id": "implicit-conv",
+        "title": "Implicit Conversion",
+        "explain": "JavaScript automatically converts types in mixed operations, which can surprise you.",
+        "code": "\"5\" + 1;  // \"51\" (string)\n\"5\" - 1;  // 4   (number)"
+      }
+    ]
+  },
+  {
+    "id": "templates",
+    "number": "05",
+    "title": "Template Literals",
+    "tagline": "Backtick strings with embedded expressions",
+    "items": [
+      {
+        "id": "template-basic",
+        "title": "Interpolation",
+        "explain": "Backtick strings can embed variables and expressions directly with ${ }.",
+        "code": "let name = \"Sajin\";\nconsole.log(`Hello ${name}`);",
+        "output": "Hello Sajin"
+      },
+      {
+        "id": "template-multiline",
+        "title": "Multi-line Strings",
+        "explain": "Backtick strings preserve line breaks without needing \\n.",
+        "code": "let text = `\nLine1\nLine2\n`;"
+      },
+      {
+        "id": "template-expr",
+        "title": "Expressions Inside",
+        "explain": "Any valid JS expression can go inside ${ }, including math.",
+        "code": "console.log(`Sum = ${2 + 3}`);",
+        "output": "Sum = 5"
+      }
+    ]
+  },
+  {
+    "id": "comments",
+    "number": "06",
+    "title": "Comments",
+    "tagline": "Notes in code that JavaScript ignores",
+    "items": [
+      {
+        "id": "single-comment",
+        "title": "Single Line",
+        "explain": "Everything after // on a line is ignored.",
+        "code": "// this is a comment"
+      },
+      {
+        "id": "multi-comment",
+        "title": "Multi Line",
+        "explain": "Everything between /* and */ is ignored, even across lines.",
+        "code": "/*\nmultiple\nline\ncomment\n*/"
+      },
+      {
+        "id": "doc-comment",
+        "title": "Documentation Style",
+        "explain": "A /** */ block just above a function, commonly used to describe what it does.",
+        "code": "/**\n * Adds two numbers\n */\nfunction add() {}"
+      }
+    ]
+  },
+  {
+    "id": "conditionals",
+    "number": "07",
+    "title": "Conditionals",
+    "tagline": "Branching code based on a condition",
+    "items": [
+      {
+        "id": "if",
+        "title": "if",
+        "explain": "Runs a block of code only when its condition is truthy.",
+        "code": "let age = 18;\nif (age >= 18) {\n  console.log(\"Adult\");\n}",
+        "output": "Adult"
+      },
+      {
+        "id": "else",
+        "title": "else",
+        "explain": "Runs its block when the if condition was false.",
+        "code": "let age = 15;\nif (age >= 18) {\n  console.log(\"Adult\");\n} else {\n  console.log(\"Minor\");\n}",
+        "output": "Minor"
+      },
+      {
+        "id": "else-if",
+        "title": "else if",
+        "explain": "Checks additional conditions in order until one is true.",
+        "code": "let marks = 80;\nif (marks >= 90) {\n  console.log(\"A\");\n} else if (marks >= 70) {\n  console.log(\"B\");\n} else {\n  console.log(\"C\");\n}",
+        "output": "B"
+      },
+      {
+        "id": "nested-if",
+        "title": "Nested if",
+        "explain": "An if statement placed inside another if's block for combined conditions.",
+        "code": "if (age >= 18) {\n  if (hasID) {\n    console.log(\"Allowed\");\n  }\n}"
+      },
+      {
+        "id": "switch",
+        "title": "switch",
+        "explain": "Compares one value against many possible cases, an alternative to long else-if chains.",
+        "code": "switch (day) {\n  case 1:\n    console.log(\"Mon\");\n    break;\n  case 2:\n    console.log(\"Tue\");\n    break;\n  default:\n    console.log(\"Invalid\");\n}",
+        "output": "Tue"
+      },
+      {
+        "id": "switch-fallthrough",
+        "title": "switch Fall-through",
+        "explain": "Without break, execution continues into the next case instead of stopping.",
+        "code": "switch (1) {\n  case 1:\n    console.log(\"A\");\n  case 2:\n    console.log(\"B\");\n}",
+        "output": "A\nB"
+      },
+      {
+        "id": "switch-group",
+        "title": "Grouping switch Cases",
+        "explain": "Stacking case labels without a break between them lets them share one block.",
+        "code": "switch (day) {\n  case 1:\n  case 2:\n  case 3:\n    console.log(\"Weekday\");\n    break;\n}"
+      },
+      {
+        "id": "ternary-cond",
+        "title": "Ternary as if/else",
+        "explain": "A single-line stand-in for a simple if/else that returns a value.",
+        "code": "let result = age >= 18 ? \"Adult\" : \"Minor\";"
+      },
+      {
+        "id": "nested-ternary",
+        "title": "Nested Ternary",
+        "explain": "Chaining ternaries to check multiple conditions \u2014 readable in small doses only.",
+        "code": "let grade = score > 90 ? \"A\" : score > 70 ? \"B\" : \"C\";"
+      }
+    ]
+  },
+  {
+    "id": "loops",
+    "number": "08",
+    "title": "Loops",
+    "tagline": "Repeating code until a condition ends",
+    "items": [
+      {
+        "id": "for",
+        "title": "for",
+        "explain": "Repeats a fixed number of times using an initializer, condition, and update step.",
+        "code": "for (let i = 0; i < 5; i++) {\n  console.log(i);\n}",
+        "output": "0\n1\n2\n3\n4"
+      },
+      {
+        "id": "nested-for",
+        "title": "Nested for",
+        "explain": "A loop inside another loop, useful for grids and combinations.",
+        "code": "for (let i = 1; i <= 2; i++) {\n  for (let j = 1; j <= 2; j++) {\n    console.log(i, j);\n  }\n}",
+        "output": "1 1\n1 2\n2 1\n2 2"
+      },
+      {
+        "id": "while",
+        "title": "while",
+        "explain": "Repeats as long as its condition stays true, checked before each run.",
+        "code": "let i = 0;\nwhile (i < 3) {\n  console.log(i);\n  i++;\n}",
+        "output": "0\n1\n2"
+      },
+      {
+        "id": "do-while",
+        "title": "do...while",
+        "explain": "Runs the block once first, then repeats while the condition holds.",
+        "code": "let x = 10;\ndo {\n  console.log(x);\n} while (x < 5);",
+        "output": "10"
+      },
+      {
+        "id": "for-of",
+        "title": "for...of",
+        "explain": "Loops over the values of an iterable: arrays, strings, Maps, Sets.",
+        "code": "for (let num of [10, 20, 30]) {\n  console.log(num);\n}",
+        "output": "10\n20\n30"
+      },
+      {
+        "id": "for-in",
+        "title": "for...in",
+        "explain": "Loops over the enumerable keys of an object.",
+        "code": "let person = { name: \"A\", age: 20 };\nfor (let key in person) {\n  console.log(key);\n}",
+        "output": "name\nage"
+      },
+      {
+        "id": "break",
+        "title": "break",
+        "explain": "Immediately exits the loop entirely.",
+        "code": "for (let i = 0; i < 10; i++) {\n  if (i === 3) break;\n}"
+      },
+      {
+        "id": "continue",
+        "title": "continue",
+        "explain": "Skips the rest of the current iteration and moves to the next one.",
+        "code": "for (let i = 0; i < 5; i++) {\n  if (i === 2) continue;\n  console.log(i);\n}",
+        "output": "0\n1\n3\n4"
+      },
+      {
+        "id": "labels",
+        "title": "Labels",
+        "explain": "Names a loop so break/continue can target an outer loop from within a nested one. Rarely used.",
+        "code": "outer: for (let i = 0; i < 3; i++) {\n  for (let j = 0; j < 3; j++) {\n    break outer;\n  }\n}"
+      }
+    ]
+  },
+  {
+    "id": "functions",
+    "number": "09",
+    "title": "Functions",
+    "tagline": "Reusable, named blocks of behavior",
+    "items": [
+      {
+        "id": "func-decl",
+        "title": "Function Declaration",
+        "explain": "Defines a named, reusable block of code with the function keyword.",
+        "code": "function greet() {\n  console.log(\"Hello\");\n}\ngreet();",
+        "output": "Hello",
+        "core": true
+      },
+      {
+        "id": "func-hoisting",
+        "title": "Function Declarations Are Hoisted",
+        "explain": "A function declaration can be called before it appears in the file.",
+        "code": "sayHi();\nfunction sayHi() {\n  console.log(\"Hi\");\n}",
+        "output": "Hi"
+      },
+      {
+        "id": "params-args",
+        "title": "Parameters vs Arguments",
+        "explain": "Parameters are the named placeholders in the definition; arguments are the actual values passed in.",
+        "code": "function greet(name) {\n  console.log(name);\n}\ngreet(\"Sajin\"); // \"Sajin\" is the argument"
+      },
+      {
+        "id": "default-params",
+        "title": "Default Parameters",
+        "explain": "Gives a parameter a fallback value used when no argument is passed.",
+        "code": "function greet(name = \"Guest\") {\n  console.log(name);\n}\ngreet();",
+        "output": "Guest"
+      },
+      {
+        "id": "rest-params",
+        "title": "Rest Parameters",
+        "explain": "Collects any number of extra arguments into a single array.",
+        "code": "function total(...nums) {\n  console.log(nums);\n}\ntotal(1, 2, 3);",
+        "output": "[1, 2, 3]"
+      },
+      {
+        "id": "return",
+        "title": "return",
+        "explain": "Sends a value back to the caller and immediately stops the function.",
+        "code": "function add(a, b) {\n  return a + b;\n}\nconsole.log(add(2, 3));",
+        "output": "5"
+      },
+      {
+        "id": "func-expr",
+        "title": "Function Expression",
+        "explain": "Stores a function inside a variable; unlike declarations, it is not hoisted.",
+        "code": "const greet = function () {\n  console.log(\"Hello\");\n};\ngreet();"
+      },
+      {
+        "id": "arrow-basic",
+        "title": "Arrow Functions",
+        "explain": "A shorter function syntax, commonly used throughout React for callbacks and handlers.",
+        "code": "const add = (a, b) => a + b;\nconst square = x => x * x;",
+        "core": true
+      },
+      {
+        "id": "arrow-return-object",
+        "title": "Arrow Returning an Object",
+        "explain": "Wrap an object literal in parentheses so it isn't mistaken for a function body.",
+        "code": "// Wrong: () => { name: \"A\" }\nconst user = () => ({ name: \"A\" });"
+      },
+      {
+        "id": "arrow-this",
+        "title": "Arrow Functions Have No Own this",
+        "explain": "Arrow functions inherit this from their surrounding scope instead of the object that calls them.",
+        "code": "const person = {\n  name: \"A\",\n  show: () => console.log(this.name), // not \"A\"\n};"
+      },
+      {
+        "id": "iife",
+        "title": "IIFE",
+        "explain": "A function that runs immediately after being defined, often used to create an isolated scope.",
+        "code": "(function () {\n  console.log(\"Run\");\n})();"
+      },
+      {
+        "id": "func-methods",
+        "title": "call / apply / bind",
+        "explain": "Control what this refers to inside a function when invoking or pre-configuring it.",
+        "code": "fn.call(thisArg, a, b);\nfn.apply(thisArg, [a, b]);\nconst bound = fn.bind(thisArg);"
+      },
+      {
+        "id": "recursion",
+        "title": "Recursion",
+        "explain": "A function that calls itself until it reaches a base case that stops it.",
+        "code": "function count(n) {\n  if (n === 0) return;\n  console.log(n);\n  count(n - 1);\n}\ncount(3);",
+        "output": "3\n2\n1"
+      }
+    ]
+  },
+  {
+    "id": "closures",
+    "number": "10",
+    "title": "Scope & Closures",
+    "tagline": "How JavaScript remembers variables across function calls",
+    "items": [
+      {
+        "id": "lexical-scope",
+        "title": "Lexical Scope",
+        "explain": "An inner function can access variables from the outer function that contains it.",
+        "code": "function outer() {\n  let a = 10;\n  function inner() {\n    console.log(a);\n  }\n  inner();\n}\nouter();",
+        "output": "10"
+      },
+      {
+        "id": "scope-chain",
+        "title": "Scope Chain",
+        "explain": "When a variable isn't found locally, JS searches outward: local \u2192 parent \u2192 global.",
+        "code": "let x = 1;\nfunction a() {\n  let y = 2;\n  function b() {\n    let z = 3;\n    console.log(x, y, z);\n  }\n  b();\n}\na();",
+        "output": "1 2 3"
+      },
+      {
+        "id": "closure",
+        "title": "Closures",
+        "explain": "A function keeps access to its outer variables even after the outer function has finished running.",
+        "code": "function counter() {\n  let count = 0;\n  return function () {\n    count++;\n    console.log(count);\n  };\n}\nconst c = counter();\nc();\nc();",
+        "output": "1\n2",
+        "core": true
+      },
+      {
+        "id": "closure-private",
+        "title": "Private Variables via Closure",
+        "explain": "A closure can hide a variable so it's only reachable through returned methods, not directly.",
+        "code": "function bank() {\n  let balance = 1000;\n  return {\n    deposit(amount) { balance += amount; },\n    show() { console.log(balance); },\n  };\n}\nconst acc = bank();\nacc.deposit(500);\nacc.show();",
+        "output": "1500"
+      },
+      {
+        "id": "closure-loop",
+        "title": "Closures in Loops: var vs let",
+        "explain": "var shares one variable across all iterations; let creates a fresh binding each time, which is usually what you want.",
+        "code": "// var: prints 3, 3, 3\nfor (var i = 0; i < 3; i++) {\n  setTimeout(() => console.log(i), 1000);\n}\n\n// let: prints 0, 1, 2\nfor (let i = 0; i < 3; i++) {\n  setTimeout(() => console.log(i), 1000);\n}"
+      }
+    ]
+  },
+  {
+    "id": "hof",
+    "number": "11",
+    "title": "Higher-Order Functions & Callbacks",
+    "tagline": "Functions that take or return other functions",
+    "items": [
+      {
+        "id": "callback",
+        "title": "Callback Function",
+        "explain": "A function passed as an argument to another function, to be run later, often after some work finishes.",
+        "code": "function greet(name, callback) {\n  console.log(\"Hello \" + name);\n  callback();\n}\ngreet(\"Sajin\", () => console.log(\"Done\"));",
+        "output": "Hello Sajin\nDone",
+        "core": true
+      },
+      {
+        "id": "hof-param",
+        "title": "HOF Taking a Function",
+        "explain": "A higher-order function accepts another function as one of its arguments.",
+        "code": "function operation(a, b, fn) {\n  return fn(a, b);\n}\nfunction multiply(x, y) { return x * y; }\noperation(3, 4, multiply);",
+        "output": "12"
+      },
+      {
+        "id": "hof-return",
+        "title": "HOF Returning a Function",
+        "explain": "A higher-order function can also build and return a new, customized function.",
+        "code": "function createMultiplier(num) {\n  return function (x) { return x * num; };\n}\nconst double = createMultiplier(2);\ndouble(5);",
+        "output": "10"
+      },
+      {
+        "id": "settimeout",
+        "title": "setTimeout",
+        "explain": "Schedules a callback to run once after a delay, without blocking the rest of the code.",
+        "code": "setTimeout(() => {\n  console.log(\"Runs after 2 seconds\");\n}, 2000);"
+      }
+    ]
+  },
+  {
+    "id": "arrays",
+    "number": "12",
+    "title": "Arrays",
+    "tagline": "Ordered lists of values, indexed from 0",
+    "items": [
+      {
+        "id": "array-create",
+        "title": "Creating Arrays",
+        "explain": "The array literal [ ] is the standard, most common way to create an array.",
+        "code": "let arr = [1, 2, 3];\nlet empty = [];"
+      },
+      {
+        "id": "array-access",
+        "title": "Access & Modify",
+        "explain": "Elements are read and written using their zero-based index.",
+        "code": "let nums = [10, 20, 30];\nnums[1] = 99;\nnums[nums.length - 1]; // last element"
+      },
+      {
+        "id": "push-pop",
+        "title": "push() / pop()",
+        "explain": "push adds to the end of the array; pop removes the last element.",
+        "code": "let arr = [1, 2, 3];\narr.push(4); // [1, 2, 3, 4]\narr.pop();   // [1, 2, 3]"
+      },
+      {
+        "id": "unshift-shift",
+        "title": "unshift() / shift()",
+        "explain": "unshift adds to the beginning; shift removes the first element.",
+        "code": "arr.unshift(0); // add to start\narr.shift();    // remove from start"
+      },
+      {
+        "id": "foreach",
+        "title": "forEach()",
+        "explain": "Runs a function once for every element; cannot break or return a new array.",
+        "code": "let nums = [1, 2, 3];\nnums.forEach(num => console.log(num));",
+        "output": "1\n2\n3"
+      },
+      {
+        "id": "map",
+        "title": "map()",
+        "explain": "Transforms every element and returns a brand-new array, leaving the original untouched. Used constantly in React to render lists.",
+        "code": "let nums = [1, 2, 3];\nlet result = nums.map(n => n * 2);\nconsole.log(result);",
+        "output": "[2, 4, 6]",
+        "core": true
+      },
+      {
+        "id": "filter",
+        "title": "filter()",
+        "explain": "Returns a new array containing only the elements that pass a test.",
+        "code": "let nums = [1, 2, 3, 4];\nlet even = nums.filter(n => n % 2 === 0);\nconsole.log(even);",
+        "output": "[2, 4]",
+        "core": true
+      },
+      {
+        "id": "reduce",
+        "title": "reduce()",
+        "explain": "Collapses an array down to a single value by running an accumulator function over each element.",
+        "code": "let nums = [1, 2, 3];\nlet total = nums.reduce((acc, n) => acc + n, 0);\nconsole.log(total);",
+        "output": "6",
+        "core": true
+      },
+      {
+        "id": "find-findindex",
+        "title": "find() / findIndex()",
+        "explain": "find returns the first matching element (or undefined); findIndex returns its position instead.",
+        "code": "let nums = [1, 4, 7];\nnums.find(n => n > 3);      // 4\nnums.findIndex(n => n > 3); // 1"
+      },
+      {
+        "id": "some-every",
+        "title": "some() / every()",
+        "explain": "some checks if at least one element passes a test; every checks if all of them do.",
+        "code": "[1, 2, 3].some(n => n > 2);   // true\n[2, 4, 6].every(n => n % 2 === 0); // true"
+      },
+      {
+        "id": "sort",
+        "title": "sort()",
+        "explain": "Sorts an array in place; without a compare function it sorts as strings, so numbers need one.",
+        "code": "[1, 10, 2].sort();               // [1, 10, 2] (wrong)\n[1, 10, 2].sort((a, b) => a - b); // [1, 2, 10]"
+      },
+      {
+        "id": "slice",
+        "title": "slice()",
+        "explain": "Extracts a section of an array into a new array, without changing the original.",
+        "code": "let nums = [1, 2, 3, 4];\nnums.slice(1, 3);",
+        "output": "[2, 3]"
+      },
+      {
+        "id": "splice",
+        "title": "splice()",
+        "explain": "Adds, removes, or replaces elements directly inside the original array.",
+        "code": "arr.splice(1, 2);      // remove 2 items starting at index 1\narr.splice(1, 0, 99);  // insert 99 at index 1\narr.splice(1, 1, 99);  // replace item at index 1"
+      },
+      {
+        "id": "concat-includes-indexof",
+        "title": "concat() / includes() / indexOf()",
+        "explain": "concat merges arrays; includes checks for a value; indexOf finds a value's position.",
+        "code": "a.concat(b);\narr.includes(5);\narr.indexOf(20);"
+      },
+      {
+        "id": "reverse-join",
+        "title": "reverse() / join()",
+        "explain": "reverse flips the array order in place; join turns an array into a string with a chosen separator.",
+        "code": "arr.reverse();\n[1, 2, 3].join(\"-\");",
+        "output": "1-2-3"
+      },
+      {
+        "id": "flat",
+        "title": "flat()",
+        "explain": "Flattens nested arrays into a single level, up to the depth you specify.",
+        "code": "[1, [2, [3]]].flat(2);",
+        "output": "[1, 2, 3]"
+      },
+      {
+        "id": "array-destructure",
+        "title": "Array Destructuring",
+        "explain": "Unpacks array values into individual variables in one line.",
+        "code": "let [a, b] = [10, 20];"
+      },
+      {
+        "id": "array-spread",
+        "title": "Spread Operator",
+        "explain": "Expands an array's elements, useful for copying or merging arrays.",
+        "code": "let copy = [...arr];\nlet merged = [...a, ...b];"
+      },
+      {
+        "id": "array-from-isarray",
+        "title": "Array.from() / Array.isArray()",
+        "explain": "Array.from converts an iterable into a real array; Array.isArray checks if a value is one.",
+        "code": "Array.from(\"hello\"); // [\"h\",\"e\",\"l\",\"l\",\"o\"]\nArray.isArray(arr);  // true"
+      },
+      {
+        "id": "nested-arrays",
+        "title": "Nested Arrays",
+        "explain": "Arrays can contain other arrays, accessed by chaining index brackets.",
+        "code": "let grid = [[1, 2], [3, 4]];\ngrid[1][0];",
+        "output": "3"
+      }
+    ]
+  },
+  {
+    "id": "objects",
+    "number": "13",
+    "title": "Objects",
+    "tagline": "Key-value collections for grouping related data",
+    "items": [
+      {
+        "id": "obj-create",
+        "title": "Creating Objects",
+        "explain": "The object literal { } is the standard way to group related key-value pairs.",
+        "code": "let user = { name: \"Sajin\", age: 19 };\nlet empty = {};"
+      },
+      {
+        "id": "obj-access",
+        "title": "Dot vs Bracket Notation",
+        "explain": "Dot notation is used for known property names; brackets are required for dynamic or variable keys.",
+        "code": "person.name;      // dot\nperson[\"name\"];   // bracket\nlet key = \"age\";\nperson[key];       // dynamic key needs brackets"
+      },
+      {
+        "id": "obj-modify",
+        "title": "Modify / Add / Delete",
+        "explain": "Properties can be changed, added, or removed at any time after creation.",
+        "code": "person.age = 20;\nperson.city = \"Chennai\"; // add\ndelete person.city;      // remove"
+      },
+      {
+        "id": "obj-nested",
+        "title": "Nested Objects",
+        "explain": "Objects can contain other objects or arrays, accessed by chaining.",
+        "code": "let user = { name: \"Sajin\", address: { city: \"Pammal\" } };\nuser.address.city;",
+        "output": "Pammal"
+      },
+      {
+        "id": "obj-optional-chain",
+        "title": "Optional Chaining",
+        "explain": "Safely reads a deeply nested property without throwing if a link along the way is missing.",
+        "code": "user.address?.city;"
+      },
+      {
+        "id": "obj-methods",
+        "title": "Methods & this",
+        "explain": "A function stored as an object property; this inside it refers to the object that called it.",
+        "code": "let person = {\n  name: \"Sajin\",\n  show() {\n    console.log(this.name);\n  },\n};\nperson.show();",
+        "output": "Sajin"
+      },
+      {
+        "id": "object-keys-values-entries",
+        "title": "Object.keys() / values() / entries()",
+        "explain": "Return an object's keys, its values, or [key, value] pairs as arrays for looping.",
+        "code": "let user = { name: \"A\", age: 20 };\nObject.keys(user);    // [\"name\", \"age\"]\nObject.values(user);  // [\"A\", 20]\nObject.entries(user); // [[\"name\",\"A\"],[\"age\",20]]",
+        "core": true
+      },
+      {
+        "id": "obj-destructure",
+        "title": "Object Destructuring",
+        "explain": "Extracts properties into standalone variables, with optional renaming and default values.",
+        "code": "let { name, age } = user;\nlet { name: first } = user;      // rename\nlet { city = \"Unknown\" } = user; // default",
+        "core": true
+      },
+      {
+        "id": "obj-spread-rest",
+        "title": "Spread & Rest",
+        "explain": "Spread copies or merges an object's properties; rest gathers the remaining ones into a new object.",
+        "code": "let copy = { ...user };\nlet full = { ...a, ...b }; // later keys override earlier ones\nlet { name, ...rest } = user;"
+      },
+      {
+        "id": "obj-references",
+        "title": "Objects Are References",
+        "explain": "Assigning an object to a new variable copies the reference, not the data \u2014 both point to the same object.",
+        "code": "let a = { x: 1 };\nlet b = a;\nb.x = 99;\nconsole.log(a.x);",
+        "output": "99"
+      },
+      {
+        "id": "obj-freeze-seal",
+        "title": "Object.freeze() / seal()",
+        "explain": "freeze blocks all changes; seal blocks adding or removing properties but still allows editing existing ones.",
+        "code": "Object.freeze(user);\nObject.seal(user);"
+      },
+      {
+        "id": "obj-clone",
+        "title": "structuredClone()",
+        "explain": "Creates a true, independent deep copy of an object, including nested structures.",
+        "code": "let copy = structuredClone(obj);"
+      },
+      {
+        "id": "obj-json",
+        "title": "Object \u2194 JSON",
+        "explain": "Convert an object to a JSON string and back using the built-in JSON methods.",
+        "code": "JSON.stringify(user);\nJSON.parse(json);"
+      },
+      {
+        "id": "obj-hasown-assign",
+        "title": "Object.hasOwn() / Object.assign()",
+        "explain": "hasOwn checks if a property truly belongs to the object; assign merges multiple objects into one.",
+        "code": "Object.hasOwn(obj, \"name\");\nObject.assign({}, a, b);"
+      },
+      {
+        "id": "obj-shorthand-computed",
+        "title": "Shorthand & Computed Properties",
+        "explain": "Shorthand skips repeating a key and variable of the same name; computed properties use a variable as the key.",
+        "code": "let obj = { name }; // shorthand for { name: name }\nlet key = \"score\";\nlet obj2 = { [key]: 100 };"
+      }
+    ]
+  },
+  {
+    "id": "dom",
+    "number": "14",
+    "title": "DOM Manipulation",
+    "tagline": "Reading and changing HTML from JavaScript",
+    "items": [
+      {
+        "id": "get-element-by-id",
+        "title": "getElementById()",
+        "explain": "Selects a single element by its id attribute.",
+        "code": "// <h1 id=\"title\">Hello</h1>\nlet el = document.getElementById(\"title\");"
+      },
+      {
+        "id": "query-selector",
+        "title": "querySelector()",
+        "explain": "Selects the first element matching any CSS selector \u2014 the most flexible and commonly used selector.",
+        "code": "document.querySelector(\"#title\");\ndocument.querySelector(\".box\");\ndocument.querySelector(\"div p\");",
+        "core": true
+      },
+      {
+        "id": "query-selector-all",
+        "title": "querySelectorAll()",
+        "explain": "Selects every matching element and returns a NodeList you can loop over with forEach.",
+        "code": "let items = document.querySelectorAll(\"li\");\nitems.forEach(item => console.log(item));"
+      },
+      {
+        "id": "get-by-class-tag",
+        "title": "getElementsByClassName() / TagName()",
+        "explain": "Older selection methods that return a live HTMLCollection instead of a static NodeList.",
+        "code": "document.getElementsByClassName(\"text\");\ndocument.getElementsByTagName(\"p\");"
+      },
+      {
+        "id": "text-content",
+        "title": "textContent",
+        "explain": "Reads or sets an element's text, treating anything you assign as plain text (safe from HTML injection).",
+        "code": "p.textContent = \"<h1>Hi</h1>\"; // inserted literally as text, not rendered as HTML"
+      },
+      {
+        "id": "inner-html",
+        "title": "innerHTML",
+        "explain": "Reads or sets an element's content and parses it as HTML \u2014 powerful but risky with untrusted input.",
+        "code": "p.innerHTML = \"<b>Welcome</b>\"; // renders as bold text\n// Avoid: element.innerHTML = userInput; (XSS risk)"
+      },
+      {
+        "id": "inner-text",
+        "title": "innerText",
+        "explain": "Reads only the text that is actually visible on the page, ignoring hidden elements.",
+        "code": "// <div>Hello<span hidden>World</span></div>\nelement.innerText;    // \"Hello\"\nelement.textContent;  // \"Hello World\""
+      },
+      {
+        "id": "attributes",
+        "title": "setAttribute / getAttribute / removeAttribute",
+        "explain": "The generic way to read, write, or remove any HTML attribute.",
+        "code": "img.setAttribute(\"width\", \"300\");\nimg.getAttribute(\"width\"); // \"300\"\nimg.removeAttribute(\"width\");"
+      },
+      {
+        "id": "inline-style",
+        "title": "element.style",
+        "explain": "Sets CSS properties directly on an element, inline \u2014 quick, but gets messy at scale.",
+        "code": "box.style.color = \"red\";\nbox.style.fontSize = \"30px\";"
+      },
+      {
+        "id": "classlist",
+        "title": "classList (add / remove / toggle / contains)",
+        "explain": "The recommended way to manage styles: toggle predefined CSS classes instead of individual style properties.",
+        "code": "box.classList.add(\"active\");\nbox.classList.remove(\"active\");\nbox.classList.toggle(\"dark\");\nbox.classList.contains(\"active\"); // true/false",
+        "core": true
+      },
+      {
+        "id": "create-element",
+        "title": "createElement() + append()",
+        "explain": "Builds a new element in memory, then inserts it into the page.",
+        "code": "let p = document.createElement(\"p\");\np.textContent = \"Hello\";\ndocument.body.append(p);"
+      },
+      {
+        "id": "insert-methods",
+        "title": "append / prepend / before / after",
+        "explain": "Insert content at the end, the start, or immediately beside a reference element.",
+        "code": "parent.append(child);   // end\nparent.prepend(child);  // start\nel.before(newEl);       // just before\nel.after(newEl);        // just after"
+      },
+      {
+        "id": "insert-adjacent-html",
+        "title": "insertAdjacentHTML()",
+        "explain": "Inserts raw HTML at a precise position relative to an element without replacing existing content.",
+        "code": "element.insertAdjacentHTML(\"beforeend\", \"<p>Hi</p>\");\n// positions: beforebegin, afterbegin, beforeend, afterend"
+      },
+      {
+        "id": "clone-node",
+        "title": "cloneNode()",
+        "explain": "Creates a copy of an element; pass true to also copy its children.",
+        "code": "let copy = element.cloneNode(true);"
+      },
+      {
+        "id": "remove-elements",
+        "title": "remove() / removeChild() / replaceWith()",
+        "explain": "Three ways to take an element out of the page, or swap it for another.",
+        "code": "element.remove();\nparent.removeChild(child);\nold.replaceWith(newElement);"
+      },
+      {
+        "id": "dom-traversal",
+        "title": "DOM Traversal",
+        "explain": "Move between related elements: parent, children, and siblings.",
+        "code": "element.parentElement;\nelement.children;\nelement.firstElementChild;\nelement.lastElementChild;\nelement.nextElementSibling;\nelement.previousElementSibling;"
+      },
+      {
+        "id": "add-event-listener",
+        "title": "addEventListener()",
+        "explain": "Attaches a function that runs whenever a specific event happens on an element. The foundation of interactivity \u2014 and of how React thinks about events.",
+        "code": "btn.addEventListener(\"click\", () => {\n  console.log(\"Clicked\");\n});",
+        "core": true
+      },
+      {
+        "id": "event-object",
+        "title": "The Event Object",
+        "explain": "Automatically passed into every handler, carrying details about what happened.",
+        "code": "input.addEventListener(\"keydown\", (e) => {\n  console.log(e.key, e.target);\n});"
+      },
+      {
+        "id": "prevent-default",
+        "title": "event.preventDefault()",
+        "explain": "Stops the browser's default behavior for an event, like a form submitting and reloading the page.",
+        "code": "form.addEventListener(\"submit\", (e) => {\n  e.preventDefault();\n});"
+      },
+      {
+        "id": "event-bubbling",
+        "title": "Event Bubbling",
+        "explain": "A triggered event travels upward from the target element through each of its ancestors.",
+        "code": "// click button inside div\n// Output: button, then div\nevent.stopPropagation(); // stops the upward travel"
+      },
+      {
+        "id": "event-delegation",
+        "title": "Event Delegation",
+        "explain": "One listener on a parent handles events for all its (even future) children, by checking event.target.",
+        "code": "parent.addEventListener(\"click\", (e) => {\n  if (e.target.matches(\"button\")) {\n    console.log(\"clicked\");\n  }\n});",
+        "core": true
+      },
+      {
+        "id": "forms",
+        "title": "Forms & input.value",
+        "explain": "Read what a user typed via .value, and prevent the page from reloading on submit.",
+        "code": "input.value; // current text\nform.addEventListener(\"submit\", (e) => e.preventDefault());"
+      },
+      {
+        "id": "dom-content-loaded",
+        "title": "DOMContentLoaded",
+        "explain": "Waits until the HTML is fully parsed before running code, so elements are guaranteed to exist.",
+        "code": "document.addEventListener(\"DOMContentLoaded\", () => {\n  console.log(\"Ready\");\n});"
+      },
+      {
+        "id": "useful-dom-methods",
+        "title": "focus() / blur() / scrollIntoView() / contains()",
+        "explain": "Common utility methods: move focus, remove focus, scroll an element into view, or check ancestry.",
+        "code": "input.focus();\ninput.blur();\nbox.scrollIntoView();\nparent.contains(child); // true/false"
+      }
+    ]
+  },
+  {
+    "id": "errors",
+    "number": "15",
+    "title": "Error Handling",
+    "tagline": "Catching problems before they crash your program",
+    "items": [
+      {
+        "id": "error-types",
+        "title": "Types of Errors",
+        "explain": "Syntax errors break parsing, runtime errors happen while executing, logical errors run fine but give wrong results.",
+        "code": "// Syntax: console.log(\"Hello\"\n// Runtime: undefined.name \u2192 TypeError\nlet total = 10 + \"10\"; // Logical: \"1010\" instead of 20"
+      },
+      {
+        "id": "try-catch",
+        "title": "try...catch",
+        "explain": "Runs risky code in try; if it throws, execution jumps to catch instead of crashing the program.",
+        "code": "try {\n  let num = x + 1;\n} catch (error) {\n  console.log(\"Error occurred\");\n}",
+        "output": "Error occurred",
+        "core": true
+      },
+      {
+        "id": "error-object",
+        "title": "The Error Object",
+        "explain": "catch receives an error object with name, message, and stack properties describing what went wrong.",
+        "code": "try {\n  null.test();\n} catch (error) {\n  console.log(error.name);    // TypeError\n  console.log(error.message);\n}"
+      },
+      {
+        "id": "throw",
+        "title": "throw",
+        "explain": "Manually raises an error, either as a value or (better) as an Error instance.",
+        "code": "if (age < 0) {\n  throw new Error(\"Invalid age\");\n}"
+      },
+      {
+        "id": "builtin-errors",
+        "title": "Built-in Error Types",
+        "explain": "Specific error subclasses: TypeError, ReferenceError, SyntaxError, RangeError, URIError.",
+        "code": "new TypeError();      // wrong type used\nnew ReferenceError(); // variable doesn't exist\nnew RangeError();     // value out of range"
+      },
+      {
+        "id": "finally",
+        "title": "finally",
+        "explain": "Runs after try/catch regardless of whether an error occurred \u2014 ideal for cleanup.",
+        "code": "try {\n  console.log(\"Try\");\n} finally {\n  console.log(\"Always runs\");\n}",
+        "output": "Try\nAlways runs"
+      },
+      {
+        "id": "custom-errors",
+        "title": "Custom Error Classes",
+        "explain": "Extend the built-in Error class to create your own named, reusable error types.",
+        "code": "class AgeError extends Error {\n  constructor(message) {\n    super(message);\n    this.name = \"AgeError\";\n  }\n}\nthrow new AgeError(\"Too young\");"
+      },
+      {
+        "id": "async-error-handling",
+        "title": "Async Error Handling",
+        "explain": "Catch errors from Promises with .catch(), or with try/catch around an await.",
+        "code": "fetch(\"api\").then(res => res.json()).catch(err => console.log(err));\n\nasync function load() {\n  try {\n    let res = await fetch(\"api\");\n  } catch (err) {\n    console.log(err);\n  }\n}"
+      },
+      {
+        "id": "error-propagation",
+        "title": "Error Propagation",
+        "explain": "An uncaught error keeps moving up the call stack until a try/catch handles it.",
+        "code": "function a() { b(); }\nfunction b() { throw new Error(\"Oops\"); }\ntry {\n  a();\n} catch (err) {\n  console.log(err.message);\n}",
+        "output": "Oops"
+      }
+    ]
+  },
+  {
+    "id": "promises",
+    "number": "16",
+    "title": "Promises",
+    "tagline": "Representing a value that will be available later",
+    "items": [
+      {
+        "id": "promise-constructor",
+        "title": "new Promise()",
+        "explain": "Wraps async work in an object that will eventually resolve (succeed) or reject (fail).",
+        "code": "const prom = new Promise((resolve, reject) => {\n  resolve(\"Success\");\n});\nprom.then(result => console.log(result));",
+        "output": "Success",
+        "core": true
+      },
+      {
+        "id": "promise-reject",
+        "title": "reject() & .catch()",
+        "explain": "Signals failure with reject, and handles it downstream with .catch().",
+        "code": "const prom = new Promise((resolve, reject) => {\n  reject(\"Failed\");\n});\nprom.catch(err => console.log(err));",
+        "output": "Failed"
+      },
+      {
+        "id": "promise-pending",
+        "title": "A Promise Object Itself",
+        "explain": "Calling a function that returns a Promise doesn't give you the value directly \u2014 it gives a pending Promise you must resolve.",
+        "code": "const promise = fs.readFile(\"data.txt\", \"utf8\");\nconsole.log(promise);",
+        "output": "Promise { <pending> }"
+      },
+      {
+        "id": "fs-promises",
+        "title": "fs.promises (Node.js)",
+        "explain": "Node's promise-based file system API lets you read files with .then() instead of error-first callbacks.",
+        "code": "const fs = require(\"fs\").promises;\nfs.readFile(\"data.txt\", \"utf8\")\n  .then(data => console.log(data))\n  .catch(err => console.log(err));"
+      },
+      {
+        "id": "async-await-fs",
+        "title": "async/await with fs",
+        "explain": "The cleanest way to read files: await pauses until the Promise resolves.",
+        "code": "const fs = require(\"fs/promises\");\nasync function read() {\n  try {\n    const data = await fs.readFile(\"data.txt\", \"utf8\");\n    console.log(data);\n  } catch (err) {\n    console.log(err);\n  }\n}",
+        "core": true
+      },
+      {
+        "id": "promise-all",
+        "title": "Promise.all()",
+        "explain": "Runs multiple Promises in parallel and waits for all of them to finish, which is faster than awaiting one at a time.",
+        "code": "const [a, b] = await Promise.all([\n  fs.readFile(\"a.txt\", \"utf8\"),\n  fs.readFile(\"b.txt\", \"utf8\"),\n]);"
+      }
+    ]
+  },
+  {
+    "id": "fetch",
+    "number": "17",
+    "title": "Fetch, HTTP & APIs",
+    "tagline": "Talking to servers from the browser",
+    "items": [
+      {
+        "id": "what-is-api",
+        "title": "What is an API?",
+        "explain": "An interface that lets your app request or send data to a server, which usually talks to a database.",
+        "code": "// Browser \u2192 API \u2192 Server \u2192 Database\n// Examples: weather apps, social feeds, maps"
+      },
+      {
+        "id": "rest-basics",
+        "title": "REST API Basics",
+        "explain": "REST APIs organize data behind predictable URLs called endpoints, manipulated with HTTP methods.",
+        "code": "https://api.example.com/users\n// endpoints: /users  /posts  /products"
+      },
+      {
+        "id": "http-get",
+        "title": "GET \u2014 Read Data",
+        "explain": "Requests existing data from the server without modifying anything.",
+        "code": "fetch(\"https://jsonplaceholder.typicode.com/users\")\n  .then(res => res.json())\n  .then(data => console.log(data));"
+      },
+      {
+        "id": "http-post",
+        "title": "POST \u2014 Create Data",
+        "explain": "Sends a new piece of data to the server to be created, typically with a JSON body.",
+        "code": "fetch(url, {\n  method: \"POST\",\n  headers: { \"Content-Type\": \"application/json\" },\n  body: JSON.stringify({ title: \"Hello\" }),\n});"
+      },
+      {
+        "id": "http-put-patch",
+        "title": "PUT vs PATCH",
+        "explain": "PUT replaces an entire resource; PATCH updates only the fields you send.",
+        "code": "fetch(url, { method: \"PUT\", body: JSON.stringify(fullData) });\nfetch(url, { method: \"PATCH\", body: JSON.stringify({ name: \"New\" }) });"
+      },
+      {
+        "id": "http-delete",
+        "title": "DELETE \u2014 Remove Data",
+        "explain": "Requests that a resource be removed from the server.",
+        "code": "fetch(url, { method: \"DELETE\" });"
+      },
+      {
+        "id": "fetch-syntax",
+        "title": "fetch()",
+        "explain": "The built-in function for making HTTP requests; it always returns a Promise.",
+        "code": "fetch(url, options)\n  .then(res => res.json())\n  .then(data => console.log(data))\n  .catch(err => console.log(err));"
+      },
+      {
+        "id": "async-await-fetch",
+        "title": "async/await with fetch",
+        "explain": "A cleaner alternative to chaining .then(), pausing execution until each step completes.",
+        "code": "async function getData() {\n  try {\n    let res = await fetch(url);\n    let data = await res.json();\n    console.log(data);\n  } catch (err) {\n    console.log(err);\n  }\n}",
+        "core": true
+      },
+      {
+        "id": "headers",
+        "title": "Headers",
+        "explain": "Metadata sent with a request, such as the format of the data you're sending.",
+        "code": "headers: { \"Content-Type\": \"application/json\" }\n// common: Authorization, Accept, User-Agent"
+      },
+      {
+        "id": "response-object",
+        "title": "The Response Object",
+        "explain": "What fetch resolves to; check res.ok or res.status before reading the body.",
+        "code": "let res = await fetch(url);\nres.status; // e.g. 200\nres.ok;     // true if status is 200-299"
+      },
+      {
+        "id": "status-codes",
+        "title": "Status Codes",
+        "explain": "Numeric codes describing the outcome of a request: 200s succeed, 400s are client errors, 500s are server errors.",
+        "code": "200 OK          201 Created\n400 Bad Request 401 Unauthorized\n403 Forbidden   404 Not Found\n500 Server Error"
+      },
+      {
+        "id": "query-params",
+        "title": "Query Parameters",
+        "explain": "Extra key-value data appended to a URL after a ?, used to filter or specify a request.",
+        "code": "fetch(\"https://api.com/users?id=5\");\n// multiple: ?name=abc&age=19"
+      },
+      {
+        "id": "fetch-error-handling",
+        "title": "Handling fetch Errors",
+        "explain": "fetch only rejects on network failure \u2014 check res.ok yourself to catch HTTP error responses like 404.",
+        "code": "let res = await fetch(url);\nif (!res.ok) {\n  throw new Error(\"Request Failed\");\n}\nlet data = await res.json();"
+      },
+      {
+        "id": "local-storage-json",
+        "title": "localStorage + JSON",
+        "explain": "Browser storage only holds strings, so objects must be stringified before saving and parsed after reading.",
+        "code": "localStorage.setItem(\"user\", JSON.stringify(obj));\nlet user = JSON.parse(localStorage.getItem(\"user\"));"
+      }
+    ]
+  },
+  {
+    "id": "json",
+    "number": "18",
+    "title": "JSON",
+    "tagline": "The universal text format for exchanging data",
+    "items": [
+      {
+        "id": "what-is-json",
+        "title": "What is JSON?",
+        "explain": "A lightweight, text-based data format that looks like a JavaScript object but follows stricter rules.",
+        "code": "{\n  \"name\": \"Sajin\",\n  \"age\": 19,\n  \"skills\": [\"C\", \"Python\", \"JS\"]\n}"
+      },
+      {
+        "id": "json-rules",
+        "title": "JSON Rules",
+        "explain": "Keys and strings must use double quotes; functions and comments are not allowed.",
+        "code": "// Valid:   { \"name\": \"John\" }\n// Invalid: { name: \"John\" }"
+      },
+      {
+        "id": "json-vs-object",
+        "title": "JS Object vs JSON",
+        "explain": "A JS object is a live in-memory structure; JSON is its text-based, portable equivalent.",
+        "code": "let user = { name: \"Sajin\" }; // object, usable in JS\n'{\"name\":\"Sajin\"}';           // JSON, a text string"
+      },
+      {
+        "id": "json-stringify",
+        "title": "JSON.stringify()",
+        "explain": "Converts a JavaScript object into a JSON-formatted string, ready to send or store.",
+        "code": "let student = { name: \"Sajin\", age: 19 };\nJSON.stringify(student);",
+        "output": "{\"name\":\"Sajin\",\"age\":19}",
+        "core": true
+      },
+      {
+        "id": "json-parse",
+        "title": "JSON.parse()",
+        "explain": "Converts a JSON string back into a usable JavaScript object.",
+        "code": "let data = '{\"name\":\"Sajin\"}';\nJSON.parse(data).name;",
+        "output": "Sajin",
+        "core": true
+      },
+      {
+        "id": "json-pretty-print",
+        "title": "Pretty Printing",
+        "explain": "Pass an indent value as the third argument to stringify to format JSON for human reading.",
+        "code": "JSON.stringify(user, null, 2);",
+        "output": "{\n  \"name\": \"Sajin\",\n  \"age\": 19\n}"
+      }
+    ]
+  },
+  {
+    "id": "modules",
+    "number": "19",
+    "title": "Modules",
+    "tagline": "Splitting code across files and reusing it",
+    "items": [
+      {
+        "id": "what-is-module",
+        "title": "What is a Module?",
+        "explain": "A JavaScript file with its own private scope, whose values can be shared using export/import.",
+        "code": "// math.js\nexport const x = 10;\n\n// app.js\nimport { x } from \"./math.js\";"
+      },
+      {
+        "id": "export-import",
+        "title": "export / import",
+        "explain": "export makes a value available outside its file; import brings it into another file.",
+        "code": "// math.js\nexport const pi = 3.14;\nexport function add(a, b) { return a + b; }\n\n// app.js\nimport { pi, add } from \"./math.js\";"
+      },
+      {
+        "id": "named-exports",
+        "title": "Named Exports",
+        "explain": "Export multiple values by name from one file; import them using matching names in curly braces.",
+        "code": "export const name = \"Sajin\";\nexport function greet() { return \"Hello\"; }\n\nimport { name, greet } from \"./utils.js\";"
+      },
+      {
+        "id": "rename-export",
+        "title": "Renaming Exports",
+        "explain": "Use the as keyword to give an export or import a different local name.",
+        "code": "export { add as sum };\nimport { sum } from \"./file.js\";\n// or: import { add as sum } from \"./file.js\";"
+      },
+      {
+        "id": "default-exports",
+        "title": "Default Exports",
+        "explain": "Each module can have exactly one default export, imported without curly braces and any name you choose.",
+        "code": "// greet.js\nexport default function greet() { return \"Hello\"; }\n\n// app.js\nimport greet from \"./greet.js\";",
+        "core": true
+      },
+      {
+        "id": "named-default-together",
+        "title": "Named + Default Together",
+        "explain": "A single file can mix one default export with several named exports.",
+        "code": "// file.js\nexport const age = 20;\nexport default function greet() {}\n\n// app.js\nimport greet, { age } from \"./file.js\";"
+      },
+      {
+        "id": "import-star",
+        "title": "Import Everything (* as)",
+        "explain": "Imports every export from a module bundled together as one object.",
+        "code": "import * as utils from \"./utils.js\";\nutils.greet();"
+      },
+      {
+        "id": "dynamic-import",
+        "title": "Dynamic import()",
+        "explain": "Loads a module on demand at runtime, returning a Promise \u2014 useful for code-splitting.",
+        "code": "async function load() {\n  const module = await import(\"./math.js\");\n  console.log(module.add(1, 2));\n}"
+      },
+      {
+        "id": "browser-modules",
+        "title": "Browser Modules",
+        "explain": "The type=\"module\" attribute enables import/export syntax directly in browser scripts.",
+        "code": "<script type=\"module\" src=\"app.js\"></script>"
+      },
+      {
+        "id": "node-modules",
+        "title": "Node.js Modules: ESM vs CommonJS",
+        "explain": "Node supports modern import/export (ESM) alongside the older require() syntax (CommonJS).",
+        "code": "// ES Modules\nimport fs from \"fs\";\n\n// CommonJS\nconst fs = require(\"fs\");"
+      }
+    ]
+  }
+]

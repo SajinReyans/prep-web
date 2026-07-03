@@ -1,0 +1,16 @@
+{
+  "name": "js-cheatsheet",
+  "version": "1.0.0",
+  "description": "An open, no-login JavaScript syntax cheat sheet. React + Tailwind frontend, Node/Express backend.",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node server/index.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

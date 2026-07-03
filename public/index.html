@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>js.cheatsheet — an open JavaScript reference</title>
+<meta name="description" content="An open, no-login JavaScript syntax cheat sheet covering variables through modules — every entry with a plain-English explanation and a hidden example." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js" crossorigin></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.24.7/babel.min.js" crossorigin></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: {
+            DEFAULT: "#0f1115",
+            soft: "#14171d",
+          },
+          surface: {
+            DEFAULT: "#171a21",
+            hover: "#1d212a",
+            raised: "#1b1f27",
+          },
+          hairline: "#262b35",
+          paper: "#e9e7df",
+          muted: "#8b8f9c",
+          spark: "#f4d93e",
+          violet: "#8b93ff",
+          mint: "#5fd9b8",
+        },
+        fontFamily: {
+          display: ["Space Grotesk", "sans-serif"],
+          body: ["Inter", "sans-serif"],
+          mono: ["JetBrains Mono", "monospace"],
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { background-color: #0f1115; }
+  ::selection { background: #f4d93e; color: #0f1115; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: #0f1115; }
+  ::-webkit-scrollbar-thumb { background: #262b35; border-radius: 6px; }
+  ::-webkit-scrollbar-thumb:hover { background: #333947; }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal { animation: fadeSlide 0.18s ease-out; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { animation: none; }
+  }
+
+  .focus-ring:focus-visible {
+    outline: 2px solid #8b93ff;
+    outline-offset: 2px;
+  }
+</style>
+</head>
+<body class="font-body text-paper antialiased">
+  <div id="root"></div>
+  <script type="text/babel" data-presets="react" src="/app.jsx"></script>
+</body>
+</html>
