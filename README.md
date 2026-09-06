@@ -22,8 +22,4 @@ prep-web/
 │   ├── index.js        # Express app: serves the API + the static frontend
 │   ├── sections.json   # Registry of available sections (JavaScript, NumPy, etc.)
 │   ├── data.json       # JavaScript categories + entries
-│   └── numpy.json      # NumPy categories + entries (12 categories, 100 entries)
-└── public/
-    ├── index.html      # loads React/Babel/Tailwind from CDN, mounts the app
-    └── app.jsx         # the whole UI: section switcher, sidebar, search, expandable cards
-```
+
