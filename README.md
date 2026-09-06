@@ -47,7 +47,3 @@ All the syntax entries live in `server/data.json`. Each item looks like:
   "core": true
 }
 ```
-
-`core: true` adds the "used constantly" badge (used for patterns React leans on
-heavily, like `map`, closures, or `addEventListener`). `output` is optional — omit
-it for entries that don't produce console output.
