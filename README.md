@@ -7,10 +7,3 @@ An open, no-login syntax cheat sheet covering **JavaScript** and **NumPy** — e
 ## Run it
 
 ```bash
-npm install
-npm start
-```
-
-Then open **http://localhost:3000** — that's it, no sign-up, no accounts.
-
-## How it's put together
