@@ -1,0 +1,32 @@
+[
+  {
+    "id": "javascript",
+    "name": "JavaScript",
+    "slug": "javascript",
+    "shortName": "JS",
+    "logo": "js",
+    "tagline": "Modern syntax, array methods & async patterns",
+    "heroPrefix": "reference · no account needed",
+    "heroTitle": "Every piece of JavaScript syntax, explained in one line each.",
+    "heroSubtitle": "Nineteen groups, from variables to modules. Each entry gets a plain-English explanation and a runnable example tucked behind a dropdown — expand only what you need.",
+    "badgeNote": "★ marks patterns React leans on heavily",
+    "searchPlaceholder": "search syntax…",
+    "language": "javascript",
+    "dataFile": "data.json"
+  },
+  {
+    "id": "numpy",
+    "name": "NumPy",
+    "slug": "numpy",
+    "shortName": "NumPy",
+    "logo": "np",
+    "tagline": "Numerical computing, n-dim arrays & linear algebra",
+    "heroPrefix": "reference · no account needed",
+    "heroTitle": "Every NumPy array operation & function, explained in one line each.",
+    "heroSubtitle": "Twelve groups, from array creation to linear algebra & missing values. Each entry gets a plain-English explanation and a runnable example tucked behind a dropdown — expand only what you need.",
+    "badgeNote": "★ marks essential operations for Data Science & ML",
+    "searchPlaceholder": "search numpy functions…",
+    "language": "python",
+    "dataFile": "numpy.json"
+  }
+]

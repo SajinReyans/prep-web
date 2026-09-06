@@ -1,0 +1,845 @@
+[
+  {
+    "id": "array-creation",
+    "number": "01",
+    "title": "Array Creation & Initialization",
+    "tagline": "Creating arrays from lists, predefined values, ranges, and distributions",
+    "items": [
+      {
+        "id": "np-array",
+        "title": "np.array()",
+        "explain": "Creates an n-dimensional array from a Python list, tuple, or nested sequence.",
+        "code": "import numpy as np\n\na = np.array([1, 2, 3, 4])\nb = np.array([[1, 2], [3, 4]])\nprint(a)\nprint(b)",
+        "output": "[1 2 3 4]\n[[1 2]\n [3 4]]",
+        "core": true
+      },
+      {
+        "id": "dtype-spec",
+        "title": "dtype",
+        "explain": "Specifies the explicit data type (e.g. float, int32, complex) when constructing an array.",
+        "code": "a = np.array([1, 2, 3], dtype=float)\nb = np.array([1, 2, 3], dtype=np.float32)\nprint(a)\nprint(b)",
+        "output": "[1. 2. 3.]\n[1. 2. 3.]",
+        "core": true
+      },
+      {
+        "id": "np-zeros",
+        "title": "np.zeros()",
+        "explain": "Creates an array of given shape filled entirely with zeros (float64 by default).",
+        "code": "a = np.zeros(4)\nb = np.zeros((2, 3))\nprint(a)\nprint(b)",
+        "output": "[0. 0. 0. 0.]\n[[0. 0. 0.]\n [0. 0. 0.]]",
+        "core": true
+      },
+      {
+        "id": "np-ones",
+        "title": "np.ones()",
+        "explain": "Creates an array of given shape filled entirely with ones.",
+        "code": "a = np.ones(4)\nb = np.ones((2, 3))\nprint(a)\nprint(b)",
+        "output": "[1. 1. 1. 1.]\n[[1. 1. 1.]\n [1. 1. 1.]]",
+        "core": true
+      },
+      {
+        "id": "np-full",
+        "title": "np.full()",
+        "explain": "Creates an array of given shape filled with a specified constant fill value.",
+        "code": "a = np.full(4, 7)\nb = np.full((2, 3), 5)\nprint(a)\nprint(b)",
+        "output": "[7 7 7 7]\n[[5 5 5]\n [5 5 5]]"
+      },
+      {
+        "id": "np-empty",
+        "title": "np.empty()",
+        "explain": "Allocates array memory without initializing values, making it faster when values will be overwritten.",
+        "code": "a = np.empty(3)\nb = np.empty((2, 2))\nprint(a.shape)\nprint(b.shape)",
+        "output": "(3,)\n(2, 2)"
+      },
+      {
+        "id": "np-arange",
+        "title": "np.arange()",
+        "explain": "Creates evenly spaced values within a half-open interval [start, stop) using a specified step.",
+        "code": "a = np.arange(5)\nb = np.arange(2, 8)\nc = np.arange(0, 10, 2)\nd = np.arange(10, 0, -2)\nprint(a)\nprint(b)\nprint(c)\nprint(d)",
+        "output": "[0 1 2 3 4]\n[2 3 4 5 6 7]\n[0 2 4 6 8]\n[10  8  6  4  2]",
+        "core": true
+      },
+      {
+        "id": "np-linspace",
+        "title": "np.linspace()",
+        "explain": "Creates a specified number of evenly spaced points over a closed interval [start, stop].",
+        "code": "a = np.linspace(0, 10, 5)\nb = np.linspace(0, 1, 4)\nprint(a)\nprint(b)",
+        "output": "[ 0.   2.5  5.   7.5 10. ]\n[0.         0.33333333 0.66666667 1.        ]",
+        "core": true
+      },
+      {
+        "id": "np-eye-identity",
+        "title": "np.eye() / np.identity()",
+        "explain": "Creates a 2D identity matrix with ones on the main diagonal and zeros elsewhere.",
+        "code": "a = np.eye(3)\nb = np.identity(3)\nprint(a)",
+        "output": "[[1. 0. 0.]\n [0. 1. 0.]\n [0. 0. 1.]]"
+      },
+      {
+        "id": "np-diag",
+        "title": "np.diag()",
+        "explain": "Constructs a diagonal 2D matrix or extracts the diagonal elements of an existing 2D array.",
+        "code": "a = np.diag([1, 2, 3])\nprint(a)\nprint(np.diag(a))",
+        "output": "[[1 0 0]\n [0 2 0]\n [0 0 3]]\n[1 2 3]"
+      },
+      {
+        "id": "np-fromiter",
+        "title": "np.fromiter()",
+        "explain": "Creates a 1D array directly from any iterable object (like a generator or iterator).",
+        "code": "a = np.fromiter(range(5), dtype=int)\nprint(a)",
+        "output": "[0 1 2 3 4]"
+      },
+      {
+        "id": "np-fromfunction",
+        "title": "np.fromfunction()",
+        "explain": "Constructs an array by executing a function over each coordinate grid index.",
+        "code": "a = np.fromfunction(lambda i, j: i + j, (2, 3), dtype=int)\nprint(a)",
+        "output": "[[0 1 2]\n [1 2 3]]"
+      },
+      {
+        "id": "np-random-rand",
+        "title": "np.random.rand() / random()",
+        "explain": "Generates uniform random floats in the range [0.0, 1.0) with the specified dimensions.",
+        "code": "np.random.seed(42)\na = np.random.rand(3)\nb = np.random.rand(2, 2)\nprint(a)\nprint(b)",
+        "output": "[0.37454012 0.95071431 0.73199394]\n[[0.59865848 0.15601864]\n [0.15599452 0.05808361]]"
+      },
+      {
+        "id": "np-random-randn",
+        "title": "np.random.randn()",
+        "explain": "Generates random numbers from a standard normal distribution (mean=0, variance=1).",
+        "code": "np.random.seed(42)\na = np.random.randn(2, 3)\nprint(a)",
+        "output": "[[ 0.49671415 -0.1382643   0.64768854]\n [ 1.52302986 -0.23415337 -0.23413696]]"
+      },
+      {
+        "id": "np-random-randint",
+        "title": "np.random.randint()",
+        "explain": "Generates random integers from low (inclusive) to high (exclusive) with a given shape.",
+        "code": "np.random.seed(42)\na = np.random.randint(1, 10, size=5)\nb = np.random.randint(1, 10, size=(2, 3))\nprint(a)\nprint(b)",
+        "output": "[7 4 8 5 7]\n[[3 7 8]\n [5 4 8]]"
+      },
+      {
+        "id": "np-random-choice",
+        "title": "np.random.choice()",
+        "explain": "Generates a random sample from a given 1D array or sequence.",
+        "code": "np.random.seed(42)\nchoices = np.random.choice([10, 20, 30, 40], size=3)\nprint(choices)",
+        "output": "[30 10 30]"
+      }
+    ]
+  },
+  {
+    "id": "array-attributes",
+    "number": "02",
+    "title": "Array Attributes & Inspection",
+    "tagline": "Inspecting dimensions, shapes, data types, memory layout, and byte sizes",
+    "items": [
+      {
+        "id": "arr-ndim",
+        "title": "arr.ndim",
+        "explain": "Returns the number of array dimensions (axes) as an integer.",
+        "code": "a = np.array([[1, 2, 3], [4, 5, 6]])\nprint(a.ndim)",
+        "output": "2",
+        "core": true
+      },
+      {
+        "id": "arr-shape",
+        "title": "arr.shape",
+        "explain": "Returns a tuple of integers indicating the size of the array along each dimension.",
+        "code": "a = np.array([[1, 2, 3], [4, 5, 6]])\nprint(a.shape)",
+        "output": "(2, 3)",
+        "core": true
+      },
+      {
+        "id": "arr-size",
+        "title": "arr.size",
+        "explain": "Returns the total number of elements across all dimensions of the array.",
+        "code": "a = np.array([[1, 2, 3], [4, 5, 6]])\nprint(a.size)",
+        "output": "6",
+        "core": true
+      },
+      {
+        "id": "arr-dtype",
+        "title": "arr.dtype",
+        "explain": "Describes the data type of the elements stored in the array.",
+        "code": "a = np.array([1, 2, 3])\nb = np.array([1.5, 2.5])\nprint(a.dtype)\nprint(b.dtype)",
+        "output": "int64\nfloat64",
+        "core": true
+      },
+      {
+        "id": "arr-itemsize",
+        "title": "arr.itemsize",
+        "explain": "Returns the length of one array element in bytes.",
+        "code": "a = np.array([1, 2, 3], dtype=np.int32)\nprint(a.itemsize)",
+        "output": "4"
+      },
+      {
+        "id": "arr-nbytes",
+        "title": "arr.nbytes",
+        "explain": "Returns the total number of bytes consumed by the array elements.",
+        "code": "a = np.array([[1, 2, 3], [4, 5, 6]], dtype=np.int32)\nprint(a.nbytes)",
+        "output": "24"
+      },
+      {
+        "id": "arr-t",
+        "title": "arr.T",
+        "explain": "Returns the transpose of the array (swaps axes for 2D arrays).",
+        "code": "a = np.array([[1, 2, 3], [4, 5, 6]])\nprint(a.T)",
+        "output": "[[1 4]\n [2 5]\n [3 6]]",
+        "core": true
+      },
+      {
+        "id": "arr-base",
+        "title": "arr.base",
+        "explain": "Points to the base array if memory is shared (view), or None if the array owns its memory.",
+        "code": "a = np.array([1, 2, 3, 4])\nb = a[1:3]\nprint(b.base is a)\nprint(a.base)",
+        "output": "True\nNone"
+      },
+      {
+        "id": "arr-strides",
+        "title": "arr.strides",
+        "explain": "Returns a tuple indicating the number of bytes to step in each dimension when traversing the array.",
+        "code": "a = np.array([[1, 2, 3], [4, 5, 6]], dtype=np.int32)\nprint(a.strides)",
+        "output": "(12, 4)"
+      },
+      {
+        "id": "arr-flags",
+        "title": "arr.flags",
+        "explain": "Provides information about memory layout, such as C-contiguous, Fortran-contiguous, and writeable.",
+        "code": "a = np.array([1, 2, 3])\nprint(a.flags.c_contiguous)\nprint(a.flags.writeable)",
+        "output": "True\nTrue"
+      },
+      {
+        "id": "arr-real-imag",
+        "title": "arr.real / arr.imag",
+        "explain": "Returns the real or imaginary component of complex-valued array elements.",
+        "code": "a = np.array([1 + 2j, 3 + 4j])\nprint(a.real)\nprint(a.imag)",
+        "output": "[1. 3.]\n[2. 4.]"
+      }
+    ]
+  },
+  {
+    "id": "indexing-slicing",
+    "number": "03",
+    "title": "Indexing, Slicing & Strides",
+    "tagline": "Accessing elements, row/col selections, rectangular slices, and multi-dim strides",
+    "items": [
+      {
+        "id": "indexing-1d",
+        "title": "1D Indexing & Negative Indices",
+        "explain": "Accesses individual elements using 0-based or negative (end-relative) indices.",
+        "code": "a = np.array([10, 20, 30, 40, 50])\nprint(a[0])   # first element\nprint(a[-1])  # last element\nprint(a[-2])  # second-to-last",
+        "output": "10\n50\n40",
+        "core": true
+      },
+      {
+        "id": "indexing-2d",
+        "title": "2D Indexing (arr[row, col])",
+        "explain": "Accesses elements in a 2D matrix using comma-separated row and column indices.",
+        "code": "a = np.array([\n    [10, 20, 30],\n    [40, 50, 60],\n    [70, 80, 90]\n])\nprint(a[0, 0])   # top-left\nprint(a[1, 2])   # row 1, col 2\nprint(a[-1, -1]) # bottom-right",
+        "output": "10\n60\n90",
+        "core": true
+      },
+      {
+        "id": "slice-row-col",
+        "title": "Selecting Entire Rows & Columns",
+        "explain": "Uses colon : to select all elements along an axis (e.g. a[0, :] for row, a[:, 1] for col).",
+        "code": "a = np.array([\n    [1, 2, 3],\n    [4, 5, 6],\n    [7, 8, 9]\n])\nprint(a[0, :])  # row 0\nprint(a[:, 1])  # column 1",
+        "output": "[1 2 3]\n[2 5 8]",
+        "core": true
+      },
+      {
+        "id": "slicing-basic",
+        "title": "Basic Slicing (start:stop:step)",
+        "explain": "Extracts contiguous sub-ranges with optional start, stop, and step intervals.",
+        "code": "a = np.array([10, 20, 30, 40, 50, 60])\nprint(a[1:4])   # index 1 to 3\nprint(a[:3])    # start to index 2\nprint(a[3:])    # index 3 to end\nprint(a[::2])   # every 2nd element",
+        "output": "[20 30 40]\n[10 20 30]\n[40 50 60]\n[10 30 50]",
+        "core": true
+      },
+      {
+        "id": "slicing-2d",
+        "title": "2D Rectangular Slicing",
+        "explain": "Extracts 2D sub-matrices by slicing rows and columns simultaneously.",
+        "code": "a = np.array([\n    [10, 20, 30, 40],\n    [50, 60, 70, 80],\n    [90, 100, 110, 120]\n])\nprint(a[0:2, 1:3])",
+        "output": "[[20 30]\n [60 70]]",
+        "core": true
+      },
+      {
+        "id": "reversing-arrays",
+        "title": "Reversing with Negative Step (::-1)",
+        "explain": "Reverses 1D arrays or rows and columns of 2D matrices using step -1.",
+        "code": "a = np.array([1, 2, 3, 4, 5])\nprint(a[::-1])\n\nm = np.array([[1, 2], [3, 4]])\nprint(m[::-1, :])   # reverse rows\nprint(m[:, ::-1])   # reverse cols",
+        "output": "[5 4 3 2 1]\n[[3 4]\n [1 2]]\n[[2 1]\n [4 3]]"
+      },
+      {
+        "id": "ellipsis-newaxis",
+        "title": "Ellipsis (...) & np.newaxis",
+        "explain": "Ellipsis represents all remaining unmentioned dimensions; np.newaxis adds a dimension.",
+        "code": "a = np.ones((2, 3, 4, 5))\nprint(a[..., 0].shape)  # slice last axis\n\nv = np.array([1, 2, 3])\nprint(v[:, np.newaxis].shape)  # (3, 1) column vector",
+        "output": "(2, 3, 4)\n(3, 1)"
+      },
+      {
+        "id": "indexing-3d",
+        "title": "3D Array Indexing (depth, row, col)",
+        "explain": "Indexes 3-dimensional tensors by specifying matrix index, row index, and column index.",
+        "code": "a = np.arange(12).reshape(2, 2, 3)\nprint(a[0, 1, 2])   # depth 0, row 1, col 2\nprint(a[1, :, :])   # entire 2nd 2D matrix",
+        "output": "5\n[[ 6  7  8]\n [ 9 10 11]]"
+      }
+    ]
+  },
+  {
+    "id": "boolean-indexing",
+    "number": "04",
+    "title": "Boolean Indexing & Masking",
+    "tagline": "Filtering arrays with conditions, logical operations, and conditional replacement",
+    "items": [
+      {
+        "id": "bool-condition",
+        "title": "Comparison Operators on Arrays",
+        "explain": "Applies >, <, ==, !=, >=, <= element-wise to produce a boolean mask array of the same shape.",
+        "code": "a = np.array([10, 20, 30, 40, 50])\nprint(a > 25)\nprint(a == 30)",
+        "output": "[False False  True  True  True]\n[False False  True False False]",
+        "core": true
+      },
+      {
+        "id": "bool-filter",
+        "title": "Boolean Filtering (arr[arr > value])",
+        "explain": "Indexes an array with a boolean mask to extract all elements that satisfy the condition.",
+        "code": "a = np.array([5, 12, 18, 7, 25, 3])\nresult = a[a > 10]\nprint(result)",
+        "output": "[12 18 25]",
+        "core": true
+      },
+      {
+        "id": "bool-logical-ops",
+        "title": "Multiple Conditions (&, |, ~)",
+        "explain": "Combines conditions using bitwise AND (&), OR (|), and NOT (~) with parentheses.",
+        "code": "a = np.array([10, 25, 35, 40, 50])\n# Parentheses around each condition are mandatory\nmask = (a >= 20) & (a <= 40)\nprint(a[mask])\nprint(a[~(a > 30)])",
+        "output": "[25 35 40]\n[10 25]"
+      },
+      {
+        "id": "np-where",
+        "title": "np.where()",
+        "explain": "Returns elements chosen from x or y depending on condition (if-else vectorization), or returns matching indices.",
+        "code": "a = np.array([10, 20, 30, 40])\n# if a > 25 replace with 99 else 0\nprint(np.where(a > 25, 99, 0))\n# return indices where condition holds\nprint(np.where(a > 25))",
+        "output": "[ 0  0 99 99]\n(array([2, 3]),)",
+        "core": true
+      },
+      {
+        "id": "np-any-all",
+        "title": "np.any() & np.all()",
+        "explain": "np.any() checks if at least one element is True; np.all() checks if every element is True.",
+        "code": "a = np.array([2, 4, 6, 8])\nprint(np.any(a > 5))   # True (6, 8)\nprint(np.all(a > 5))   # False (2, 4)\nprint(np.all(a % 2 == 0)) # True",
+        "output": "True\nFalse\nTrue",
+        "core": true
+      },
+      {
+        "id": "np-nonzero-count",
+        "title": "np.nonzero() & np.count_nonzero()",
+        "explain": "Returns the indices of non-zero elements or counts how many elements evaluate to non-zero/True.",
+        "code": "a = np.array([0, 5, 0, 10, 15])\nprint(np.nonzero(a))\nprint(np.count_nonzero(a))\nprint(np.count_nonzero(a > 5))",
+        "output": "(array([1, 3, 4]),)\n3\n2"
+      },
+      {
+        "id": "np-isin",
+        "title": "np.isin()",
+        "explain": "Tests whether each element in an array is present in a list of candidate target values.",
+        "code": "a = np.array([1, 2, 3, 4, 5])\ntargets = [2, 4, 9]\nmask = np.isin(a, targets)\nprint(mask)\nprint(a[mask])",
+        "output": "[False  True False  True False]\n[2 4]"
+      },
+      {
+        "id": "bool-2d-filter",
+        "title": "Boolean Indexing on 2D Arrays",
+        "explain": "Filters rows or columns based on row-level or column-level aggregate boolean criteria.",
+        "code": "a = np.array([\n    [10, 20, 30],\n    [40, 50, 60],\n    [70, 80, 90]\n])\n# Select rows where the 1st column > 20\nmask = a[:, 0] > 20\nprint(a[mask])",
+        "output": "[[40 50 60]\n [70 80 90]]"
+      }
+    ]
+  },
+  {
+    "id": "fancy-indexing-views",
+    "number": "05",
+    "title": "Fancy Indexing, Copies & Views",
+    "tagline": "Integer array indexing, memory views vs deep copies, and conditional assignment",
+    "items": [
+      {
+        "id": "fancy-indexing-1d",
+        "title": "Fancy Indexing (Integer Array Indexing)",
+        "explain": "Passes an array or list of integer indices to select elements in custom arbitrary order.",
+        "code": "a = np.array([10, 20, 30, 40, 50])\nidx = [0, 3, 1]\nprint(a[idx])",
+        "output": "[10 40 20]",
+        "core": true
+      },
+      {
+        "id": "fancy-indexing-2d",
+        "title": "Fancy Indexing in 2D",
+        "explain": "Passes coordinate arrays to select specific (row, column) pairs or reorder entire rows/columns.",
+        "code": "a = np.array([\n    [10, 20, 30],\n    [40, 50, 60],\n    [70, 80, 90]\n])\n# Select coordinates (0,0) and (2,2)\nprint(a[[0, 2], [0, 2]])\n# Select rows 2 and 0\nprint(a[[2, 0], :])",
+        "output": "[10 90]\n[[70 80 90]\n [10 20 30]]"
+      },
+      {
+        "id": "indexing-assignment",
+        "title": "Assignment Using Indexing",
+        "explain": "Modifies values in-place by assigning to slices, coordinates, or boolean masks.",
+        "code": "a = np.array([10, 20, 30, 40, 50])\na[1:3] = 99\nprint(a)\n\na[a > 50] = 0\nprint(a)",
+        "output": "[10 99 99 40 50]\n[10  0  0 40 50]"
+      },
+      {
+        "id": "np-clip",
+        "title": "np.clip()",
+        "explain": "Limits the values in an array to stay strictly within a given minimum and maximum interval.",
+        "code": "a = np.array([5, 15, 25, 35, 45])\nclipped = np.clip(a, 10, 30)\nprint(clipped)",
+        "output": "[10 15 25 30 30]"
+      },
+      {
+        "id": "views-vs-copies",
+        "title": "Views vs Copies",
+        "explain": "Basic slicing creates a view (shares memory); fancy indexing and explicit .copy() create independent copies.",
+        "code": "a = np.array([1, 2, 3, 4])\nview_slice = a[1:3]\nview_slice[0] = 99\nprint(a)  # a is modified!\n\ncopy_arr = a.copy()\ncopy_arr[0] = 100\nprint(a)  # a is NOT modified",
+        "output": "[ 1 99  3  4]\n[ 1 99  3  4]",
+        "core": true
+      },
+      {
+        "id": "copy-method",
+        "title": "arr.copy()",
+        "explain": "Allocates a completely new, independent memory buffer with an exact copy of the array data.",
+        "code": "a = np.array([10, 20, 30])\nb = a.copy()\nb[0] = 999\nprint('Original:', a)\nprint('Copy:', b)",
+        "output": "Original: [10 20 30]\nCopy: [999  20  30]"
+      }
+    ]
+  },
+  {
+    "id": "math-broadcasting",
+    "number": "06",
+    "title": "Mathematical Operations & Broadcasting",
+    "tagline": "Element-wise arithmetic, universal functions, trigonometry, and broadcasting rules",
+    "items": [
+      {
+        "id": "basic-arithmetic",
+        "title": "Element-wise Arithmetic (+, -, *, /, //, %)",
+        "explain": "Performs standard mathematical operations element-by-element across matching dimensions.",
+        "code": "a = np.array([10, 20, 30])\nb = np.array([1, 2, 3])\nprint(a + b)\nprint(a - b)\nprint(a * b)\nprint(a / b)",
+        "output": "[11 22 33]\n[ 9 18 27]\n[10 40 90]\n[10. 10. 10.]",
+        "core": true
+      },
+      {
+        "id": "broadcasting-basics",
+        "title": "Broadcasting Rules",
+        "explain": "Automatically stretches smaller arrays (or scalars) across matching dimensions without copying memory.",
+        "code": "a = np.array([\n    [1, 2, 3],\n    [4, 5, 6]\n])\nprint(a + 10)  # scalar broadcast\n\nrow = np.array([10, 20, 30])\nprint(a + row) # 1D broadcast across 2D rows",
+        "output": "[[11 12 13]\n [14 15 16]]\n[[11 22 33]\n [14 25 36]]",
+        "core": true
+      },
+      {
+        "id": "ufunc-sqrt-abs",
+        "title": "np.sqrt() & np.abs()",
+        "explain": "Computes the square root or absolute value (magnitude) of each element.",
+        "code": "a = np.array([4, 9, 16, 25])\nprint(np.sqrt(a))\n\nb = np.array([-5, 3, -12])\nprint(np.abs(b))",
+        "output": "[2. 3. 4. 5.]\n[ 5  3 12]",
+        "core": true
+      },
+      {
+        "id": "ufunc-exp-log",
+        "title": "np.exp(), np.log(), np.log10()",
+        "explain": "Computes exponential e^x, natural logarithm ln(x), log base 10, or log base 2 element-wise.",
+        "code": "a = np.array([1, 2, 3])\nprint(np.exp(a))\n\nb = np.array([1, np.e, np.e**2])\nprint(np.log(b))\nprint(np.log10([1, 10, 100]))",
+        "output": "[ 2.71828183  7.3890561  20.08553692]\n[0. 1. 2.]\n[0. 1. 2.]"
+      },
+      {
+        "id": "ufunc-rounding",
+        "title": "Rounding (round, floor, ceil, trunc)",
+        "explain": "Rounds numbers to decimals (np.round), down (np.floor), up (np.ceil), or chops fractional parts (np.trunc).",
+        "code": "a = np.array([1.2, 2.7, 3.5, -1.8])\nprint(np.round(a))\nprint(np.floor(a))\nprint(np.ceil(a))\nprint(np.trunc(a))",
+        "output": "[ 1.  3.  4. -2.]\n[ 1.  2.  3. -2.]\n[ 2.  3.  4. -1.]\n[ 1.  2.  3. -1.]"
+      },
+      {
+        "id": "ufunc-trig",
+        "title": "Trigonometric Functions (sin, cos, tan, deg2rad)",
+        "explain": "Computes sine, cosine, tangent (angles in radians), and converts degrees to radians.",
+        "code": "angles = np.array([0, np.pi/2, np.pi])\nprint(np.sin(angles).round(2))\nprint(np.cos(angles).round(2))\nprint(np.deg2rad([0, 90, 180]))",
+        "output": "[ 0.  1.  0.]\n[ 1.  0. -1.]\n[0.         1.57079633 3.14159265]"
+      },
+      {
+        "id": "diff-sign-reciprocal",
+        "title": "np.diff(), np.sign(), np.maximum()",
+        "explain": "Computes discrete differences between elements, gets signs (+1/-1/0), or takes element-wise maximum of two arrays.",
+        "code": "a = np.array([10, 15, 25, 40])\nprint(np.diff(a))\n\nb = np.array([-10, 0, 5])\nprint(np.sign(b))\n\nprint(np.maximum([1, 5, 3], [4, 2, 6]))",
+        "output": "[ 5 10 15]\n[-1  0  1]\n[4 5 6]"
+      }
+    ]
+  },
+  {
+    "id": "reshaping-manipulation",
+    "number": "07",
+    "title": "Reshaping & Shape Manipulation",
+    "tagline": "Changing array dimensions, flattening, transposing, and adding/removing axes",
+    "items": [
+      {
+        "id": "arr-reshape",
+        "title": "arr.reshape()",
+        "explain": "Gives a new shape to an array without changing its underlying data (total element count must remain identical).",
+        "code": "a = np.arange(6)\nb = a.reshape(2, 3)\nprint(b)",
+        "output": "[[0 1 2]\n [3 4 5]]",
+        "core": true
+      },
+      {
+        "id": "reshape-auto-dim",
+        "title": "reshape(-1) & Unknown Dimension",
+        "explain": "Passing -1 tells NumPy to automatically deduce the dimension size based on the total elements.",
+        "code": "a = np.arange(12)\n# Automatically calculate rows for 4 columns\nb = a.reshape(-1, 4)\nprint(b.shape)\nprint(b)",
+        "output": "(3, 4)\n[[ 0  1  2  3]\n [ 4  5  6  7]\n [ 8  9 10 11]]",
+        "core": true
+      },
+      {
+        "id": "reshape-vectors",
+        "title": "1D to Column Vector vs Row Vector",
+        "explain": "Converts 1D shape (N,) into a 2D column vector (N, 1) or 2D row vector (1, N) for ML pipelines.",
+        "code": "a = np.array([1, 2, 3])\ncol = a.reshape(-1, 1)\nrow = a.reshape(1, -1)\nprint('Column shape:', col.shape)\nprint('Row shape:', row.shape)",
+        "output": "Column shape: (3, 1)\nRow shape: (1, 3)",
+        "core": true
+      },
+      {
+        "id": "flatten-vs-ravel",
+        "title": "flatten() vs ravel()",
+        "explain": "flatten() always returns a new deep copy, while ravel() returns a contiguous flattened view whenever possible.",
+        "code": "a = np.array([[1, 2], [3, 4]])\nflat = a.flatten() # copy\nrav = a.ravel()    # view\nrav[0] = 99\nprint('Original modified by ravel():', a[0, 0])",
+        "output": "Original modified by ravel(): 99",
+        "core": true
+      },
+      {
+        "id": "arr-resize",
+        "title": "arr.resize() / np.resize()",
+        "explain": "Changes shape and size in-place (resize method) or returns a resized array repeating values if larger (np.resize).",
+        "code": "a = np.array([1, 2, 3])\nprint(np.resize(a, (2, 3)))",
+        "output": "[[1 2 3]\n [1 2 3]]"
+      },
+      {
+        "id": "transpose-custom-axes",
+        "title": "np.transpose() with Custom Axes",
+        "explain": "Permutes the dimensions of an array according to the specified axis ordering.",
+        "code": "a = np.arange(24).reshape(2, 3, 4)\n# Swap 1st and 3rd axes\ntransposed = np.transpose(a, (2, 1, 0))\nprint(transposed.shape)",
+        "output": "(4, 3, 2)"
+      },
+      {
+        "id": "expand-dims-squeeze",
+        "title": "np.expand_dims() & np.squeeze()",
+        "explain": "expand_dims() inserts a new axis of length 1; squeeze() removes all single-dimensional axes.",
+        "code": "a = np.array([1, 2, 3])\nexpanded = np.expand_dims(a, axis=1) # shape (3, 1)\nprint(expanded.shape)\n\nsqueezed = np.squeeze(expanded)      # shape (3,)\nprint(squeezed.shape)",
+        "output": "(3, 1)\n(3,)"
+      }
+    ]
+  },
+  {
+    "id": "combining-splitting",
+    "number": "08",
+    "title": "Combining & Splitting Arrays",
+    "tagline": "Concatenating, stacking vertically/horizontally, block assembling, and splitting arrays",
+    "items": [
+      {
+        "id": "np-concatenate",
+        "title": "np.concatenate()",
+        "explain": "Joins a sequence of arrays along an existing axis (axis=0 for vertical rows, axis=1 for horizontal cols).",
+        "code": "a = np.array([[1, 2], [3, 4]])\nb = np.array([[5, 6], [7, 8]])\nprint(np.concatenate((a, b), axis=0))\nprint(np.concatenate((a, b), axis=1))",
+        "output": "[[1 2]\n [3 4]\n [5 6]\n [7 8]]\n[[1 2 5 6]\n [3 4 7 8]]",
+        "core": true
+      },
+      {
+        "id": "np-vstack-hstack",
+        "title": "np.vstack() & np.hstack()",
+        "explain": "Stacks arrays row-wise vertically (vstack) or column-wise horizontally (hstack).",
+        "code": "a = np.array([1, 2, 3])\nb = np.array([4, 5, 6])\nprint(np.vstack((a, b)))\nprint(np.hstack((a, b)))",
+        "output": "[[1 2 3]\n [4 5 6]]\n[1 2 3 4 5 6]",
+        "core": true
+      },
+      {
+        "id": "np-stack",
+        "title": "np.stack()",
+        "explain": "Joins a sequence of arrays along a brand new axis, increasing the number of dimensions by 1.",
+        "code": "a = np.array([1, 2, 3])\nb = np.array([4, 5, 6])\n# stack along new 0th axis -> (2, 3)\nprint(np.stack((a, b), axis=0))\n# stack along new 1st axis -> (3, 2)\nprint(np.stack((a, b), axis=1))",
+        "output": "[[1 2 3]\n [4 5 6]]\n[[1 4]\n [2 5]\n [3 6]]",
+        "core": true
+      },
+      {
+        "id": "np-dstack-column-stack",
+        "title": "np.dstack() & np.column_stack()",
+        "explain": "Stacks arrays along the third depth dimension (dstack) or stacks 1D arrays as columns of a 2D matrix.",
+        "code": "a = np.array([1, 2])\nb = np.array([3, 4])\nprint(np.column_stack((a, b)))\nprint(np.dstack((a, b)).shape)",
+        "output": "[[1 3]\n [2 4]]\n(1, 2, 2)"
+      },
+      {
+        "id": "np-block",
+        "title": "np.block()",
+        "explain": "Assembles a 2D matrix or multidimensional tensor from nested lists of blocks.",
+        "code": "A = np.eye(2)\nB = np.zeros((2, 2))\nprint(np.block([\n    [A, B],\n    [B, A]\n]))",
+        "output": "[[1. 0. 0. 0.]\n [0. 1. 0. 0.]\n [0. 0. 1. 0.]\n [0. 0. 0. 1.]]"
+      },
+      {
+        "id": "np-r-c",
+        "title": "np.r_ & np.c_",
+        "explain": "Translates slice objects or lists to row-wise (r_) or column-wise (c_) array concatenations.",
+        "code": "print(np.r_[1:4, 0, 4])\nprint(np.c_[np.array([1, 2, 3]), np.array([4, 5, 6])])",
+        "output": "[1 2 3 0 4]\n[[1 4]\n [2 5]\n [3 6]]"
+      },
+      {
+        "id": "np-split-array-split",
+        "title": "np.split(), np.vsplit(), np.hsplit()",
+        "explain": "Splits an array into multiple sub-arrays along axis=0 (vsplit) or axis=1 (hsplit).",
+        "code": "a = np.arange(16).reshape(4, 4)\ntop, bottom = np.vsplit(a, 2)\nleft, right = np.hsplit(a, 2)\nprint(top)\nprint(left)",
+        "output": "[[0 1 2 3]\n [4 5 6 7]]\n[[ 0  1]\n [ 4  5]\n [ 8  9]\n [12 13]]"
+      }
+    ]
+  },
+  {
+    "id": "sorting-searching",
+    "number": "09",
+    "title": "Sorting, Searching & Partitioning",
+    "tagline": "Sorting arrays, argsort rankings, argmax/argmin, unique items, and Top-K selection",
+    "items": [
+      {
+        "id": "np-sort",
+        "title": "np.sort() vs arr.sort()",
+        "explain": "np.sort() returns a new sorted copy; arr.sort() sorts the array in-place without returning a value.",
+        "code": "a = np.array([5, 2, 8, 1, 3])\nprint(np.sort(a))\n\n# Descending sort\nprint(np.sort(a)[::-1])",
+        "output": "[1 2 3 5 8]\n[8 5 3 2 1]",
+        "core": true
+      },
+      {
+        "id": "sort-axis",
+        "title": "Sorting along Axes (axis=0, axis=1)",
+        "explain": "Sorts each column independently with axis=0, or each row independently with axis=1.",
+        "code": "a = np.array([\n    [30, 20, 10],\n    [40, 60, 50]\n])\nprint('Row-wise (axis=1):')\nprint(np.sort(a, axis=1))\nprint('Column-wise (axis=0):')\nprint(np.sort(a, axis=0))",
+        "output": "Row-wise (axis=1):\n[[10 20 30]\n [40 50 60]]\nColumn-wise (axis=0):\n[[30 20 10]\n [40 60 50]]"
+      },
+      {
+        "id": "np-argsort",
+        "title": "np.argsort()",
+        "explain": "Returns the indices that would sort an array (crucial in ML for ranking predictions and sorting paired data).",
+        "code": "scores = np.array([85, 92, 78, 95, 88])\nidx = np.argsort(scores)\nprint('Sorted indices:', idx)\nprint('Ranked values:', scores[idx])\n# Top indices descending:\nprint('Top indices:', np.argsort(-scores))",
+        "output": "Sorted indices: [2 0 4 1 3]\nRanked values: [78 85 88 92 95]\nTop indices: [3 1 4 0 2]",
+        "core": true
+      },
+      {
+        "id": "np-argmax-argmin",
+        "title": "np.argmax() & np.argmin()",
+        "explain": "Returns the index of the maximum or minimum value in an array or along an axis.",
+        "code": "a = np.array([\n    [10, 50, 30],\n    [40, 20, 60]\n])\nprint('Flat argmax:', np.argmax(a))\nprint('Column argmax (axis=0):', np.argmax(a, axis=0))\nprint('Row argmax (axis=1):', np.argmax(a, axis=1))",
+        "output": "Flat argmax: 5\nColumn argmax (axis=0): [1 0 1]\nRow argmax (axis=1): [1 2]",
+        "core": true
+      },
+      {
+        "id": "np-unique",
+        "title": "np.unique()",
+        "explain": "Finds unique elements in an array, with optional counts, original indices, and inverse reconstruction indices.",
+        "code": "a = np.array([1, 2, 2, 3, 3, 3, 4])\nvals, counts = np.unique(a, return_counts=True)\nprint('Values:', vals)\nprint('Counts:', counts)",
+        "output": "Values: [1 2 3 4]\nCounts: [1 2 3 1]",
+        "core": true
+      },
+      {
+        "id": "np-searchsorted",
+        "title": "np.searchsorted()",
+        "explain": "Uses binary search to find the indices where values should be inserted into a sorted array to maintain order.",
+        "code": "sorted_arr = np.array([10, 20, 30, 40, 50])\nprint(np.searchsorted(sorted_arr, 25))\nprint(np.searchsorted(sorted_arr, [15, 35, 45]))",
+        "output": "2\n[1 3 4]"
+      },
+      {
+        "id": "np-partition",
+        "title": "np.partition() & Top-K",
+        "explain": "Rearranges the array so that the k-th element is in its sorted position, giving O(N) Top-K elements without full sorting.",
+        "code": "a = np.array([7, 2, 9, 1, 6, 8, 3])\n# Partition at index 3\npart = np.partition(a, 3)\nprint(part)\n# Top 3 largest values\ntop3 = np.partition(a, -3)[-3:]\nprint('Top 3 largest:', top3)",
+        "output": "[1 2 3 6 7 8 9]\nTop 3 largest: [7 8 9]"
+      }
+    ]
+  },
+  {
+    "id": "aggregation-statistics",
+    "number": "10",
+    "title": "Aggregation & Statistics",
+    "tagline": "Sum, mean, median, variance, percentiles, cumulative math, and axis aggregation",
+    "items": [
+      {
+        "id": "np-sum-prod",
+        "title": "np.sum() & np.prod()",
+        "explain": "Computes the sum or product of array elements over a given axis or the whole array.",
+        "code": "a = np.array([[1, 2, 3], [4, 5, 6]])\nprint(np.sum(a))\nprint(np.sum(a, axis=0)) # col sums\nprint(np.sum(a, axis=1)) # row sums",
+        "output": "21\n[5 7 9]\n[ 6 15]",
+        "core": true
+      },
+      {
+        "id": "np-mean-median",
+        "title": "np.mean() & np.median()",
+        "explain": "Calculates the arithmetic mean (average) or median (50th percentile) value of array elements.",
+        "code": "a = np.array([10, 20, 30, 40, 100])\nprint(np.mean(a))\nprint(np.median(a))\n\nm = np.array([[10, 20], [30, 40]])\nprint(np.mean(m, axis=0))",
+        "output": "40.0\n30.0\n[20. 30.]",
+        "core": true
+      },
+      {
+        "id": "np-min-max-ptp",
+        "title": "np.min(), np.max(), np.ptp()",
+        "explain": "Finds minimum, maximum, or peak-to-peak range (max - min) across the array or specified axis.",
+        "code": "a = np.array([12, 45, 8, 99, 23])\nprint(np.min(a))\nprint(np.max(a))\nprint(np.ptp(a)) # 99 - 8",
+        "output": "8\n99\n91",
+        "core": true
+      },
+      {
+        "id": "np-std-var",
+        "title": "np.std() & np.var()",
+        "explain": "Calculates standard deviation and variance (measure of dispersion from the mean).",
+        "code": "a = np.array([10, 20, 30, 40, 50])\nprint('Std Dev:', np.std(a).round(3))\nprint('Variance:', np.var(a).round(3))",
+        "output": "Std Dev: 14.142\nVariance: 200.0"
+      },
+      {
+        "id": "np-percentile-quantile",
+        "title": "np.percentile() & np.quantile()",
+        "explain": "Calculates the q-th percentile (0-100) or quantile (0.0-1.0) along the specified axis.",
+        "code": "a = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])\nprint('25th percentile (Q1):', np.percentile(a, 25))\nprint('50th percentile (Q2):', np.percentile(a, 50))\nprint('75th percentile (Q3):', np.percentile(a, 75))\nprint('90th quantile:', np.quantile(a, 0.9))",
+        "output": "25th percentile (Q1): 3.25\n50th percentile (Q2): 5.5\n75th percentile (Q3): 7.75\n90th quantile: 9.1"
+      },
+      {
+        "id": "np-cumsum-cumprod",
+        "title": "np.cumsum() & np.cumprod()",
+        "explain": "Computes the cumulative sum or cumulative product of elements along a given axis.",
+        "code": "a = np.array([1, 2, 3, 4])\nprint(np.cumsum(a))\nprint(np.cumprod(a))",
+        "output": "[ 1  3  6 10]\n[ 1  2  6 24]"
+      }
+    ]
+  },
+  {
+    "id": "linear-algebra",
+    "number": "11",
+    "title": "Linear Algebra (np.linalg)",
+    "tagline": "Matrix multiplication, inverses, determinants, eigenvalues, SVD, and linear systems",
+    "items": [
+      {
+        "id": "matrix-mul-operator",
+        "title": "Matrix Multiplication (@ vs *)",
+        "explain": "@ or np.matmul() performs matrix multiplication; * performs element-wise multiplication.",
+        "code": "A = np.array([[1, 2], [3, 4]])\nB = np.array([[5, 6], [7, 8]])\nprint('Matrix multiplication (@):')\nprint(A @ B)\nprint('Element-wise (*):')\nprint(A * B)",
+        "output": "Matrix multiplication (@):\n[[19 22]\n [43 50]]\nElement-wise (*):\n[[ 5 12]\n [21 32]]",
+        "core": true
+      },
+      {
+        "id": "np-dot-cross",
+        "title": "np.dot() & np.cross()",
+        "explain": "Computes the inner dot product of two vectors or the vector cross product in 2D/3D space.",
+        "code": "v1 = np.array([1, 2, 3])\nv2 = np.array([4, 5, 6])\nprint('Dot product:', np.dot(v1, v2)) # 1*4 + 2*5 + 3*6\nprint('Cross product:', np.cross(v1, v2))",
+        "output": "Dot product: 32\nCross product: [-3  6 -3]"
+      },
+      {
+        "id": "np-linalg-inv-pinv",
+        "title": "np.linalg.inv() & np.linalg.pinv()",
+        "explain": "Computes the multiplicative inverse of a square non-singular matrix A^-1, or Moore-Penrose pseudoinverse.",
+        "code": "A = np.array([[4, 7], [2, 6]])\ninv_A = np.linalg.inv(A)\nprint('Inverse:')\nprint(inv_A)\nprint('A @ inv(A):')\nprint(np.round(A @ inv_A))",
+        "output": "Inverse:\n[[ 0.6 -0.7]\n [-0.2  0.4]]\nA @ inv(A):\n[[1. 0.]\n [0. 1.]]",
+        "core": true
+      },
+      {
+        "id": "np-linalg-det-rank",
+        "title": "np.linalg.det() & np.linalg.matrix_rank()",
+        "explain": "Calculates the determinant of a square matrix and the rank (number of linearly independent rows/columns).",
+        "code": "A = np.array([[1, 2], [3, 4]])\nprint('Determinant:', np.linalg.det(A).round(3))\nprint('Matrix Rank:', np.linalg.matrix_rank(A))",
+        "output": "Determinant: -2.0\nMatrix Rank: 2"
+      },
+      {
+        "id": "np-linalg-norm",
+        "title": "np.linalg.norm()",
+        "explain": "Calculates vector norms (L1, L2 / Euclidean) and matrix norms (Frobenius, spectral).",
+        "code": "v = np.array([3, 4])\nprint('L2 Norm (Euclidean):', np.linalg.norm(v))\nprint('L1 Norm (Manhattan):', np.linalg.norm(v, ord=1))\n\nM = np.array([[1, 2], [3, 4]])\nprint('Frobenius norm:', np.linalg.norm(M).round(3))",
+        "output": "L2 Norm (Euclidean): 5.0\nL1 Norm (Manhattan): 7.0\nFrobenius norm: 5.477",
+        "core": true
+      },
+      {
+        "id": "np-linalg-solve",
+        "title": "np.linalg.solve() (Ax = b)",
+        "explain": "Solves a system of linear equations Ax = b for unknown vector x.",
+        "code": "# 2x + y = 8\n# x + 3y = 14\nA = np.array([[2, 1], [1, 3]])\nb = np.array([8, 14])\nx = np.linalg.solve(A, b)\nprint('Solution [x, y]:', x)",
+        "output": "Solution [x, y]: [2. 4.]",
+        "core": true
+      },
+      {
+        "id": "np-linalg-eig",
+        "title": "np.linalg.eig() & np.linalg.eigh()",
+        "explain": "Computes the eigenvalues and right eigenvectors of a square matrix.",
+        "code": "A = np.array([[2, 0], [0, 3]])\neigenvalues, eigenvectors = np.linalg.eig(A)\nprint('Eigenvalues:', eigenvalues)\nprint('Eigenvectors:')\nprint(eigenvectors)",
+        "output": "Eigenvalues: [2. 3.]\nEigenvectors:\n[[1. 0.]\n [0. 1.]]"
+      },
+      {
+        "id": "np-linalg-svd",
+        "title": "np.linalg.svd()",
+        "explain": "Performs Singular Value Decomposition: factors matrix A into U, Sigma, and Vh (A = U @ S @ Vh).",
+        "code": "A = np.array([[1, 2], [3, 4], [5, 6]])\nU, S, Vh = np.linalg.svd(A)\nprint('Singular values:', S.round(3))\nprint('U shape:', U.shape)\nprint('Vh shape:', Vh.shape)",
+        "output": "Singular values: [9.526 0.514]\nU shape: (3, 3)\nVh shape: (2, 2)"
+      },
+      {
+        "id": "np-linalg-lstsq",
+        "title": "np.linalg.lstsq()",
+        "explain": "Returns the least-squares solution to a linear matrix equation Ax = b (fundamental for linear regression).",
+        "code": "x_pts = np.array([0, 1, 2, 3])\ny_pts = np.array([-1, 0.2, 0.9, 2.1])\nA = np.vstack([x_pts, np.ones(len(x_pts))]).T\nm, c = np.linalg.lstsq(A, y_pts, rcond=None)[0]\nprint(f'Line: y = {m:.2f}x + {c:.2f}')",
+        "output": "Line: y = 1.00x + -0.95"
+      },
+      {
+        "id": "matrix-trace-power",
+        "title": "np.trace() & np.linalg.matrix_power()",
+        "explain": "np.trace() sums the diagonal elements; matrix_power() raises a square matrix to integer power n.",
+        "code": "A = np.array([[1, 2], [3, 4]])\nprint('Trace:', np.trace(A)) # 1 + 4\nprint('A^3:')\nprint(np.linalg.matrix_power(A, 3))",
+        "output": "Trace: 5\nA^3:\n[[ 37  54]\n [ 81 118]]"
+      },
+      {
+        "id": "np-inner-outer-kron",
+        "title": "np.inner(), np.outer(), np.kron()",
+        "explain": "Computes inner product, outer vector product (u v^T), or Kronecker tensor product of two arrays.",
+        "code": "u = np.array([1, 2])\nv = np.array([3, 4])\nprint('Outer product:')\nprint(np.outer(u, v))\nprint('Kronecker product:')\nprint(np.kron(np.eye(2), np.ones((2, 2))))",
+        "output": "Outer product:\n[[3 4]\n [6 8]]\nKronecker product:\n[[1. 1. 0. 0.]\n [1. 1. 0. 0.]\n [0. 0. 1. 1.]\n [0. 0. 1. 1.]]"
+      }
+    ]
+  },
+  {
+    "id": "nan-handling",
+    "number": "12",
+    "title": "Missing Values & NaN Handling",
+    "tagline": "Detecting, removing, replacing, and computing statistics with NaN and infinity values",
+    "items": [
+      {
+        "id": "np-isnan",
+        "title": "np.isnan()",
+        "explain": "Tests element-wise for NaN (Not a Number) and returns a boolean array.",
+        "code": "a = np.array([10, 20, np.nan, 40])\nprint(np.isnan(a))\nprint('Contains any NaN:', np.isnan(a).any())\nprint('Total NaNs:', np.count_nonzero(np.isnan(a)))",
+        "output": "[False False  True False]\nContains any NaN: True\nTotal NaNs: 1",
+        "core": true
+      },
+      {
+        "id": "filter-remove-nan",
+        "title": "Removing NaNs (~np.isnan)",
+        "explain": "Filters out all NaN elements by indexing with the inverted boolean mask ~np.isnan(arr).",
+        "code": "a = np.array([10.0, np.nan, 30.0, np.nan, 50.0])\nclean = a[~np.isnan(a)]\nprint(clean)",
+        "output": "[10. 30. 50.]",
+        "core": true
+      },
+      {
+        "id": "replace-nan-values",
+        "title": "Replacing NaNs (np.where / nan_to_num)",
+        "explain": "Replaces NaNs with 0, a constant, or the column/array mean using np.where() or np.nan_to_num().",
+        "code": "a = np.array([10.0, np.nan, 30.0, 40.0])\n# Replace with 0\nprint(np.nan_to_num(a, nan=0.0))\n\n# Replace with mean\nmean_val = np.nanmean(a)\nreplaced = np.where(np.isnan(a), mean_val, a)\nprint(replaced)",
+        "output": "[10.  0. 30. 40.]\n[10.         26.66666667 30.         40.        ]",
+        "core": true
+      },
+      {
+        "id": "nan-aware-aggregations",
+        "title": "NaN-Aware Functions (nanmean, nansum, etc.)",
+        "explain": "Calculates statistical aggregations while safely ignoring NaN entries.",
+        "code": "a = np.array([10.0, np.nan, 30.0, 40.0])\nprint('Standard mean (gives NaN):', np.mean(a))\nprint('nanmean:', np.nanmean(a))\nprint('nansum:', np.nansum(a))\nprint('nanstd:', np.nanstd(a).round(2))\nprint('nanmedian:', np.nanmedian(a))",
+        "output": "Standard mean (gives NaN): nan\nnanmean: 26.666666666666668\nnansum: 80.0\nnanstd: 12.47\nnanmedian: 30.0",
+        "core": true
+      },
+      {
+        "id": "nan-2d-axis",
+        "title": "2D Missing Values along Axes",
+        "explain": "Counts or averages missing values per column (axis=0) or per row (axis=1).",
+        "code": "a = np.array([\n    [10.0, np.nan, 30.0],\n    [40.0, 50.0, np.nan],\n    [np.nan, 80.0, 90.0]\n])\nprint('NaNs per column:', np.isnan(a).sum(axis=0))\nprint('Column means ignoring NaN:', np.nanmean(a, axis=0))",
+        "output": "NaNs per column: [1 1 1]\nColumn means ignoring NaN: [25. 65. 60.]"
+      },
+      {
+        "id": "nan-equality-isfinite",
+        "title": "np.isfinite(), np.isinf() & NaN Rule",
+        "explain": "In IEEE 754 float arithmetic, np.nan != np.nan (always False); use np.isnan() or np.isfinite() instead.",
+        "code": "print(np.nan == np.nan)  # False!\n\na = np.array([1.0, np.nan, np.inf, -np.inf])\nprint('isfinite:', np.isfinite(a))\nprint('isinf:', np.isinf(a))",
+        "output": "False\nisfinite: [ True False False False]\nisinf: [False False  True  True]"
+      }
+    ]
+  }
+]

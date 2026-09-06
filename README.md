@@ -1,7 +1,6 @@
-# js.cheatsheet
+# cheatsheet — JavaScript & NumPy Reference
 
-An open, no-login JavaScript syntax reference. 19 topic groups, 180+ entries — each
-with a one-line explanation and a runnable example hidden behind a dropdown.
+An open, no-login syntax cheat sheet covering **JavaScript** and **NumPy** — each entry with a one-line explanation and a runnable example hidden behind an expandable card.
 
 **Stack:** React (in-browser via CDN + Babel, no build step) · Node.js + Express · HTML/CSS · Tailwind CSS (CDN)
 
@@ -17,33 +16,26 @@ Then open **http://localhost:3000** — that's it, no sign-up, no accounts.
 ## How it's put together
 
 ```
-js-cheatsheet/
+prep-web/
 ├── package.json
 ├── server/
-│   ├── index.js     # Express app: serves the API + the static frontend
-│   └── data.json     # every category + entry (title, explanation, code, output)
+│   ├── index.js        # Express app: serves the API + the static frontend
+│   ├── sections.json   # Registry of available sections (JavaScript, NumPy, etc.)
+│   ├── data.json       # JavaScript categories + entries
+│   └── numpy.json      # NumPy categories + entries (12 categories, 100 entries)
 └── public/
-    ├── index.html    # loads React/Babel/Tailwind from CDN, mounts the app
-    └── app.jsx        # the whole UI: sidebar, search, expandable cards
+    ├── index.html      # loads React/Babel/Tailwind from CDN, mounts the app
+    └── app.jsx         # the whole UI: section switcher, sidebar, search, expandable cards
 ```
 
-- `GET /api/topics` returns the full cheatsheet as JSON.
-- The frontend fetches that once on load and renders it — searching and expanding
-  examples both happen client-side, no extra requests.
-- There's deliberately no database, no auth, and no login page: this is meant to be
-  a page anyone can land on and start reading immediately.
+- `GET /api/sections` returns the available cheatsheets.
+- `GET /api/topics?section=javascript` (or `GET /api/topics`) returns the JavaScript cheat sheet.
+- `GET /api/topics?section=numpy` returns the NumPy cheat sheet.
+- Searching and expanding examples happen client-side with no page reloads.
 
-## Editing content
+## Extensibility
 
-All the syntax entries live in `server/data.json`. Each item looks like:
-
-```json
-{
-  "id": "map",
-  "title": "map()",
-  "explain": "Transforms every element and returns a brand-new array…",
-  "code": "let nums = [1, 2, 3];\nnums.map(n => n * 2);",
-  "output": "[2, 4, 6]",
-  "core": true
-}
-```
+To add a new library (e.g. Pandas, Matplotlib, Scikit-learn):
+1. Add `<library>.json` with `{ id, number, title, tagline, items: [...] }` to `server/`.
+2. Register the library in `server/sections.json`.
+3. The UI automatically displays the new tab and supports searching and browsing for that library.

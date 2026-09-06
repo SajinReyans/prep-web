@@ -5,13 +5,48 @@ const fs = require("fs");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const dataPath = path.join(__dirname, "data.json");
+const sectionsPath = path.join(__dirname, "sections.json");
+const jsDataPath = path.join(__dirname, "data.json");
+const numpyDataPath = path.join(__dirname, "numpy.json");
 
-// Open, read-only reference data — no auth, no accounts, nothing to log in to.
-app.get("/api/topics", (req, res) => {
-  fs.readFile(dataPath, "utf8", (err, raw) => {
+function getSectionDataPath(sectionId) {
+  if (sectionId === "numpy") return numpyDataPath;
+  return jsDataPath;
+}
+
+// Get list of all available cheatsheet sections
+app.get("/api/sections", (req, res) => {
+  fs.readFile(sectionsPath, "utf8", (err, raw) => {
     if (err) {
-      res.status(500).json({ error: "Could not load cheatsheet data" });
+      res.status(500).json({ error: "Could not load sections metadata" });
+      return;
+    }
+    res.type("application/json").send(raw);
+  });
+});
+
+// Open, read-only reference data — supports ?section=numpy or defaults to javascript
+app.get("/api/topics", (req, res) => {
+  const section = req.query.section || req.query.lang || "javascript";
+  const targetPath = getSectionDataPath(section.toLowerCase());
+
+  fs.readFile(targetPath, "utf8", (err, raw) => {
+    if (err) {
+      res.status(500).json({ error: `Could not load cheatsheet data for ${section}` });
+      return;
+    }
+    res.type("application/json").send(raw);
+  });
+});
+
+// Dynamic endpoint by section name (e.g. /api/topics/javascript or /api/topics/numpy)
+app.get("/api/topics/:section", (req, res) => {
+  const section = req.params.section;
+  const targetPath = getSectionDataPath(section.toLowerCase());
+
+  fs.readFile(targetPath, "utf8", (err, raw) => {
+    if (err) {
+      res.status(500).json({ error: `Could not load cheatsheet data for ${section}` });
       return;
     }
     res.type("application/json").send(raw);
@@ -31,5 +66,5 @@ app.get(/.*/, (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`JS Cheatsheet running at http://localhost:${PORT}`);
+  console.log(`Cheatsheet server running at http://localhost:${PORT}`);
 });
