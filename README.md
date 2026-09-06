@@ -29,8 +29,4 @@ prep-web/
 ```
 
 - `GET /api/sections` returns the available cheatsheets.
-- `GET /api/topics?section=javascript` (or `GET /api/topics`) returns the JavaScript cheat sheet.
-- `GET /api/topics?section=numpy` returns the NumPy cheat sheet.
-- Searching and expanding examples happen client-side with no page reloads.
-
-## Ex
+- `
