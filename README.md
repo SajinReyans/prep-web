@@ -16,10 +16,4 @@ Then open **http://localhost:3000** — that's it, no sign-up, no accounts.
 ## How it's put together
 
 ```
-prep-web/
-├── package.json
-├── server/
-│   ├── index.js        # Express app: serves the API + the static frontend
-│   ├── sections.json   # Registry of available sections (JavaScript, NumPy, etc.)
-│   ├── data.json       # JavaScript categories + entries
 
