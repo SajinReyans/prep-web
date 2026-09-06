@@ -33,9 +33,4 @@ prep-web/
 - `GET /api/topics?section=numpy` returns the NumPy cheat sheet.
 - Searching and expanding examples happen client-side with no page reloads.
 
-## Extensibility
-
-To add a new library (e.g. Pandas, Matplotlib, Scikit-learn):
-1. Add `<library>.json` with `{ id, number, title, tagline, items: [...] }` to `server/`.
-2. Register the library in `server/sections.json`.
-3. The UI automatically displays the new tab and supports searching and browsing for that library.
+## Ex
