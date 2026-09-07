@@ -17,6 +17,3 @@ Then open **http://localhost:3000** — that's it, no sign-up, no accounts.
 
 ```
 prep-web/
-├── package.json
-├── server/
-│   ├── index.js        # Express app: serves the API + the static frontend
