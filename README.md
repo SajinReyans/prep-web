@@ -19,8 +19,3 @@ Then open **http://localhost:3000** — that's it, no sign-up, no accounts.
 prep-web/
 ├── package.json
 ├── server/
-│   ├── index.js        # Express app: serves the API + the static frontend
-│   ├── sections.json   # Registry of available sections (JavaScript, NumPy, etc.)
-│   ├── data.json       # JavaScript categories + entries
-│   └── numpy.json      # NumPy categories + entries (12 categories, 100 entries)
-└── public/
