@@ -13,9 +13,3 @@ npm start
 
 Then open **http://localhost:3000** — that's it, no sign-up, no accounts.
 
-## How it's put together
-
-```
-prep-web/
-├── package.json
-├── server/
