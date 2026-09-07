@@ -1,7 +1,3 @@
 # cheatsheet — JavaScript & NumPy Reference
 
-An open, no-login syntax cheat sheet covering **JavaScript** and **NumPy** — each entry with a one-line explanation and a runnable example hidden behind an expandable card.
-
-**Stack:** React (in-browser via CDN + Babel, no build step) · Node.js + Express · HTML/CSS · Tailwind CSS (CDN)
-
-## Run it
+An open, no-login syntax cheat sheet covering **JavaScript** and **NumPy** — each entry with a one-line explanation and a runnable example hidden behind an 
