@@ -28,5 +28,20 @@
     "searchPlaceholder": "search numpy functions…",
     "language": "python",
     "dataFile": "numpy.json"
+  },
+  {
+    "id": "python",
+    "name": "Python",
+    "slug": "python",
+    "shortName": "Python",
+    "logo": "py",
+    "tagline": "Strings, Lists & Tuples core reference",
+    "heroPrefix": "reference · no account needed",
+    "heroTitle": "Python Strings, Lists & Tuples, explained with syntax & runnable examples.",
+    "heroSubtitle": "Twenty-eight groups covering Strings, Lists, and Tuples. Every entry includes explanation, syntax, example code, output, and a persistent Learned checkbox.",
+    "badgeNote": "★ marks essential interview & LeetCode patterns",
+    "searchPlaceholder": "search python strings, lists, tuples…",
+    "language": "python",
+    "dataFile": "python.json"
   }
 ]

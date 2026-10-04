@@ -1,0 +1,1714 @@
+[
+  {
+    "id": "py-str-basics",
+    "group": "Strings",
+    "number": "01",
+    "title": "Strings: Basics & Syntax",
+    "tagline": "String creation, quotes, immutability, concatenation, repetition, and membership",
+    "items": [
+      {
+        "id": "py-str-create",
+        "title": "String Creation & Quotes",
+        "explain": "Strings are sequences of characters enclosed in single, double, or triple quotes (for multi-line strings).",
+        "group": "Strings",
+        "syntax": "s = 'text' | \"text\" | '''multi-line'''",
+        "code": "s1 = 'hello'\ns2 = \"world\"\ns3 = '''line 1\nline 2'''\nprint(s1, s2)\nprint(s3)",
+        "output": "hello world\nline 1\nline 2",
+        "core": true
+      },
+      {
+        "id": "py-str-immutability",
+        "title": "String Immutability",
+        "explain": "Strings in Python are immutable; characters cannot be reassigned or modified directly after creation.",
+        "group": "Strings",
+        "syntax": "string[index] = new_char  # Raises TypeError",
+        "code": "s = \"hello\"\ntry:\n    s[0] = \"y\"\nexcept TypeError as e:\n    print(\"TypeError:\", e)",
+        "output": "TypeError: 'str' object does not support item assignment",
+        "core": true
+      },
+      {
+        "id": "py-str-concat",
+        "title": "Concatenation (+)",
+        "explain": "Combines multiple strings into a new string using the + operator.",
+        "group": "Strings",
+        "syntax": "str1 + str2",
+        "code": "a = \"hello\"\nb = \" world\"\nresult = a + b\nprint(result)",
+        "output": "hello world",
+        "core": true
+      },
+      {
+        "id": "py-str-repetition",
+        "title": "Repetition (*)",
+        "explain": "Repeats a string a specified number of times using the * operator.",
+        "group": "Strings",
+        "syntax": "str * count",
+        "code": "laugh = \"ha\" * 3\nprint(laugh)",
+        "output": "hahaha"
+      },
+      {
+        "id": "py-str-membership",
+        "title": "Membership Operators (in, not in)",
+        "explain": "Checks whether a specific substring exists inside another string.",
+        "group": "Strings",
+        "syntax": "sub in string | sub not in string",
+        "code": "print(\"ell\" in \"hello\")\nprint(\"xyz\" not in \"hello\")\nprint(\"z\" in \"hello\")",
+        "output": "True\nTrue\nFalse",
+        "core": true
+      },
+      {
+        "id": "py-str-comparison",
+        "title": "String Comparison",
+        "explain": "Compares strings character-by-character based on their Unicode (ASCII) values lexicographically.",
+        "group": "Strings",
+        "syntax": "str1 == str2 | str1 < str2 | str1 > str2",
+        "code": "print(\"abc\" == \"abc\")\nprint(\"apple\" < \"banana\")\nprint(\"a\" > \"A\")",
+        "output": "True\nTrue\nTrue"
+      },
+      {
+        "id": "py-str-iteration",
+        "title": "String Iteration",
+        "explain": "Iterates through characters one-by-one in a string using a for loop or converts to list.",
+        "group": "Strings",
+        "syntax": "for char in string:",
+        "code": "for ch in \"cat\":\n    print(ch)\nprint(list(\"abc\"))",
+        "output": "c\na\nt\n['a', 'b', 'c']"
+      }
+    ]
+  },
+  {
+    "id": "py-str-indexing-slicing",
+    "group": "Strings",
+    "number": "02",
+    "title": "Strings: Indexing & Slicing",
+    "tagline": "Accessing characters by index, negative indices, and slicing intervals",
+    "items": [
+      {
+        "id": "py-str-indexing",
+        "title": "Positive Indexing",
+        "explain": "Gets a character from a string using its zero-based position.",
+        "group": "Strings",
+        "syntax": "string[index]",
+        "code": "s = \"hello\"\nprint(s[0])\nprint(s[1])\nprint(s[4])",
+        "output": "h\ne\no",
+        "core": true
+      },
+      {
+        "id": "py-str-neg-indexing",
+        "title": "Negative Indexing",
+        "explain": "Gets characters counting backwards from the end of the string, where -1 is the last character.",
+        "group": "Strings",
+        "syntax": "string[-index]",
+        "code": "s = \"hello\"\nprint(s[-1])\nprint(s[-2])\nprint(s[-5])",
+        "output": "o\nl\nh",
+        "core": true
+      },
+      {
+        "id": "py-str-slicing",
+        "title": "Basic Slicing [start:stop]",
+        "explain": "Extracts a portion of a string from start index up to but not including stop index.",
+        "group": "Strings",
+        "syntax": "string[start : stop]",
+        "code": "s = \"hello world\"\nprint(s[0:5])\nprint(s[6:11])\nprint(s[:5])\nprint(s[6:])",
+        "output": "hello\nworld\nhello\nworld",
+        "core": true
+      },
+      {
+        "id": "py-str-step-slicing",
+        "title": "Step Slicing [start:stop:step]",
+        "explain": "Extracts characters jumping by a specified step stride.",
+        "group": "Strings",
+        "syntax": "string[start : stop : step]",
+        "code": "s = \"abcdef\"\nprint(s[::2])\nprint(s[1::2])",
+        "output": "ace\nbdf",
+        "core": true
+      },
+      {
+        "id": "py-str-reverse-slicing",
+        "title": "Reversing a String [::-1]",
+        "explain": "Reverses an entire string cleanly using a negative step in slice notation.",
+        "group": "Strings",
+        "syntax": "string[::-1]",
+        "code": "s = \"hello\"\nreversed_s = s[::-1]\nprint(reversed_s)",
+        "output": "olleh",
+        "core": true
+      },
+      {
+        "id": "py-str-neg-slice",
+        "title": "Slicing with Negative Indices",
+        "explain": "Extracts substrings using relative negative start and stop offsets from the end.",
+        "group": "Strings",
+        "syntax": "string[-start : -stop]",
+        "code": "s = \"python\"\nprint(s[-4:-1])\nprint(s[:-2])",
+        "output": "tho\npyth"
+      }
+    ]
+  },
+  {
+    "id": "py-str-case",
+    "group": "Strings",
+    "number": "03",
+    "title": "Strings: Case Conversion",
+    "tagline": "Converting letters between uppercase, lowercase, titlecase, and capitalized styles",
+    "items": [
+      {
+        "id": "py-str-upper",
+        "title": "upper()",
+        "explain": "Converts all lowercase letters in the string to uppercase.",
+        "group": "Strings",
+        "syntax": "str.upper()",
+        "code": "print(\"hello\".upper())\nprint(\"Python 3.12\".upper())",
+        "output": "HELLO\nPYTHON 3.12",
+        "core": true
+      },
+      {
+        "id": "py-str-lower",
+        "title": "lower()",
+        "explain": "Converts all uppercase letters in the string to lowercase.",
+        "group": "Strings",
+        "syntax": "str.lower()",
+        "code": "print(\"HELLO\".lower())\nprint(\"Code123\".lower())",
+        "output": "hello\ncode123",
+        "core": true
+      },
+      {
+        "id": "py-str-title",
+        "title": "title()",
+        "explain": "Capitalizes the first letter of each word in the string.",
+        "group": "Strings",
+        "syntax": "str.title()",
+        "code": "print(\"hello world\".title())\nprint(\"python data structures\".title())",
+        "output": "Hello World\nPython Data Structures",
+        "core": true
+      },
+      {
+        "id": "py-str-capitalize",
+        "title": "capitalize()",
+        "explain": "Capitalizes only the very first character of the string, making all others lowercase.",
+        "group": "Strings",
+        "syntax": "str.capitalize()",
+        "code": "print(\"hello world\".capitalize())\nprint(\"PYTHON\".capitalize())",
+        "output": "Hello world\nPython"
+      },
+      {
+        "id": "py-str-swapcase",
+        "title": "swapcase()",
+        "explain": "Inverts letter casing: converts uppercase letters to lowercase and lowercase to uppercase.",
+        "group": "Strings",
+        "syntax": "str.swapcase()",
+        "code": "print(\"Hello World\".swapcase())",
+        "output": "hELLO wORLD"
+      },
+      {
+        "id": "py-str-casefold",
+        "title": "casefold()",
+        "explain": "Performs aggressive, Unicode-aware lowercase conversion, ideal for caseless comparisons.",
+        "group": "Strings",
+        "syntax": "str.casefold()",
+        "code": "print(\"HELLO\".casefold())\nprint(\"ß\".casefold())  # German sharp s expands to ss",
+        "output": "hello\nss"
+      }
+    ]
+  },
+  {
+    "id": "py-str-search",
+    "group": "Strings",
+    "number": "04",
+    "title": "Strings: Searching & Finding",
+    "tagline": "Locating substrings, checking prefixes and suffixes, counting occurrences",
+    "items": [
+      {
+        "id": "py-str-find",
+        "title": "find()",
+        "explain": "Returns the first index of a substring, or -1 if the substring is not present.",
+        "group": "Strings",
+        "syntax": "str.find(sub, [start, end])",
+        "code": "s = \"hello\"\nprint(s.find(\"l\"))\nprint(s.find(\"z\"))",
+        "output": "2\n-1",
+        "core": true
+      },
+      {
+        "id": "py-str-rfind",
+        "title": "rfind()",
+        "explain": "Returns the last (highest) index of a substring, or -1 if absent.",
+        "group": "Strings",
+        "syntax": "str.rfind(sub, [start, end])",
+        "code": "s = \"hello\"\nprint(s.rfind(\"l\"))\nprint(s.rfind(\"x\"))",
+        "output": "3\n-1"
+      },
+      {
+        "id": "py-str-index",
+        "title": "index()",
+        "explain": "Returns the first index of a substring, but raises ValueError if not found.",
+        "group": "Strings",
+        "syntax": "str.index(sub, [start, end])",
+        "code": "s = \"hello\"\nprint(s.index(\"e\"))\ntry:\n    s.index(\"z\")\nexcept ValueError as e:\n    print(\"ValueError:\", e)",
+        "output": "1\nValueError: substring not found"
+      },
+      {
+        "id": "py-str-rindex",
+        "title": "rindex()",
+        "explain": "Returns the last index of a substring; raises ValueError if not found.",
+        "group": "Strings",
+        "syntax": "str.rindex(sub, [start, end])",
+        "code": "s = \"hello\"\nprint(s.rindex(\"l\"))",
+        "output": "3"
+      },
+      {
+        "id": "py-str-count",
+        "title": "count()",
+        "explain": "Counts the total number of non-overlapping occurrences of a substring.",
+        "group": "Strings",
+        "syntax": "str.count(sub, [start, end])",
+        "code": "s = \"banana\"\nprint(s.count(\"a\"))\nprint(s.count(\"na\"))",
+        "output": "3\n2",
+        "core": true
+      },
+      {
+        "id": "py-str-startswith",
+        "title": "startswith()",
+        "explain": "Checks whether the string starts with a specified prefix or tuple of prefixes.",
+        "group": "Strings",
+        "syntax": "str.startswith(prefix, [start, end])",
+        "code": "filename = \"notes.pdf\"\nprint(filename.startswith(\"note\"))\nprint(filename.startswith((\"http\", \"note\")))",
+        "output": "True\nTrue",
+        "core": true
+      },
+      {
+        "id": "py-str-endswith",
+        "title": "endswith()",
+        "explain": "Checks whether the string ends with a specified suffix or tuple of suffixes.",
+        "group": "Strings",
+        "syntax": "str.endswith(suffix, [start, end])",
+        "code": "filename = \"image.png\"\nprint(filename.endswith(\".png\"))\nprint(filename.endswith((\".jpg\", \".png\", \".gif\")))",
+        "output": "True\nTrue",
+        "core": true
+      }
+    ]
+  },
+  {
+    "id": "py-str-checks",
+    "group": "Strings",
+    "number": "05",
+    "title": "Strings: Content Checking",
+    "tagline": "Methods checking alphabetic, digit, whitespace, identifier, and formatting properties",
+    "items": [
+      {
+        "id": "py-str-isalpha",
+        "title": "isalpha()",
+        "explain": "Checks whether every character in the string is an alphabetic letter (a-z, A-Z).",
+        "group": "Strings",
+        "syntax": "str.isalpha()",
+        "code": "print(\"Hello\".isalpha())\nprint(\"Hello2\".isalpha())",
+        "output": "True\nFalse",
+        "core": true
+      },
+      {
+        "id": "py-str-isalnum",
+        "title": "isalnum()",
+        "explain": "Checks whether every character in the string is alphanumeric (letters or numbers).",
+        "group": "Strings",
+        "syntax": "str.isalnum()",
+        "code": "print(\"Hello123\".isalnum())\nprint(\"Hello 123\".isalnum())",
+        "output": "True\nFalse",
+        "core": true
+      },
+      {
+        "id": "py-str-isdigit",
+        "title": "isdigit()",
+        "explain": "Checks whether every character in the string is a digit (0-9).",
+        "group": "Strings",
+        "syntax": "str.isdigit()",
+        "code": "print(\"12345\".isdigit())\nprint(\"12.34\".isdigit())",
+        "output": "True\nFalse",
+        "core": true
+      },
+      {
+        "id": "py-str-isnumeric",
+        "title": "isnumeric()",
+        "explain": "Checks whether characters represent numeric values, including fractions and superscript digits.",
+        "group": "Strings",
+        "syntax": "str.isnumeric()",
+        "code": "print(\"123\".isnumeric())\nprint(\"½\".isnumeric())",
+        "output": "True\nTrue"
+      },
+      {
+        "id": "py-str-isdecimal",
+        "title": "isdecimal()",
+        "explain": "Checks whether all characters are strict base-10 decimal digits.",
+        "group": "Strings",
+        "syntax": "str.isdecimal()",
+        "code": "print(\"123\".isdecimal())\nprint(\"²\".isdecimal())",
+        "output": "True\nFalse"
+      },
+      {
+        "id": "py-str-isspace",
+        "title": "isspace()",
+        "explain": "Checks whether every character in the string is whitespace (spaces, tabs, newlines).",
+        "group": "Strings",
+        "syntax": "str.isspace()",
+        "code": "print(\"   \".isspace())\nprint(\"\\t\\n\".isspace())\nprint(\" a \".isspace())",
+        "output": "True\nTrue\nFalse"
+      },
+      {
+        "id": "py-str-islower",
+        "title": "islower()",
+        "explain": "Checks whether the string contains at least one cased character and all cased characters are lowercase.",
+        "group": "Strings",
+        "syntax": "str.islower()",
+        "code": "print(\"hello\".islower())\nprint(\"Hello\".islower())\nprint(\"hello 123!\".islower())",
+        "output": "True\nFalse\nTrue"
+      },
+      {
+        "id": "py-str-isupper",
+        "title": "isupper()",
+        "explain": "Checks whether the string contains at least one cased character and all cased characters are uppercase.",
+        "group": "Strings",
+        "syntax": "str.isupper()",
+        "code": "print(\"HELLO\".isupper())\nprint(\"Hello\".isupper())",
+        "output": "True\nFalse"
+      },
+      {
+        "id": "py-str-istitle",
+        "title": "istitle()",
+        "explain": "Checks whether the string follows title-casing (first character of words uppercase, rest lowercase).",
+        "group": "Strings",
+        "syntax": "str.istitle()",
+        "code": "print(\"Hello World\".istitle())\nprint(\"hello World\".istitle())",
+        "output": "True\nFalse"
+      },
+      {
+        "id": "py-str-isascii",
+        "title": "isascii()",
+        "explain": "Checks whether all characters in the string are ASCII characters (U+0000 to U+007F).",
+        "group": "Strings",
+        "syntax": "str.isascii()",
+        "code": "print(\"hello\".isascii())\nprint(\"café\".isascii())",
+        "output": "True\nFalse"
+      },
+      {
+        "id": "py-str-isidentifier",
+        "title": "isidentifier()",
+        "explain": "Checks whether the string is a syntactically valid Python identifier or variable name.",
+        "group": "Strings",
+        "syntax": "str.isidentifier()",
+        "code": "print(\"hello_1\".isidentifier())\nprint(\"1hello\".isidentifier())\nprint(\"my-var\".isidentifier())",
+        "output": "True\nFalse\nFalse"
+      },
+      {
+        "id": "py-str-isprintable",
+        "title": "isprintable()",
+        "explain": "Checks whether all characters in the string can be printed (returns False for control characters like \\n).",
+        "group": "Strings",
+        "syntax": "str.isprintable()",
+        "code": "print(\"Hello!\".isprintable())\nprint(\"Hello\\nWorld\".isprintable())",
+        "output": "True\nFalse"
+      }
+    ]
+  },
+  {
+    "id": "py-str-split-join",
+    "group": "Strings",
+    "number": "06",
+    "title": "Strings: Splitting & Joining",
+    "tagline": "Tokenizing strings into lists and recombining iterables into formatted strings",
+    "items": [
+      {
+        "id": "py-str-split",
+        "title": "split()",
+        "explain": "Splits a string into a list using a specified delimiter (defaults to whitespace).",
+        "group": "Strings",
+        "syntax": "str.split(sep=None, maxsplit=-1)",
+        "code": "s = \"apple,banana,cherry\"\nprint(s.split(\",\"))\n\nwords = \"one two   three\"\nprint(words.split())",
+        "output": "['apple', 'banana', 'cherry']\n['one', 'two', 'three']",
+        "core": true
+      },
+      {
+        "id": "py-str-rsplit",
+        "title": "rsplit()",
+        "explain": "Splits a string starting from the right side up to maxsplit times.",
+        "group": "Strings",
+        "syntax": "str.rsplit(sep=None, maxsplit=-1)",
+        "code": "s = \"a-b-c-d\"\nprint(s.rsplit(\"-\", 1))\nprint(s.rsplit(\"-\", 2))",
+        "output": "['a-b-c', 'd']\n['a-b', 'c', 'd']"
+      },
+      {
+        "id": "py-str-splitlines",
+        "title": "splitlines()",
+        "explain": "Splits a multi-line string at newline boundaries into a list of lines.",
+        "group": "Strings",
+        "syntax": "str.splitlines(keepends=False)",
+        "code": "text = \"line 1\\nline 2\\r\\nline 3\"\nprint(text.splitlines())",
+        "output": "['line 1', 'line 2', 'line 3']"
+      },
+      {
+        "id": "py-str-join",
+        "title": "join()",
+        "explain": "Concatenates elements of an iterable into a single string using the caller string as delimiter.",
+        "group": "Strings",
+        "syntax": "separator.join(iterable)",
+        "code": "items = [\"apple\", \"banana\", \"orange\"]\nprint(\", \".join(items))\nprint(\"-\".join([\"2026\", \"10\", \"05\"]))",
+        "output": "apple, banana, orange\n2026-10-05",
+        "core": true
+      },
+      {
+        "id": "py-str-partition",
+        "title": "partition()",
+        "explain": "Splits the string into a 3-tuple: (before, separator, after) at the first occurrence of separator.",
+        "group": "Strings",
+        "syntax": "str.partition(sep)",
+        "code": "s = \"key=value=extra\"\nprint(s.partition(\"=\"))",
+        "output": "('key', '=', 'value=extra')"
+      },
+      {
+        "id": "py-str-rpartition",
+        "title": "rpartition()",
+        "explain": "Splits the string into a 3-tuple at the last occurrence of separator.",
+        "group": "Strings",
+        "syntax": "str.rpartition(sep)",
+        "code": "s = \"a-b-c\"\nprint(s.rpartition(\"-\"))",
+        "output": "('a-b', '-', 'c')"
+      }
+    ]
+  },
+  {
+    "id": "py-str-strip-replace",
+    "group": "Strings",
+    "number": "07",
+    "title": "Strings: Removing & Replacing",
+    "tagline": "Trimming whitespace, stripping prefixes and suffixes, replacing substrings",
+    "items": [
+      {
+        "id": "py-str-strip",
+        "title": "strip()",
+        "explain": "Removes leading and trailing whitespace or specified characters from both ends.",
+        "group": "Strings",
+        "syntax": "str.strip([chars])",
+        "code": "print(\"   hello   \".strip())\nprint(\"***hello***\".strip(\"*\"))",
+        "output": "hello\nhello",
+        "core": true
+      },
+      {
+        "id": "py-str-lstrip",
+        "title": "lstrip()",
+        "explain": "Removes leading whitespace or specified characters from the left side.",
+        "group": "Strings",
+        "syntax": "str.lstrip([chars])",
+        "code": "print(\"   hello   \".lstrip())",
+        "output": "hello"
+      },
+      {
+        "id": "py-str-rstrip",
+        "title": "rstrip()",
+        "explain": "Removes trailing whitespace or specified characters from the right side.",
+        "group": "Strings",
+        "syntax": "str.rstrip([chars])",
+        "code": "print(\"   hello   \".rstrip())",
+        "output": "hello"
+      },
+      {
+        "id": "py-str-removeprefix",
+        "title": "removeprefix()",
+        "explain": "Removes the exact prefix string if the string begins with it (Python 3.9+).",
+        "group": "Strings",
+        "syntax": "str.removeprefix(prefix)",
+        "code": "print(\"unhappy\".removeprefix(\"un\"))\nprint(\"test.py\".removeprefix(\"py\"))",
+        "output": "happy\ntest.py",
+        "core": true
+      },
+      {
+        "id": "py-str-removesuffix",
+        "title": "removesuffix()",
+        "explain": "Removes the exact suffix string if the string ends with it (Python 3.9+).",
+        "group": "Strings",
+        "syntax": "str.removesuffix(suffix)",
+        "code": "print(\"data.json\".removesuffix(\".json\"))\nprint(\"song.mp3\".removesuffix(\".wav\"))",
+        "output": "data\nsong.mp3",
+        "core": true
+      },
+      {
+        "id": "py-str-replace",
+        "title": "replace()",
+        "explain": "Replaces occurrences of an old substring with a new substring up to count times.",
+        "group": "Strings",
+        "syntax": "str.replace(old, new, [count])",
+        "code": "s = \"hello world\"\nprint(s.replace(\"l\", \"x\"))\nprint(s.replace(\"l\", \"x\", 1))",
+        "output": "hexxo worxd\nhexlo world",
+        "core": true
+      }
+    ]
+  },
+  {
+    "id": "py-str-align",
+    "group": "Strings",
+    "number": "08",
+    "title": "Strings: Alignment & Padding",
+    "tagline": "Centering, left/right aligning, and zero-padding numbers or text",
+    "items": [
+      {
+        "id": "py-str-center",
+        "title": "center()",
+        "explain": "Centers the string within a field of specified width, padded with spaces or fillchar.",
+        "group": "Strings",
+        "syntax": "str.center(width, [fillchar])",
+        "code": "print(\"hi\".center(6, \"-\"))\nprint(\"title\".center(15, \"=\"))",
+        "output": "--hi--\n=====title====="
+      },
+      {
+        "id": "py-str-ljust",
+        "title": "ljust()",
+        "explain": "Left-aligns the string and pads the right side to reach total width.",
+        "group": "Strings",
+        "syntax": "str.ljust(width, [fillchar])",
+        "code": "print(\"hi\".ljust(5, \"-\"))",
+        "output": "hi---"
+      },
+      {
+        "id": "py-str-rjust",
+        "title": "rjust()",
+        "explain": "Right-aligns the string and pads the left side to reach total width.",
+        "group": "Strings",
+        "syntax": "str.rjust(width, [fillchar])",
+        "code": "print(\"hi\".rjust(5, \"-\"))",
+        "output": "---hi"
+      },
+      {
+        "id": "py-str-zfill",
+        "title": "zfill()",
+        "explain": "Pads the left side of a numeric string with zeros to reach width, handling +/- signs properly.",
+        "group": "Strings",
+        "syntax": "str.zfill(width)",
+        "code": "print(\"42\".zfill(5))\nprint(\"-42\".zfill(5))",
+        "output": "00042\n-0042",
+        "core": true
+      }
+    ]
+  },
+  {
+    "id": "py-str-format",
+    "group": "Strings",
+    "number": "09",
+    "title": "Strings: Formatting & f-Strings",
+    "tagline": "Modern f-strings, str.format(), format_map, and format specifiers",
+    "items": [
+      {
+        "id": "py-str-fstring",
+        "title": "f-Strings (Modern String Formatting)",
+        "explain": "Prefix string with f to embed expressions, variables, and specifiers directly inside {}.",
+        "group": "Strings",
+        "syntax": "f\"... {variable} ... {expr:spec} ...\"",
+        "code": "name = \"Sajin\"\nage = 20\nscore = 94.567\nprint(f\"{name} is {age} years old\")\nprint(f\"Score: {score:.1f}\")",
+        "output": "Sajin is 20 years old\nScore: 94.6",
+        "core": true
+      },
+      {
+        "id": "py-str-format-meth",
+        "title": "format()",
+        "explain": "Inserts positional and keyword arguments into {} placeholders.",
+        "group": "Strings",
+        "syntax": "str.format(*args, **kwargs)",
+        "code": "print(\"{} + {}\".format(2, 3))\nprint(\"{name} scored {points}\".format(name=\"Alice\", points=100))",
+        "output": "2 + 3\nAlice scored 100"
+      },
+      {
+        "id": "py-str-format-map",
+        "title": "format_map()",
+        "explain": "Formats using key-value pairs taken directly from a dictionary or mapping.",
+        "group": "Strings",
+        "syntax": "str.format_map(mapping)",
+        "code": "data = {\"name\": \"Sajin\", \"role\": \"Admin\"}\nprint(\"{name} ({role})\".format_map(data))",
+        "output": "Sajin (Admin)"
+      }
+    ]
+  },
+  {
+    "id": "py-str-encode-trans",
+    "group": "Strings",
+    "number": "10",
+    "title": "Strings: Encoding & Translation",
+    "tagline": "Byte encoding and character-level transliteration tables",
+    "items": [
+      {
+        "id": "py-str-encode",
+        "title": "encode()",
+        "explain": "Encodes string into bytes using a specified encoding (UTF-8 by default).",
+        "group": "Strings",
+        "syntax": "str.encode(encoding='utf-8', errors='strict')",
+        "code": "b = \"hello\".encode(\"utf-8\")\nprint(b)\nprint(type(b))",
+        "output": "b'hello'\n<class 'bytes'>"
+      },
+      {
+        "id": "py-str-maketrans",
+        "title": "str.maketrans()",
+        "explain": "Creates a one-to-one character mapping table for use with translate().",
+        "group": "Strings",
+        "syntax": "str.maketrans(x, y, [z])",
+        "code": "table = str.maketrans(\"abc\", \"xyz\")\nprint(table)",
+        "output": "{97: 120, 98: 121, 99: 122}"
+      },
+      {
+        "id": "py-str-translate",
+        "title": "translate()",
+        "explain": "Replaces and removes characters according to a translation table created with maketrans().",
+        "group": "Strings",
+        "syntax": "str.translate(table)",
+        "code": "table = str.maketrans(\"abc\", \"xyz\", \"!\")\nprint(\"abc!abc!\".translate(table))",
+        "output": "xyzxyz"
+      }
+    ]
+  },
+  {
+    "id": "py-str-builtins",
+    "group": "Strings",
+    "number": "11",
+    "title": "Strings: Built-in Functions",
+    "tagline": "General Python built-ins essential when working with strings (len, ord, chr, etc.)",
+    "items": [
+      {
+        "id": "py-str-len",
+        "title": "len()",
+        "explain": "Returns the total number of characters in the string.",
+        "group": "Strings",
+        "syntax": "len(string)",
+        "code": "s = \"hello world\"\nprint(len(s))",
+        "output": "11",
+        "core": true
+      },
+      {
+        "id": "py-str-str-func",
+        "title": "str()",
+        "explain": "Converts any object into its string representation.",
+        "group": "Strings",
+        "syntax": "str(object)",
+        "code": "print(str(123))\nprint(str([1, 2, 3]))",
+        "output": "123\n[1, 2, 3]",
+        "core": true
+      },
+      {
+        "id": "py-str-ord",
+        "title": "ord()",
+        "explain": "Returns the integer Unicode / ASCII code point of a single character.",
+        "group": "Strings",
+        "syntax": "ord(char)",
+        "code": "print(ord(\"A\"))\nprint(ord(\"a\"))",
+        "output": "65\n97",
+        "core": true
+      },
+      {
+        "id": "py-str-chr",
+        "title": "chr()",
+        "explain": "Converts an integer Unicode code point into its corresponding character.",
+        "group": "Strings",
+        "syntax": "chr(code_point)",
+        "code": "print(chr(65))\nprint(chr(97))",
+        "output": "A\na",
+        "core": true
+      },
+      {
+        "id": "py-str-ascii",
+        "title": "ascii()",
+        "explain": "Returns an ASCII-only string representation, escaping non-ASCII characters with \\x, \\u, or \\U.",
+        "group": "Strings",
+        "syntax": "ascii(object)",
+        "code": "print(ascii(\"café\"))",
+        "output": "'caf\\xe9'"
+      },
+      {
+        "id": "py-str-repr",
+        "title": "repr()",
+        "explain": "Returns the official, printable string representation of an object (including surrounding quotes).",
+        "group": "Strings",
+        "syntax": "repr(object)",
+        "code": "s = \"hello\\nworld\"\nprint(repr(s))",
+        "output": "'hello\\nworld'"
+      }
+    ]
+  },
+  {
+    "id": "py-str-module",
+    "group": "Strings",
+    "number": "12",
+    "title": "Strings: string Module & Templates",
+    "tagline": "Standard string constants, capwords, and $-based string.Template",
+    "items": [
+      {
+        "id": "py-str-mod-constants",
+        "title": "string Module Constants",
+        "explain": "Predefined character sets for letters, digits, punctuation, and whitespace.",
+        "group": "Strings",
+        "syntax": "import string\nstring.ascii_letters | string.digits | string.punctuation",
+        "code": "import string\nprint(string.ascii_letters[:10])\nprint(string.digits)\nprint(string.punctuation[:8])",
+        "output": "abcdefghij\n0123456789\n!\"#$%&'()*",
+        "core": true
+      },
+      {
+        "id": "py-str-capwords",
+        "title": "string.capwords()",
+        "explain": "Splits words by separator, capitalizes each word, and joins them back together.",
+        "group": "Strings",
+        "syntax": "string.capwords(s, sep=None)",
+        "code": "import string\nprint(string.capwords(\"hello   world\"))\nprint(string.capwords(\"hello-world\", \"-\"))",
+        "output": "Hello World\nHello-World"
+      },
+      {
+        "id": "py-str-template",
+        "title": "string.Template ($ substitution)",
+        "explain": "Safe, simple $-based string substitution designed for user-provided templates without code execution risks.",
+        "group": "Strings",
+        "syntax": "from string import Template\nt = Template('Hello $name')\nt.substitute(name='...')",
+        "code": "from string import Template\nt = Template(\"Hello $name, your score is $score\")\nresult = t.substitute(name=\"Sajin\", score=98)\nprint(result)",
+        "output": "Hello Sajin, your score is 98",
+        "core": true
+      },
+      {
+        "id": "py-str-safe-substitute",
+        "title": "Template.safe_substitute()",
+        "explain": "Substitutes placeholders, but leaves missing placeholders untouched instead of raising KeyError.",
+        "group": "Strings",
+        "syntax": "template.safe_substitute(mapping)",
+        "code": "from string import Template\nt = Template(\"Hello $name, age $age\")\n# Missing 'age' does not raise KeyError:\nprint(t.safe_substitute(name=\"Sajin\"))",
+        "output": "Hello Sajin, age $age"
+      },
+      {
+        "id": "py-str-template-valid",
+        "title": "Template.get_identifiers() & is_valid()",
+        "explain": "Inspects placeholder names and validates whether a template string has well-formed syntax (Python 3.11+).",
+        "group": "Strings",
+        "syntax": "template.get_identifiers() | template.is_valid()",
+        "code": "from string import Template\nt = Template(\"User: $user, Role: $role\")\nprint(t.get_identifiers())\nprint(t.is_valid())",
+        "output": "['user', 'role']\nTrue"
+      }
+    ]
+  },
+  {
+    "id": "py-list-basics",
+    "group": "Lists",
+    "number": "13",
+    "title": "Lists: Basics & Creation",
+    "tagline": "List creation, heterogeneous data types, mutability, and differences from tuples",
+    "items": [
+      {
+        "id": "py-list-create",
+        "title": "Creating Lists",
+        "explain": "Lists are ordered, mutable collections enclosed in square brackets [] or created via list() constructor.",
+        "group": "Lists",
+        "syntax": "a = [elem1, elem2] | a = list(iterable)",
+        "code": "a = [1, 2, 3]\nb = list(\"cat\")\nc = list(range(4))\nprint(a)\nprint(b)\nprint(c)",
+        "output": "[1, 2, 3]\n['c', 'a', 't']\n[0, 1, 2, 3]",
+        "core": true
+      },
+      {
+        "id": "py-list-empty",
+        "title": "Empty Lists",
+        "explain": "Creates an empty list with [] or list() for accumulating elements later.",
+        "group": "Lists",
+        "syntax": "empty = [] | empty = list()",
+        "code": "a = []\nb = list()\nprint(a, len(a))\nprint(type(b))",
+        "output": "[] 0\n<class 'list'>"
+      },
+      {
+        "id": "py-list-types",
+        "title": "Mixed Data Types & Nested Lists",
+        "explain": "A list can contain elements of differing types including ints, floats, strings, booleans, and other lists.",
+        "group": "Lists",
+        "syntax": "mixed = [1, \"apple\", 3.14, True, [10, 20]]",
+        "code": "person = [\"Sajin\", 20, True, [\"Python\", \"SQL\"]]\nprint(person[0])\nprint(person[3])",
+        "output": "Sajin\n['Python', 'SQL']"
+      },
+      {
+        "id": "py-list-mutability",
+        "title": "List Mutability",
+        "explain": "Lists are mutable: their elements can be modified, appended, or deleted in place without creating a new list.",
+        "group": "Lists",
+        "syntax": "list[index] = new_value",
+        "code": "nums = [1, 2, 3]\nnums[0] = 99\nprint(nums)",
+        "output": "[99, 2, 3]",
+        "core": true
+      },
+      {
+        "id": "py-list-vs-tuple",
+        "title": "Lists vs. Tuples",
+        "explain": "Lists are mutable [ ] with dynamic sizing. Tuples are immutable ( ) with fixed length and hashability.",
+        "group": "Lists",
+        "syntax": "# List: mutable [] | Tuple: immutable ()",
+        "code": "my_list = [1, 2]\nmy_tuple = (1, 2)\nmy_list.append(3)\nprint(\"List:\", my_list)\n# my_tuple cannot be modified in place",
+        "output": "List: [1, 2, 3]",
+        "core": true
+      }
+    ]
+  },
+  {
+    "id": "py-list-indexing",
+    "group": "Lists",
+    "number": "14",
+    "title": "Lists: Indexing & Access",
+    "tagline": "Positive, negative, and nested indices, modifying elements in place, index errors",
+    "items": [
+      {
+        "id": "py-list-pos-idx",
+        "title": "Positive Indexing",
+        "explain": "Accesses elements starting at index 0 up to len(a) - 1.",
+        "group": "Lists",
+        "syntax": "list[index]",
+        "code": "fruits = [\"apple\", \"banana\", \"cherry\"]\nprint(fruits[0])\nprint(fruits[2])",
+        "output": "apple\ncherry",
+        "core": true
+      },
+      {
+        "id": "py-list-neg-idx",
+        "title": "Negative Indexing",
+        "explain": "Accesses elements from the right end, where -1 is the last item.",
+        "group": "Lists",
+        "syntax": "list[-index]",
+        "code": "nums = [10, 20, 30, 40]\nprint(nums[-1])\nprint(nums[-2])",
+        "output": "40\n30",
+        "core": true
+      },
+      {
+        "id": "py-list-nested-idx",
+        "title": "Indexing Nested Lists",
+        "explain": "Chains brackets to reach inside inner lists: outer[row][col].",
+        "group": "Lists",
+        "syntax": "matrix[row][col]",
+        "code": "grid = [[1, 2, 3], [4, 5, 6]]\nprint(grid[0])\nprint(grid[0][1])\nprint(grid[1][2])",
+        "output": "[1, 2, 3]\n2\n6",
+        "core": true
+      },
+      {
+        "id": "py-list-index-error",
+        "title": "IndexError Caveat",
+        "explain": "Attempting to read or write an index beyond the current list boundary raises IndexError.",
+        "group": "Lists",
+        "syntax": "list[len]  # IndexError",
+        "code": "a = [1, 2]\ntry:\n    print(a[5])\nexcept IndexError as e:\n    print(\"Caught:\", e)",
+        "output": "Caught: list index out of range"
+      },
+      {
+        "id": "py-list-modify-idx",
+        "title": "Modifying Elements In Place",
+        "explain": "Assigns a new value to an existing position in the list.",
+        "group": "Lists",
+        "syntax": "list[index] = value",
+        "code": "scores = [85, 90, 78]\nscores[1] = 95\nprint(scores)",
+        "output": "[85, 95, 78]",
+        "core": true
+      }
+    ]
+  },
+  {
+    "id": "py-list-slicing",
+    "group": "Lists",
+    "number": "15",
+    "title": "Lists: Slicing Operations",
+    "tagline": "Sublist extraction, strides, step reversals, and slice assignments",
+    "items": [
+      {
+        "id": "py-list-basic-slice",
+        "title": "Basic Slicing [start:stop]",
+        "explain": "Extracts a new sublist from start up to stop (exclusive).",
+        "group": "Lists",
+        "syntax": "list[start : stop]",
+        "code": "nums = [0, 1, 2, 3, 4, 5]\nprint(nums[1:4])\nprint(nums[:3])\nprint(nums[3:])",
+        "output": "[1, 2, 3]\n[0, 1, 2]\n[3, 4, 5]",
+        "core": true
+      },
+      {
+        "id": "py-list-full-slice",
+        "title": "Shallow Copy via Slice [:]",
+        "explain": "Omitting both start and stop creates a shallow clone of the list.",
+        "group": "Lists",
+        "syntax": "clone = list[:]",
+        "code": "orig = [1, 2, 3]\ncopy_list = orig[:]\ncopy_list.append(4)\nprint(\"Orig:\", orig)\nprint(\"Copy:\", copy_list)",
+        "output": "Orig: [1, 2, 3]\nCopy: [1, 2, 3, 4]",
+        "core": true
+      },
+      {
+        "id": "py-list-slice-step",
+        "title": "Slice with Step [::step]",
+        "explain": "Takes elements in increments of step.",
+        "group": "Lists",
+        "syntax": "list[start : stop : step]",
+        "code": "a = [0, 1, 2, 3, 4, 5, 6, 7]\nprint(a[::2])\nprint(a[1::2])",
+        "output": "[0, 2, 4, 6]\n[1, 3, 5, 7]",
+        "core": true
+      },
+      {
+        "id": "py-list-slice-reverse",
+        "title": "Reversing a List via Slicing [::-1]",
+        "explain": "Returns a new reversed list without mutating the original list.",
+        "group": "Lists",
+        "syntax": "reversed_list = list[::-1]",
+        "code": "items = [1, 2, 3, 4]\nprint(items[::-1])\nprint(\"Original unchanged:\", items)",
+        "output": "[4, 3, 2, 1]\nOriginal unchanged: [1, 2, 3, 4]",
+        "core": true
+      },
+      {
+        "id": "py-list-modify-slice",
+        "title": "Modifying Multiple Elements via Slicing",
+        "explain": "Replaces a slice with elements from an iterable, even if the length differs.",
+        "group": "Lists",
+        "syntax": "list[start:stop] = iterable",
+        "code": "nums = [1, 2, 3, 4, 5]\nnums[1:3] = [20, 30, 40]\nprint(nums)",
+        "output": "[1, 20, 30, 40, 4, 5]",
+        "core": true
+      }
+    ]
+  },
+  {
+    "id": "py-list-methods",
+    "group": "Lists",
+    "number": "16",
+    "title": "Lists: Core Methods",
+    "tagline": "The 11 essential list methods: append, extend, insert, pop, remove, sort, etc.",
+    "items": [
+      {
+        "id": "py-list-append",
+        "title": "append()",
+        "explain": "Adds an element to the very end of the list in O(1) amortized time.",
+        "group": "Lists",
+        "syntax": "list.append(x)",
+        "code": "a = [1, 2, 3]\na.append(4)\nprint(a)",
+        "output": "[1, 2, 3, 4]",
+        "core": true
+      },
+      {
+        "id": "py-list-extend",
+        "title": "extend()",
+        "explain": "Unpacks and appends all elements from another iterable to the end of the list.",
+        "group": "Lists",
+        "syntax": "list.extend(iterable)",
+        "code": "a = [1, 2]\na.extend([3, 4])\nprint(a)",
+        "output": "[1, 2, 3, 4]",
+        "core": true
+      },
+      {
+        "id": "py-list-insert",
+        "title": "insert()",
+        "explain": "Inserts an item before a specified index position, shifting succeeding elements right.",
+        "group": "Lists",
+        "syntax": "list.insert(index, x)",
+        "code": "a = [10, 30]\na.insert(1, 20)\nprint(a)",
+        "output": "[10, 20, 30]",
+        "core": true
+      },
+      {
+        "id": "py-list-remove",
+        "title": "remove()",
+        "explain": "Removes the first occurrence of a value from the list; raises ValueError if not found.",
+        "group": "Lists",
+        "syntax": "list.remove(x)",
+        "code": "nums = [1, 2, 3, 2]\nnums.remove(2)\nprint(nums)",
+        "output": "[1, 3, 2]",
+        "core": true
+      },
+      {
+        "id": "py-list-pop",
+        "title": "pop()",
+        "explain": "Removes and returns the item at index (defaults to last item index -1).",
+        "group": "Lists",
+        "syntax": "list.pop([index])",
+        "code": "stack = [10, 20, 30]\ntop = stack.pop()\nfirst = stack.pop(0)\nprint(\"popped:\", top, first)\nprint(\"remaining:\", stack)",
+        "output": "popped: 30 10\nremaining: [20]",
+        "core": true
+      },
+      {
+        "id": "py-list-clear",
+        "title": "clear()",
+        "explain": "Removes all elements from the list, making it empty [].",
+        "group": "Lists",
+        "syntax": "list.clear()",
+        "code": "a = [1, 2, 3]\na.clear()\nprint(a)",
+        "output": "[]"
+      },
+      {
+        "id": "py-list-index",
+        "title": "index()",
+        "explain": "Returns the zero-based index of the first occurrence of a value.",
+        "group": "Lists",
+        "syntax": "list.index(x, [start, end])",
+        "code": "letters = ['a', 'b', 'c', 'b']\nprint(letters.index('b'))\nprint(letters.index('b', 2))",
+        "output": "1\n3",
+        "core": true
+      },
+      {
+        "id": "py-list-count",
+        "title": "count()",
+        "explain": "Returns the total number of occurrences of a value in the list.",
+        "group": "Lists",
+        "syntax": "list.count(x)",
+        "code": "nums = [1, 2, 3, 2, 2, 4]\nprint(nums.count(2))",
+        "output": "3",
+        "core": true
+      },
+      {
+        "id": "py-list-reverse",
+        "title": "reverse()",
+        "explain": "Reverses the elements of the list in-place (mutates original list, returns None).",
+        "group": "Lists",
+        "syntax": "list.reverse()",
+        "code": "a = [1, 2, 3]\na.reverse()\nprint(a)",
+        "output": "[3, 2, 1]",
+        "core": true
+      },
+      {
+        "id": "py-list-copy",
+        "title": "copy()",
+        "explain": "Returns a shallow copy of the list.",
+        "group": "Lists",
+        "syntax": "shallow = list.copy()",
+        "code": "a = [1, 2, 3]\nb = a.copy()\nb.append(99)\nprint(\"a:\", a)\nprint(\"b:\", b)",
+        "output": "a: [1, 2, 3]\nb: [1, 2, 3, 99]",
+        "core": true
+      }
+    ]
+  },
+  {
+    "id": "py-list-copying",
+    "group": "Lists",
+    "number": "17",
+    "title": "Lists: Shallow vs. Deep Copy",
+    "tagline": "Understanding object references, shallow copying, copy.deepcopy, and reference traps",
+    "items": [
+      {
+        "id": "py-list-shallow-copy",
+        "title": "Shallow Copy (list.copy)",
+        "explain": "Creates a new outer list container, but inner nested objects are still shared references.",
+        "group": "Lists",
+        "syntax": "b = a.copy() | b = a[:]",
+        "code": "a = [[1, 2], [3, 4]]\nb = a.copy()\nb[0].append(99)\nprint(\"a:\", a)\nprint(\"b:\", b)",
+        "output": "a: [[1, 2, 99], [3, 4]]\nb: [[1, 2, 99], [3, 4]]",
+        "core": true
+      },
+      {
+        "id": "py-list-deep-copy",
+        "title": "Deep Copy (copy.deepcopy)",
+        "explain": "Recursively clones the outer list and every nested list/object inside it independently.",
+        "group": "Lists",
+        "syntax": "import copy\nb = copy.deepcopy(a)",
+        "code": "import copy\na = [[1, 2], [3, 4]]\nb = copy.deepcopy(a)\nb[0].append(99)\nprint(\"a:\", a)\nprint(\"b:\", b)",
+        "output": "a: [[1, 2], [3, 4]]\nb: [[1, 2, 99], [3, 4]]",
+        "core": true
+      },
+      {
+        "id": "py-list-ref-trap",
+        "title": "Assignment (b = a) vs. Copy",
+        "explain": "b = a does NOT copy; it merely creates another variable name pointing to the exact same list in memory.",
+        "group": "Lists",
+        "syntax": "b = a  # Same list in memory!",
+        "code": "a = [1, 2, 3]\nb = a\nb.append(4)\nprint(\"a:\", a)\nprint(\"a is b:\", a is b)",
+        "output": "a: [1, 2, 3, 4]\na is b: True",
+        "core": true
+      },
+      {
+        "id": "py-list-is-vs-eq",
+        "title": "== vs. is Operator",
+        "explain": "== tests whether two lists contain equal values; is tests whether both variables refer to the exact same object in RAM.",
+        "group": "Lists",
+        "syntax": "list1 == list2 (values) | list1 is list2 (identity)",
+        "code": "a = [1, 2, 3]\nb = [1, 2, 3]\nprint(\"a == b:\", a == b)\nprint(\"a is b:\", a is b)",
+        "output": "a == b: True\na is b: False",
+        "core": true
+      }
+    ]
+  },
+  {
+    "id": "py-list-sorting",
+    "group": "Lists",
+    "number": "18",
+    "title": "Lists: Sorting & Custom Keys",
+    "tagline": "list.sort() in place vs sorted(), reverse=True, key functions, lambda, and tuple sorting",
+    "items": [
+      {
+        "id": "py-list-sort-meth",
+        "title": "list.sort() (In-place)",
+        "explain": "Sorts the list in place and returns None. Mutates the original list.",
+        "group": "Lists",
+        "syntax": "list.sort(key=None, reverse=False)",
+        "code": "nums = [3, 1, 4, 1, 5, 9]\nres = nums.sort()\nprint(\"nums:\", nums)\nprint(\"returns:\", res)",
+        "output": "nums: [1, 1, 3, 4, 5, 9]\nreturns: None",
+        "core": true
+      },
+      {
+        "id": "py-list-sorted-func",
+        "title": "sorted() (New List)",
+        "explain": "Built-in function that takes any iterable and returns a new sorted list, leaving original intact.",
+        "group": "Lists",
+        "syntax": "new_list = sorted(iterable, key=None, reverse=False)",
+        "code": "nums = [3, 1, 4, 1, 5]\nres = sorted(nums)\nprint(\"res:\", res)\nprint(\"orig:\", nums)",
+        "output": "res: [1, 1, 3, 4, 5]\norig: [3, 1, 4, 1, 5]",
+        "core": true
+      },
+      {
+        "id": "py-list-sort-reverse",
+        "title": "Descending Order (reverse=True)",
+        "explain": "Passes reverse=True to sort in descending order.",
+        "group": "Lists",
+        "syntax": "nums.sort(reverse=True) | sorted(nums, reverse=True)",
+        "code": "nums = [5, 2, 8, 1, 9]\nnums.sort(reverse=True)\nprint(nums)",
+        "output": "[9, 8, 5, 2, 1]",
+        "core": true
+      },
+      {
+        "id": "py-list-sort-key-len",
+        "title": "Sorting by Length (key=len)",
+        "explain": "Applies the len function to every element before comparing.",
+        "group": "Lists",
+        "syntax": "words.sort(key=len)",
+        "code": "words = [\"banana\", \"pie\", \"apple\", \"kiwi\"]\nwords.sort(key=len)\nprint(words)",
+        "output": "['pie', 'kiwi', 'apple', 'banana']",
+        "core": true
+      },
+      {
+        "id": "py-list-sort-lambda",
+        "title": "Sorting with lambda",
+        "explain": "Uses an anonymous function as the key extractor for custom comparisons.",
+        "group": "Lists",
+        "syntax": "list.sort(key=lambda x: expr)",
+        "code": "students = [(\"Alice\", 88), (\"Bob\", 95), (\"Charlie\", 70)]\nstudents.sort(key=lambda s: s[1])\nprint(students)",
+        "output": "[('Charlie', 70), ('Alice', 88), ('Bob', 95)]",
+        "core": true
+      },
+      {
+        "id": "py-list-sort-multi",
+        "title": "Multiple Sorting Criteria",
+        "explain": "Returns a tuple from the key function to sort by primary then secondary attributes.",
+        "group": "Lists",
+        "syntax": "list.sort(key=lambda x: (x[0], -x[1]))",
+        "code": "items = [(\"apple\", 5), (\"banana\", 3), (\"apple\", 2)]\nitems.sort(key=lambda x: (x[0], x[1]))\nprint(items)",
+        "output": "[('apple', 2), ('apple', 5), ('banana', 3)]",
+        "core": true
+      }
+    ]
+  },
+  {
+    "id": "py-list-builtins",
+    "group": "Lists",
+    "number": "19",
+    "title": "Lists: Built-in Functions & Loops",
+    "tagline": "len, sum, min, max, any, all, enumerate, in, and unpacking",
+    "items": [
+      {
+        "id": "py-list-stats",
+        "title": "len(), sum(), min(), max()",
+        "explain": "Statistical and length operations supported natively on numeric lists.",
+        "group": "Lists",
+        "syntax": "len(a) | sum(a) | min(a) | max(a)",
+        "code": "nums = [10, 20, 5, 30]\nprint(\"len:\", len(nums))\nprint(\"sum:\", sum(nums))\nprint(\"min:\", min(nums))\nprint(\"max:\", max(nums))",
+        "output": "len: 4\nsum: 65\nmin: 5\nmax: 30",
+        "core": true
+      },
+      {
+        "id": "py-list-any-all",
+        "title": "any() and all()",
+        "explain": "any() returns True if at least one element is truthy. all() returns True if all elements are truthy.",
+        "group": "Lists",
+        "syntax": "any(iterable) | all(iterable)",
+        "code": "print(any([0, False, 5]))\nprint(all([1, True, \"yes\"]))\nprint(all([1, 0, 3]))",
+        "output": "True\nTrue\nFalse"
+      },
+      {
+        "id": "py-list-enumerate",
+        "title": "enumerate()",
+        "explain": "Yields pairs of (index, item) when looping over a list, eliminating manual counter variables.",
+        "group": "Lists",
+        "syntax": "for i, item in enumerate(iterable, start=0):",
+        "code": "colors = [\"red\", \"green\", \"blue\"]\nfor i, c in enumerate(colors):\n    print(f\"{i}: {c}\")",
+        "output": "0: red\n1: green\n2: blue",
+        "core": true
+      },
+      {
+        "id": "py-list-unpacking",
+        "title": "List Unpacking & Extended Unpacking",
+        "explain": "Unpacks elements into individual variables, using * to collect surplus items into a sublist.",
+        "group": "Lists",
+        "syntax": "first, *middle, last = my_list",
+        "code": "nums = [1, 2, 3, 4, 5]\na, *b, c = nums\nprint(\"a:\", a)\nprint(\"b:\", b)\nprint(\"c:\", c)",
+        "output": "a: 1\nb: [2, 3, 4]\nc: 5",
+        "core": true
+      }
+    ]
+  },
+  {
+    "id": "py-list-2d",
+    "group": "Lists",
+    "number": "20",
+    "title": "Lists: 2D & Nested Lists (Matrices)",
+    "tagline": "Matrix row/col traversal, flattening, transposition, and avoiding the multiplication trap",
+    "items": [
+      {
+        "id": "py-list-2d-trap",
+        "title": "The 2D List Repetition Trap ([[]]*n)",
+        "explain": "Using [[0]*3]*3 duplicates the same inner list 3 times; modifying one row affects every row!",
+        "group": "Lists",
+        "syntax": "# BAD: [[0] * cols] * rows",
+        "code": "bad_matrix = [[0] * 3] * 3\nbad_matrix[0][0] = 99\nprint(bad_matrix)",
+        "output": "[[99, 0, 0], [99, 0, 0], [99, 0, 0]]",
+        "core": true
+      },
+      {
+        "id": "py-list-2d-correct",
+        "title": "Correct 2D List Creation",
+        "explain": "Use a list comprehension to create distinct inner lists for each row.",
+        "group": "Lists",
+        "syntax": "matrix = [[0 for _ in range(cols)] for _ in range(rows)]",
+        "code": "matrix = [[0] * 3 for _ in range(3)]\nmatrix[0][0] = 99\nprint(matrix)",
+        "output": "[[99, 0, 0], [0, 0, 0], [0, 0, 0]]",
+        "core": true
+      },
+      {
+        "id": "py-list-2d-traversal",
+        "title": "Traversing a 2D Matrix",
+        "explain": "Iterates over matrix rows and columns with nested loops or enumerate.",
+        "group": "Lists",
+        "syntax": "for r in range(rows):\n    for c in range(cols):",
+        "code": "grid = [[1, 2], [3, 4]]\nfor r_idx, row in enumerate(grid):\n    for c_idx, val in enumerate(row):\n        print(f\"({r_idx},{c_idx}) = {val}\")",
+        "output": "(0,0) = 1\n(0,1) = 2\n(1,0) = 3\n(1,1) = 4"
+      },
+      {
+        "id": "py-list-2d-flatten",
+        "title": "Flattening a 2D List",
+        "explain": "Flattens rows into a single 1D list using comprehension.",
+        "group": "Lists",
+        "syntax": "flattened = [item for row in matrix for item in row]",
+        "code": "matrix = [[1, 2], [3, 4], [5, 6]]\nflat = [x for row in matrix for x in row]\nprint(flat)",
+        "output": "[1, 2, 3, 4, 5, 6]",
+        "core": true
+      },
+      {
+        "id": "py-list-2d-transpose",
+        "title": "Transposing a Matrix",
+        "explain": "Swaps rows and columns using zip(*matrix) or nested comprehensions.",
+        "group": "Lists",
+        "syntax": "transposed = [list(col) for col in zip(*matrix)]",
+        "code": "matrix = [[1, 2, 3], [4, 5, 6]]\ntransposed = [list(col) for col in zip(*matrix)]\nprint(transposed)",
+        "output": "[[1, 4], [2, 5], [3, 6]]",
+        "core": true
+      }
+    ]
+  },
+  {
+    "id": "py-list-comp",
+    "group": "Lists",
+    "number": "21",
+    "title": "Lists: List Comprehensions",
+    "tagline": "Elegant syntax for mapping, filtering, transforming, and constructing new lists",
+    "items": [
+      {
+        "id": "py-list-comp-basic",
+        "title": "Basic List Comprehension",
+        "explain": "Constructs a new list by applying an expression to each item in an iterable.",
+        "group": "Lists",
+        "syntax": "[expression for item in iterable]",
+        "code": "squares = [x**2 for x in range(5)]\nprint(squares)",
+        "output": "[0, 1, 4, 9, 16]",
+        "core": true
+      },
+      {
+        "id": "py-list-comp-filter",
+        "title": "Filtering with if",
+        "explain": "Includes only items matching the conditional predicate at the end.",
+        "group": "Lists",
+        "syntax": "[expr for item in iterable if condition]",
+        "code": "nums = [1, 2, 3, 4, 5, 6, 7, 8]\nevens = [x for x in nums if x % 2 == 0]\nprint(evens)",
+        "output": "[2, 4, 6, 8]",
+        "core": true
+      },
+      {
+        "id": "py-list-comp-if-else",
+        "title": "Conditional Expression (if-else)",
+        "explain": "Places ternary expression (val_if if cond else val_else) before the for clause.",
+        "group": "Lists",
+        "syntax": "[val_if if cond else val_else for item in iterable]",
+        "code": "nums = [1, 2, 3, 4, 5]\nlabels = [\"even\" if x % 2 == 0 else \"odd\" for x in nums]\nprint(labels)",
+        "output": "['odd', 'even', 'odd', 'even', 'odd']",
+        "core": true
+      },
+      {
+        "id": "py-list-comp-nested-for",
+        "title": "Multiple for Clauses in Comprehensions",
+        "explain": "Loops through multiple sequences in order of outer to inner loop.",
+        "group": "Lists",
+        "syntax": "[(x, y) for x in listA for y in listB]",
+        "code": "pairs = [(x, y) for x in [1, 2] for y in ['a', 'b']]\nprint(pairs)",
+        "output": "[(1, 'a'), (1, 'b'), (2, 'a'), (2, 'b')]"
+      },
+      {
+        "id": "py-list-comp-patterns",
+        "title": "Common Useful Patterns",
+        "explain": "Filters out empty strings or None values and cleans input sequences cleanly.",
+        "group": "Lists",
+        "syntax": "cleaned = [x for x in items if x is not None and x != '']",
+        "code": "raw = [\"apple\", \"\", \"banana\", None, \"cherry\"]\nclean = [s.upper() for s in raw if s]\nprint(clean)",
+        "output": "['APPLE', 'BANANA', 'CHERRY']",
+        "core": true
+      }
+    ]
+  },
+  {
+    "id": "py-tup-basics",
+    "group": "Tuples",
+    "number": "22",
+    "title": "Tuples: Basics & Creation",
+    "tagline": "Tuple syntax, empty tuples, single-element comma rule, and creation without parentheses",
+    "items": [
+      {
+        "id": "py-tup-create",
+        "title": "Normal Tuple Creation",
+        "explain": "Tuples are immutable ordered collections written with parentheses (1, 2, 3) or tuple() constructor.",
+        "group": "Tuples",
+        "syntax": "t = (1, 2, 3) | t = tuple(iterable)",
+        "code": "a = (1, 2, 3)\nprint(a)\nprint(type(a))",
+        "output": "(1, 2, 3)\n<class 'tuple'>",
+        "core": true
+      },
+      {
+        "id": "py-tup-empty",
+        "title": "Empty Tuple ()",
+        "explain": "An empty tuple is constructed with () or tuple().",
+        "group": "Tuples",
+        "syntax": "empty = () | empty = tuple()",
+        "code": "a = ()\nprint(a)\nprint(type(a))\nprint(len(a))",
+        "output": "()\n<class 'tuple'>\n0"
+      },
+      {
+        "id": "py-tup-single-comma",
+        "title": "Single-Element Tuple with Comma (x,) ⭐",
+        "explain": "A trailing comma is REQUIRED to make a single-element tuple. Without the comma, (10) is merely an integer.",
+        "group": "Tuples",
+        "syntax": "single = (10,)  # comma makes it a tuple!",
+        "code": "a = (10,)\nb = (10)\nprint(\"a:\", type(a))\nprint(\"b:\", type(b))",
+        "output": "a: <class 'tuple'>\nb: <class 'int'>",
+        "core": true
+      },
+      {
+        "id": "py-tup-no-parens",
+        "title": "Tuples Without Parentheses",
+        "explain": "In Python, the comma creates the tuple, meaning parentheses are optional in many contexts.",
+        "group": "Tuples",
+        "syntax": "t = 1, 2, 3",
+        "code": "a = 1, 2, 3\nprint(a)\nprint(type(a))",
+        "output": "(1, 2, 3)\n<class 'tuple'>",
+        "core": true
+      },
+      {
+        "id": "py-tup-types",
+        "title": "Mixed Data Types in Tuples",
+        "explain": "Tuples can hold elements of any data type, including strings, numbers, booleans, and lists.",
+        "group": "Tuples",
+        "syntax": "person = (\"Sajin\", 19, 62.5, True)",
+        "code": "person = (\"Sajin\", 19, 62.5, True)\nprint(person)\nfor item in person:\n    print(type(item))",
+        "output": "('Sajin', 19, 62.5, True)\n<class 'str'>\n<class 'int'>\n<class 'float'>\n<class 'bool'>"
+      }
+    ]
+  },
+  {
+    "id": "py-tup-indexing-slicing",
+    "group": "Tuples",
+    "number": "23",
+    "title": "Tuples: Indexing & Slicing",
+    "tagline": "Accessing tuple elements, negative offsets, and slicing variations",
+    "items": [
+      {
+        "id": "py-tup-indexing",
+        "title": "Positive Indexing",
+        "explain": "Accesses elements starting from index 0 up to len(t) - 1.",
+        "group": "Tuples",
+        "syntax": "tuple[index]",
+        "code": "t = (10, 20, 30, 40)\nprint(t[0])\nprint(t[2])",
+        "output": "10\n30",
+        "core": true
+      },
+      {
+        "id": "py-tup-neg-indexing",
+        "title": "Negative Indexing",
+        "explain": "Counts backwards from the end of the tuple.",
+        "group": "Tuples",
+        "syntax": "tuple[-index]",
+        "code": "t = (10, 20, 30, 40)\nprint(t[-1])\nprint(t[-2])",
+        "output": "40\n30",
+        "core": true
+      },
+      {
+        "id": "py-tup-slicing",
+        "title": "Tuple Slicing [start:stop]",
+        "explain": "Extracts a new tuple from start up to stop (stop is NOT included).",
+        "group": "Tuples",
+        "syntax": "tuple[start : stop]",
+        "code": "t = (10, 20, 30, 40, 50)\nprint(t[1:4])\nprint(t[:3])\nprint(t[2:])",
+        "output": "(20, 30, 40)\n(10, 20, 30)\n(30, 40, 50)",
+        "core": true
+      },
+      {
+        "id": "py-tup-slicing-step",
+        "title": "Slicing with Step [start:stop:step]",
+        "explain": "Extracts elements with a stride or negative step to reverse.",
+        "group": "Tuples",
+        "syntax": "tuple[start : stop : step]",
+        "code": "t = (0, 1, 2, 3, 4, 5)\nprint(t[::2])\nprint(t[::-1])",
+        "output": "(0, 2, 4)\n(5, 4, 3, 2, 1, 0)",
+        "core": true
+      }
+    ]
+  },
+  {
+    "id": "py-tup-immutability",
+    "group": "Tuples",
+    "number": "24",
+    "title": "Tuples: Immutability & Safety",
+    "tagline": "Why tuples cannot be changed, and how nested mutable objects behave",
+    "items": [
+      {
+        "id": "py-tup-immutable-rule",
+        "title": "Tuples are Immutable",
+        "explain": "Once created, elements cannot be reassigned, added, or deleted; attempting to do so raises TypeError.",
+        "group": "Tuples",
+        "syntax": "t[0] = 100  # Raises TypeError",
+        "code": "t = (1, 2, 3)\ntry:\n    t[0] = 100\nexcept TypeError as e:\n    print(\"TypeError:\", e)",
+        "output": "TypeError: 'tuple' object does not support item assignment",
+        "core": true
+      },
+      {
+        "id": "py-tup-inner-mutability",
+        "title": "Modifying Mutable Objects Inside Tuples",
+        "explain": "A tuple's references are fixed, but if a tuple holds a mutable object (like a list), that inner list can still be modified.",
+        "group": "Tuples",
+        "syntax": "t = ([1, 2], [3, 4])\nt[0].append(99)  # Allowed!",
+        "code": "t = ([1, 2], [3, 4])\nt[0].append(99)\nprint(t)",
+        "output": "([1, 2, 99], [3, 4])",
+        "core": true
+      },
+      {
+        "id": "py-tup-rebind-vs-mutate",
+        "title": "Rebinding Variable vs. Mutating",
+        "explain": "Assigning t = t + (4,) does not mutate the old tuple; it allocates a brand-new tuple and rebinds t.",
+        "group": "Tuples",
+        "syntax": "t = t + (new_item,)",
+        "code": "t = (1, 2, 3)\nold_id = id(t)\nt = t + (4,)\nprint(\"New tuple:\", t)\nprint(\"Same object in RAM?:\", id(t) == old_id)",
+        "output": "New tuple: (1, 2, 3, 4)\nSame object in RAM?: False"
+      }
+    ]
+  },
+  {
+    "id": "py-tup-packing-unpacking",
+    "group": "Tuples",
+    "number": "25",
+    "title": "Tuples: Packing & Unpacking",
+    "tagline": "Tuple packing, variable assignment unpacking, extended * unpacking, and swapping",
+    "items": [
+      {
+        "id": "py-tup-packing",
+        "title": "Tuple Packing",
+        "explain": "Multiple comma-separated values are automatically packed into a single tuple object.",
+        "group": "Tuples",
+        "syntax": "t = val1, val2, val3",
+        "code": "t = 10, 20, 30\nprint(t)\nprint(type(t))",
+        "output": "(10, 20, 30)\n<class 'tuple'>",
+        "core": true
+      },
+      {
+        "id": "py-tup-unpacking",
+        "title": "Tuple Unpacking",
+        "explain": "Extracts elements of a tuple into distinct variables simultaneously (must match element count).",
+        "group": "Tuples",
+        "syntax": "a, b, c = t",
+        "code": "point = (4, 9)\nx, y = point\nprint(f\"x={x}, y={y}\")",
+        "output": "x=4, y=9",
+        "core": true
+      },
+      {
+        "id": "py-tup-extended-unpack",
+        "title": "Extended Unpacking (*)",
+        "explain": "Uses an asterisk (*) on one variable to capture leftover elements as a list.",
+        "group": "Tuples",
+        "syntax": "a, *b, c = t",
+        "code": "t = (1, 2, 3, 4, 5)\na, *b, c = t\nprint(\"a:\", a)\nprint(\"b:\", b, type(b))\nprint(\"c:\", c)",
+        "output": "a: 1\nb: [2, 3, 4] <class 'list'>\nc: 5",
+        "core": true
+      },
+      {
+        "id": "py-tup-swapping",
+        "title": "Variable Swapping (a, b = b, a)",
+        "explain": "Swaps two variables cleanly without requiring any temporary third variable, utilizing tuple packing/unpacking.",
+        "group": "Tuples",
+        "syntax": "a, b = b, a",
+        "code": "a = 5\nb = 10\na, b = b, a\nprint(f\"a={a}, b={b}\")",
+        "output": "a=10, b=5",
+        "core": true
+      },
+      {
+        "id": "py-tup-unpack-loop",
+        "title": "Unpacking in Loops",
+        "explain": "Unpacks tuple pairs directly in the for loop header.",
+        "group": "Tuples",
+        "syntax": "for key, val in pairs:",
+        "code": "pairs = [(1, 'one'), (2, 'two'), (3, 'three')]\nfor num, word in pairs:\n    print(f\"{num} -> {word}\")",
+        "output": "1 -> one\n2 -> two\n3 -> three",
+        "core": true
+      }
+    ]
+  },
+  {
+    "id": "py-tup-methods-builtins",
+    "group": "Tuples",
+    "number": "26",
+    "title": "Tuples: Methods & Built-ins",
+    "tagline": "The only two native tuple methods: count() and index(), plus len, sorted, min, max, sum",
+    "items": [
+      {
+        "id": "py-tup-count",
+        "title": "count()",
+        "explain": "Returns the total number of times a specified value appears in the tuple.",
+        "group": "Tuples",
+        "syntax": "tuple.count(value)",
+        "code": "t = (1, 2, 3, 2, 2, 4)\nprint(t.count(2))\nprint(t.count(9))",
+        "output": "3\n0",
+        "core": true
+      },
+      {
+        "id": "py-tup-index-meth",
+        "title": "index()",
+        "explain": "Returns the first zero-based index where value is found; raises ValueError if not present.",
+        "group": "Tuples",
+        "syntax": "tuple.index(value, [start, stop])",
+        "code": "t = (10, 20, 30, 20, 40)\nprint(t.index(20))\nprint(t.index(20, 2))",
+        "output": "1\n3",
+        "core": true
+      },
+      {
+        "id": "py-tup-len",
+        "title": "len() with Tuples",
+        "explain": "Returns the total count of items stored in the tuple.",
+        "group": "Tuples",
+        "syntax": "len(tuple)",
+        "code": "print(len((1, 2, 3, 4, 5)))\nprint(len((10,)))",
+        "output": "5\n1",
+        "core": true
+      },
+      {
+        "id": "py-tup-sorted",
+        "title": "sorted() with Tuples",
+        "explain": "Returns a new sorted LIST from the tuple. Use tuple(sorted(t)) if a tuple is desired.",
+        "group": "Tuples",
+        "syntax": "list_res = sorted(t) | tup_res = tuple(sorted(t))",
+        "code": "t = (3, 1, 4, 2)\nres_list = sorted(t)\nres_tup = tuple(sorted(t))\nprint(\"list:\", res_list)\nprint(\"tuple:\", res_tup)",
+        "output": "list: [1, 2, 3, 4]\ntuple: (1, 2, 3, 4)",
+        "core": true
+      },
+      {
+        "id": "py-tup-min-max-sum",
+        "title": "min(), max(), sum() with Tuples",
+        "explain": "Built-in aggregation functions operate directly across numeric tuples.",
+        "group": "Tuples",
+        "syntax": "min(t) | max(t) | sum(t)",
+        "code": "t = (10, 40, 20, 30)\nprint(\"min:\", min(t))\nprint(\"max:\", max(t))\nprint(\"sum:\", sum(t))",
+        "output": "min: 10\nmax: 40\nsum: 100"
+      }
+    ]
+  },
+  {
+    "id": "py-tup-operations",
+    "group": "Tuples",
+    "number": "27",
+    "title": "Tuples: Operations & Comparison",
+    "tagline": "Concatenation, repetition, membership testing, and lexicographical comparisons",
+    "items": [
+      {
+        "id": "py-tup-concat",
+        "title": "Tuple Concatenation (+)",
+        "explain": "Joins two tuples together into a brand-new tuple without modifying either original.",
+        "group": "Tuples",
+        "syntax": "tuple1 + tuple2",
+        "code": "a = (1, 2)\nb = (3, 4)\nc = a + b\nprint(c)",
+        "output": "(1, 2, 3, 4)",
+        "core": true
+      },
+      {
+        "id": "py-tup-repeat",
+        "title": "Tuple Repetition (*)",
+        "explain": "Repeats a tuple's elements n times into a new tuple.",
+        "group": "Tuples",
+        "syntax": "tuple * n",
+        "code": "t = (1, 2) * 3\nprint(t)",
+        "output": "(1, 2, 1, 2, 1, 2)"
+      },
+      {
+        "id": "py-tup-membership",
+        "title": "Membership Operators (in, not in)",
+        "explain": "Checks whether a value is present in the tuple.",
+        "group": "Tuples",
+        "syntax": "value in tuple | value not in tuple",
+        "code": "t = (10, 20, 30)\nprint(20 in t)\nprint(99 not in t)",
+        "output": "True\nTrue",
+        "core": true
+      },
+      {
+        "id": "py-tup-comparison",
+        "title": "Comparing Tuples",
+        "explain": "Tuples are compared element-by-element from left to right. If equal, the shorter tuple is smaller.",
+        "group": "Tuples",
+        "syntax": "t1 < t2 | t1 == t2 | t1 > t2",
+        "code": "print((1, 2, 3) < (1, 2, 4))\nprint((1, 2) < (1, 2, 0))\nprint(('apple', 5) < ('banana', 1))",
+        "output": "True\nTrue\nTrue",
+        "core": true
+      }
+    ]
+  },
+  {
+    "id": "py-tup-advanced",
+    "group": "Tuples",
+    "number": "28",
+    "title": "Tuples: Conversions & Advanced Patterns",
+    "tagline": "Converting to/from lists, dict keys, hashing, function returns, and zip()",
+    "items": [
+      {
+        "id": "py-tup-conversions",
+        "title": "Converting Iterables to Tuples",
+        "explain": "Converts lists, strings, sets, or ranges into tuples using tuple().",
+        "group": "Tuples",
+        "syntax": "tuple(list) | tuple(string) | tuple(range)",
+        "code": "print(tuple([1, 2, 3]))\nprint(tuple(\"hello\"))\nprint(tuple(range(4)))",
+        "output": "(1, 2, 3)\n('h', 'e', 'l', 'l', 'o')\n(0, 1, 2, 3)",
+        "core": true
+      },
+      {
+        "id": "py-tup-to-list",
+        "title": "Tuple → List → Tuple Pattern",
+        "explain": "When a tuple must be altered, convert to a list, mutate it, and convert back to a tuple.",
+        "group": "Tuples",
+        "syntax": "lst = list(t); lst.append(x); t = tuple(lst)",
+        "code": "t = (1, 2, 3)\nlst = list(t)\nlst.append(4)\nt = tuple(lst)\nprint(t)",
+        "output": "(1, 2, 3, 4)",
+        "core": true
+      },
+      {
+        "id": "py-tup-function-returns",
+        "title": "Multiple Function Returns",
+        "explain": "A Python function returning multiple comma-separated values returns a single tuple.",
+        "group": "Tuples",
+        "syntax": "return val1, val2",
+        "code": "def min_max(nums):\n    return min(nums), max(nums)\n\nres = min_max([4, 1, 9, 2])\nprint(res, type(res))\nlow, high = res\nprint(f\"low={low}, high={high}\")",
+        "output": "(1, 9) <class 'tuple'>\nlow=1, high=9",
+        "core": true
+      },
+      {
+        "id": "py-tup-dict-keys",
+        "title": "Tuples as Dictionary Keys & Hashing",
+        "explain": "Because tuples are immutable, they are hashable and can be dictionary keys (provided they contain only hashable elements).",
+        "group": "Tuples",
+        "syntax": "d[(row, col)] = value",
+        "code": "coords = {}\ncoords[(0, 0)] = \"Origin\"\ncoords[(3, 4)] = \"Point A\"\nprint(coords[(0, 0)])\nprint(hash((1, 2)))",
+        "output": "Origin\n-3550055125485641917",
+        "core": true
+      },
+      {
+        "id": "py-tup-zip",
+        "title": "zip() Producing Tuples",
+        "explain": "The built-in zip() combines elements from multiple iterables into tuples of grouped pairs.",
+        "group": "Tuples",
+        "syntax": "zip(iter1, iter2)",
+        "code": "names = [\"Alice\", \"Bob\", \"Charlie\"]\nscores = [85, 92, 78]\ncombined = list(zip(names, scores))\nprint(combined)",
+        "output": "[('Alice', 85), ('Bob', 92), ('Charlie', 78)]",
+        "core": true
+      }
+    ]
+  }
+]

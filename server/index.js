@@ -8,9 +8,11 @@ const PORT = process.env.PORT || 3000;
 const sectionsPath = path.join(__dirname, "sections.json");
 const jsDataPath = path.join(__dirname, "data.json");
 const numpyDataPath = path.join(__dirname, "numpy.json");
+const pythonDataPath = path.join(__dirname, "python.json");
 
 function getSectionDataPath(sectionId) {
   if (sectionId === "numpy") return numpyDataPath;
+  if (sectionId === "python") return pythonDataPath;
   return jsDataPath;
 }
 

@@ -3,10 +3,24 @@ const { useState, useEffect, useMemo, useRef, useCallback } = React;
 // ---------- Fallback Section Metadata ----------
 const DEFAULT_SECTIONS = [
   {
+    id: "python",
+    name: "Python",
+    slug: "python",
+    shortName: "Python",
+    logo: "py",
+    tagline: "Strings, Lists & Tuples core reference",
+    heroPrefix: "reference · no account needed",
+    heroTitle: "Python Strings, Lists & Tuples, explained with syntax & runnable examples.",
+    heroSubtitle: "Twenty-eight groups covering Strings, Lists, and Tuples directly from your learning guides. Track each topic with the independent Learned checkbox.",
+    badgeNote: "★ marks essential interview & LeetCode patterns",
+    searchPlaceholder: "search python strings, lists, tuples…",
+    language: "python"
+  },
+  {
     id: "javascript",
     name: "JavaScript",
     slug: "javascript",
-    shortName: "JavaScript",
+    shortName: "JS",
     logo: "js",
     tagline: "Modern syntax, array methods & async patterns",
     heroPrefix: "reference · no account needed",
@@ -73,12 +87,40 @@ function useTopics(sectionId) {
   return state;
 }
 
+// Persistent Learned items hook
+function useLearnedItems() {
+  const STORAGE_KEY = "prepweb_learned_items";
+  const [learnedMap, setLearnedMap] = useState(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      return saved ? JSON.parse(saved) : {};
+    } catch {
+      return {};
+    }
+  });
+
+  const toggleLearned = useCallback((id) => {
+    setLearnedMap((prev) => {
+      const next = { ...prev, [id]: !prev[id] };
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+      } catch (err) {
+        console.warn("Could not save to localStorage", err);
+      }
+      return next;
+    });
+  }, []);
+
+  return { learnedMap, toggleLearned };
+}
+
 function matches(item, category, query) {
   if (!query) return true;
   const q = query.toLowerCase();
   return (
     item.title.toLowerCase().includes(q) ||
     item.explain.toLowerCase().includes(q) ||
+    (item.syntax && item.syntax.toLowerCase().includes(q)) ||
     (item.code && item.code.toLowerCase().includes(q)) ||
     (item.output && item.output.toLowerCase().includes(q)) ||
     category.title.toLowerCase().includes(q)
@@ -153,36 +195,103 @@ function CodeBlock({ code, output, language }) {
   );
 }
 
-function EntryCard({ item, isOpen, onToggle, language }) {
+function EntryCard({ item, isOpen, onToggle, language, isLearned, onToggleLearned }) {
   return (
     <div
       id={item.id}
       className={
-        "rounded-xl border transition-colors " +
-        (isOpen ? "border-violet/40 bg-surface-raised" : "border-hairline bg-surface hover:border-hairline hover:bg-surface-hover")
+        "rounded-xl border transition-all duration-150 " +
+        (isLearned
+          ? (isOpen
+              ? "border-mint/60 bg-[#0e211d]/90 shadow-[0_0_20px_rgba(95,217,184,0.08)]"
+              : "border-mint/40 bg-[#0e201b]/60 hover:border-mint/60 hover:bg-[#0e201b]/80")
+          : (isOpen
+              ? "border-violet/40 bg-surface-raised"
+              : "border-hairline bg-surface hover:border-hairline hover:bg-surface-hover"))
       }
     >
-      <button
-        onClick={onToggle}
-        className="focus-ring flex w-full items-start justify-between gap-4 rounded-xl px-4 py-3.5 text-left"
-        aria-expanded={isOpen}
-      >
-        <div className="min-w-0">
-          <div className="flex flex-wrap items-center gap-2">
-            <h3 className="font-mono text-[15px] font-medium text-paper">{item.title}</h3>
-            {item.core && <SparkBadge />}
-          </div>
-          <p className="mt-1 text-sm leading-snug text-muted">{item.explain}</p>
-        </div>
-        <svg
-          className={"mt-1 h-4 w-4 flex-shrink-0 text-muted transition-transform duration-150 " + (isOpen ? "rotate-180 text-violet" : "")}
-          viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"
+      <div className="flex w-full items-start justify-between gap-3 p-4">
+        {/* Main interactive area: Title, Badges, Explanation */}
+        <button
+          onClick={onToggle}
+          className="focus-ring flex-1 text-left min-w-0"
+          aria-expanded={isOpen}
         >
-          <polyline points="6 9 12 15 18 9"></polyline>
-        </svg>
-      </button>
+          <div className="flex flex-wrap items-center gap-2">
+            <h3 className={"font-mono text-[15px] font-medium transition-colors " + (isLearned ? "text-mint font-semibold" : "text-paper")}>
+              {item.title}
+            </h3>
+            {item.core && <SparkBadge />}
+            {isLearned && (
+              <span className="inline-flex items-center gap-1 rounded-full border border-mint/40 bg-mint/10 px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider text-mint">
+                <svg className="h-2.5 w-2.5 stroke-[3]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                Learned
+              </span>
+            )}
+          </div>
+          <p className="mt-1.5 text-sm leading-snug text-muted">{item.explain}</p>
+        </button>
+
+        {/* Action column: Learned checkbox + Expand arrow */}
+        <div className="flex items-center gap-2 flex-shrink-0 pt-0.5">
+          {/* Learned Checkbox */}
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onToggleLearned(item.id);
+            }}
+            title={isLearned ? "Mark as unlearned" : "Mark as learned"}
+            className={
+              "focus-ring flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-mono transition-all select-none " +
+              (isLearned
+                ? "bg-mint/15 text-mint border border-mint/40 hover:bg-mint/25 font-semibold"
+                : "bg-surface/90 text-muted border border-hairline hover:text-paper hover:border-hairline hover:bg-surface-hover")
+            }
+          >
+            <span
+              className={
+                "flex h-3.5 w-3.5 items-center justify-center rounded-sm border transition-colors " +
+                (isLearned ? "border-mint bg-mint text-ink" : "border-muted/50 bg-ink/60")
+              }
+            >
+              {isLearned && (
+                <svg className="h-2.5 w-2.5 stroke-[3]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              )}
+            </span>
+            <span>Learned</span>
+          </button>
+
+          {/* Expand/Collapse Chevron */}
+          <button
+            type="button"
+            onClick={onToggle}
+            aria-expanded={isOpen}
+            aria-label="Expand code example"
+            className="focus-ring p-1 rounded-md text-muted hover:text-paper hover:bg-white/5 transition-colors"
+          >
+            <svg
+              className={"h-4 w-4 transition-transform duration-150 " + (isOpen ? "rotate-180 text-violet" : "")}
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"
+            >
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+
       {isOpen && (
         <div className="px-4 pb-4">
+          {item.syntax && (
+            <div className="mb-2.5 flex flex-wrap items-center gap-2 rounded-lg border border-hairline/80 bg-ink/70 px-3 py-2 font-mono text-xs">
+              <span className="text-[10px] uppercase tracking-wider text-muted/70 font-semibold">Syntax:</span>
+              <code className="text-spark font-medium break-all">{item.syntax}</code>
+            </div>
+          )}
           <CodeBlock code={item.code} output={item.output} language={language} />
         </div>
       )}
@@ -190,9 +299,11 @@ function EntryCard({ item, isOpen, onToggle, language }) {
   );
 }
 
-function CategorySection({ category, query, openIds, toggle, registerRef, language }) {
+function CategorySection({ category, query, openIds, toggle, registerRef, language, learnedMap, toggleLearned }) {
   const visibleItems = category.items.filter((it) => matches(it, category, query));
   if (query && visibleItems.length === 0) return null;
+
+  const learnedCount = visibleItems.filter((it) => learnedMap[it.id]).length;
 
   return (
     <section
@@ -200,10 +311,23 @@ function CategorySection({ category, query, openIds, toggle, registerRef, langua
       ref={(el) => registerRef(category.id, el)}
       className="scroll-mt-24 mb-14"
     >
-      <div className="mb-5 flex items-baseline gap-3 border-b border-hairline pb-3">
+      <div className="mb-5 flex flex-wrap items-baseline gap-3 border-b border-hairline pb-3">
         <span className="font-mono text-sm text-spark">{category.number}</span>
         <h2 className="font-display text-xl font-semibold text-paper sm:text-2xl">{category.title}</h2>
-        <span className="ml-auto hidden font-mono text-xs text-muted sm:inline">{category.tagline}</span>
+        {category.group && (
+          <span className="rounded-md border border-hairline/70 bg-surface/50 px-2 py-0.5 font-mono text-[11px] text-muted">
+            {category.group}
+          </span>
+        )}
+        <div className="ml-auto flex items-center gap-2 font-mono text-xs text-muted">
+          {learnedCount > 0 && (
+            <span className="text-mint font-medium">
+              ✓ {learnedCount}/{visibleItems.length} learned
+            </span>
+          )}
+          <span className="hidden sm:inline text-muted/60">·</span>
+          <span className="hidden sm:inline">{category.tagline}</span>
+        </div>
       </div>
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
         {visibleItems.map((item) => (
@@ -213,6 +337,8 @@ function CategorySection({ category, query, openIds, toggle, registerRef, langua
             isOpen={!!openIds[item.id]}
             onToggle={() => toggle(item.id)}
             language={language}
+            isLearned={!!learnedMap[item.id]}
+            onToggleLearned={toggleLearned}
           />
         ))}
       </div>
@@ -222,7 +348,7 @@ function CategorySection({ category, query, openIds, toggle, registerRef, langua
 
 function SectionSwitcher({ sections, activeSection, onSelectSection }) {
   return (
-    <div className="grid grid-cols-2 gap-1 rounded-xl border border-hairline bg-ink p-1.5">
+    <div className={"grid gap-1 rounded-xl border border-hairline bg-ink p-1.5 " + (sections.length >= 3 ? "grid-cols-3" : "grid-cols-2")}>
       {sections.map((sec) => {
         const isActive = activeSection === sec.id;
         return (
@@ -230,14 +356,14 @@ function SectionSwitcher({ sections, activeSection, onSelectSection }) {
             key={sec.id}
             onClick={() => onSelectSection(sec.id)}
             className={
-              "focus-ring flex items-center justify-center gap-2 rounded-lg py-2 px-3 text-xs font-mono font-medium transition-all " +
+              "focus-ring flex items-center justify-center gap-1.5 rounded-lg py-2 px-2 text-xs font-mono font-medium transition-all " +
               (isActive
                 ? "bg-surface-raised text-paper shadow-sm border border-hairline text-spark font-semibold"
                 : "text-muted hover:text-paper hover:bg-surface/60")
             }
           >
             <span className={isActive ? "text-spark" : "text-muted/60"}>•</span>
-            <span>{sec.shortName || sec.name}</span>
+            <span className="truncate">{sec.shortName || sec.name}</span>
           </button>
         );
       })}
@@ -255,9 +381,24 @@ function Sidebar({
   setQuery,
   activeCat,
   mobileOpen,
-  closeMobile
+  closeMobile,
+  learnedMap,
+  activeGroup,
+  setActiveGroup
 }) {
   const totalItems = categories.reduce((sum, c) => sum + c.items.length, 0);
+
+  // Group categories if available (e.g. Strings, Lists, Tuples in Python)
+  const groupedCategories = useMemo(() => {
+    if (activeSection !== "python") {
+      return [{ groupName: null, items: categories }];
+    }
+    const groups = ["Strings", "Lists", "Tuples"];
+    return groups.map((grp) => ({
+      groupName: grp,
+      items: categories.filter((c) => c.group === grp)
+    })).filter((g) => g.items.length > 0);
+  }, [activeSection, categories]);
 
   const nav = (
     <div className="flex h-full flex-col">
@@ -266,7 +407,7 @@ function Sidebar({
         <a href="#top" className="font-display text-lg font-semibold tracking-tight text-paper">
           {currentSectionMeta.logo || "ref"}<span className="text-spark">.</span>cheatsheet
         </a>
-        <p className="mt-1 font-mono text-[11px] text-muted">{totalItems} entries · no login · read freely</p>
+        <p className="mt-1 font-mono text-[11px] text-muted">{totalItems} entries · persistent progress · read freely</p>
       </div>
 
       {/* Top Section / Library Switcher */}
@@ -302,23 +443,53 @@ function Sidebar({
 
       {/* Categories Nav */}
       <nav className="flex-1 overflow-y-auto px-3 pb-6">
-        <div className="mb-2 px-2 font-mono text-[10px] uppercase tracking-wider text-muted/80">Categories</div>
-        {categories.map((c) => (
-          <a
-            key={c.id}
-            href={"#cat-" + c.id}
-            onClick={closeMobile}
-            className={
-              "group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors " +
-              (activeCat === c.id ? "bg-surface-raised text-paper" : "text-muted hover:bg-surface hover:text-paper")
-            }
-          >
-            <span className={"font-mono text-xs " + (activeCat === c.id ? "text-spark" : "text-muted group-hover:text-spark")}>
-              {c.number}
-            </span>
-            <span className="truncate">{c.title}</span>
-            <span className="ml-auto font-mono text-[10px] text-muted">{c.items.length}</span>
-          </a>
+        {groupedCategories.map((grp, gIdx) => (
+          <div key={grp.groupName || gIdx} className="mb-4">
+            {grp.groupName && (
+              <div className="flex items-center justify-between px-2 pt-2 pb-1.5">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-spark/90 font-semibold">
+                  {grp.groupName}
+                </span>
+                <span className="font-mono text-[10px] text-muted/60">
+                  {grp.items.reduce((sum, c) => sum + c.items.length, 0)} items
+                </span>
+              </div>
+            )}
+            {!grp.groupName && (
+              <div className="mb-2 px-2 font-mono text-[10px] uppercase tracking-wider text-muted/80">
+                Categories
+              </div>
+            )}
+            {grp.items.map((c) => {
+              const catLearned = c.items.filter((it) => learnedMap[it.id]).length;
+              const isAllLearned = catLearned > 0 && catLearned === c.items.length;
+              return (
+                <a
+                  key={c.id}
+                  href={"#cat-" + c.id}
+                  onClick={closeMobile}
+                  className={
+                    "group flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors " +
+                    (activeCat === c.id ? "bg-surface-raised text-paper font-medium" : "text-muted hover:bg-surface hover:text-paper")
+                  }
+                >
+                  <span className={"font-mono text-xs " + (activeCat === c.id ? "text-spark" : "text-muted group-hover:text-spark")}>
+                    {c.number}
+                  </span>
+                  <span className="truncate flex-1">{c.title.replace(/^(Strings|Lists|Tuples):\s*/i, "")}</span>
+                  <span className="font-mono text-[10px] flex items-center gap-1">
+                    {catLearned > 0 ? (
+                      <span className={isAllLearned ? "text-mint font-semibold" : "text-mint/80"}>
+                        {catLearned}/{c.items.length}
+                      </span>
+                    ) : (
+                      <span className="text-muted/60">{c.items.length}</span>
+                    )}
+                  </span>
+                </a>
+              );
+            })}
+          </div>
         ))}
       </nav>
     </div>
@@ -344,7 +515,21 @@ function Sidebar({
   );
 }
 
-function Hero({ currentSectionMeta, totalCategories, totalItems, sections, activeSection, onSelectSection }) {
+function Hero({
+  currentSectionMeta,
+  totalCategories,
+  totalItems,
+  totalLearned,
+  sections,
+  activeSection,
+  onSelectSection,
+  activeGroup,
+  setActiveGroup,
+  categories,
+  learnedMap
+}) {
+  const pct = totalItems > 0 ? Math.round((totalLearned / totalItems) * 100) : 0;
+
   return (
     <div id="top" className="mb-14 border-b border-hairline pb-10">
       {/* Top quick-switch banner */}
@@ -380,9 +565,69 @@ function Hero({ currentSectionMeta, totalCategories, totalItems, sections, activ
       <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-muted">
         {currentSectionMeta.heroSubtitle}
       </p>
+
+      {/* Learning Progress Meter */}
+      <div className="mt-6 rounded-xl border border-hairline bg-surface/40 p-3.5 max-w-xl">
+        <div className="flex items-center justify-between font-mono text-xs text-muted mb-2">
+          <span className="flex items-center gap-2">
+            <span className={"h-2 w-2 rounded-full " + (totalLearned > 0 ? "bg-mint animate-pulse" : "bg-muted")}></span>
+            <span className="text-paper font-medium">Topic Mastery:</span>
+          </span>
+          <span className="font-semibold text-mint">
+            {totalLearned} of {totalItems} learned ({pct}%)
+          </span>
+        </div>
+        <div className="h-1.5 w-full overflow-hidden rounded-full bg-ink">
+          <div
+            className="h-full bg-mint transition-all duration-300"
+            style={{ width: `${pct}%` }}
+          />
+        </div>
+      </div>
+
+      {/* Python Sub-Module Filters (Strings, Lists, Tuples) */}
+      {activeSection === "python" && (
+        <div className="mt-5 flex flex-wrap items-center gap-2">
+          <span className="font-mono text-xs text-muted/80 mr-1">Filter Module:</span>
+          {[
+            { id: "all", label: "All Python" },
+            { id: "Strings", label: "Strings" },
+            { id: "Lists", label: "Lists" },
+            { id: "Tuples", label: "Tuples" }
+          ].map((grp) => {
+            const isSel = activeGroup === grp.id;
+            const count = grp.id === "all"
+              ? categories.reduce((sum, c) => sum + c.items.length, 0)
+              : categories.filter((c) => c.group === grp.id).reduce((sum, c) => sum + c.items.length, 0);
+            const learned = grp.id === "all"
+              ? categories.reduce((sum, c) => sum + c.items.filter((it) => learnedMap[it.id]).length, 0)
+              : categories.filter((c) => c.group === grp.id).reduce((sum, c) => sum + c.items.filter((it) => learnedMap[it.id]).length, 0);
+
+            return (
+              <button
+                key={grp.id}
+                onClick={() => setActiveGroup(grp.id)}
+                className={
+                  "focus-ring flex items-center gap-2 rounded-lg px-3 py-1.5 font-mono text-xs transition-all " +
+                  (isSel
+                    ? "bg-paper text-ink font-semibold shadow"
+                    : "border border-hairline bg-surface/70 text-muted hover:border-hairline hover:bg-surface-hover hover:text-paper")
+                }
+              >
+                <span>{grp.label}</span>
+                <span className={"rounded px-1.5 py-0.2 text-[10px] " + (isSel ? "bg-ink/15 text-ink font-bold" : "bg-ink text-muted")}>
+                  {learned > 0 ? `${learned}/${count}` : count}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      )}
+
       <div className="mt-5 flex flex-wrap gap-2 font-mono text-xs text-muted">
-        <span className="rounded-full border border-hairline px-3 py-1">click a card to reveal its example</span>
-        <span className="rounded-full border border-hairline px-3 py-1">search anything from the sidebar</span>
+        <span className="rounded-full border border-hairline px-3 py-1">click a card to view syntax & example</span>
+        <span className="rounded-full border border-hairline px-3 py-1">toggle [Learned] to track mastery</span>
+        <span className="rounded-full border border-hairline px-3 py-1">persists on refresh</span>
         {currentSectionMeta.badgeNote && (
           <span className="inline-flex items-center gap-1.5 rounded-full border border-spark/30 bg-spark/10 px-3 py-1 text-spark">
             {currentSectionMeta.badgeNote}
@@ -399,16 +644,21 @@ function App() {
   // Determine initial active section from hash or URL param
   const getInitialSection = () => {
     const hash = window.location.hash.toLowerCase();
+    if (hash.includes("javascript") || window.location.search.includes("javascript")) return "javascript";
     if (hash.includes("numpy") || window.location.search.includes("numpy")) return "numpy";
-    return "javascript";
+    if (hash.includes("python") || window.location.search.includes("python")) return "python";
+    return "python"; // Default to Python so new sections appear first
   };
 
   const [activeSection, setActiveSection] = useState(getInitialSection);
   const { loading, error, categories } = useTopics(activeSection);
+  const { learnedMap, toggleLearned } = useLearnedItems();
+
   const [query, setQuery] = useState("");
   const [openIds, setOpenIds] = useState({});
   const [activeCat, setActiveCat] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeGroup, setActiveGroup] = useState("all");
   const sectionRefs = useRef({});
 
   const currentSectionMeta = useMemo(() => {
@@ -420,6 +670,7 @@ function App() {
     setActiveSection(sectionId);
     setQuery("");
     setOpenIds({});
+    setActiveGroup("all");
     sectionRefs.current = {};
     window.location.hash = sectionId;
   }, [activeSection]);
@@ -432,6 +683,8 @@ function App() {
         setActiveSection("numpy");
       } else if (hash.startsWith("#javascript")) {
         setActiveSection("javascript");
+      } else if (hash.startsWith("#python")) {
+        setActiveSection("python");
       }
     };
     window.addEventListener("hashchange", onHashChange);
@@ -446,9 +699,17 @@ function App() {
     if (el) sectionRefs.current[id] = el;
   }, []);
 
+  // Filter categories by activeGroup (for Python)
+  const displayedCategories = useMemo(() => {
+    if (activeSection !== "python" || activeGroup === "all") {
+      return categories;
+    }
+    return categories.filter((c) => c.group === activeGroup);
+  }, [categories, activeSection, activeGroup]);
+
   // scrollspy
   useEffect(() => {
-    if (!categories.length) return;
+    if (!displayedCategories.length) return;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -462,19 +723,26 @@ function App() {
     );
     Object.values(sectionRefs.current).forEach((el) => el && observer.observe(el));
     return () => observer.disconnect();
-  }, [categories]);
+  }, [displayedCategories]);
 
   const totalMatches = useMemo(() => {
     if (!query) return null;
-    return categories.reduce(
+    return displayedCategories.reduce(
       (sum, c) => sum + c.items.filter((it) => matches(it, c, query)).length,
       0
     );
-  }, [categories, query]);
+  }, [displayedCategories, query]);
 
   const totalItems = useMemo(() => {
     return categories.reduce((sum, c) => sum + c.items.length, 0);
   }, [categories]);
+
+  const totalLearned = useMemo(() => {
+    return categories.reduce(
+      (sum, c) => sum + c.items.filter((it) => learnedMap[it.id]).length,
+      0
+    );
+  }, [categories, learnedMap]);
 
   return (
     <div className="min-h-screen bg-ink">
@@ -489,6 +757,9 @@ function App() {
         activeCat={activeCat}
         mobileOpen={mobileOpen}
         closeMobile={() => setMobileOpen(false)}
+        learnedMap={learnedMap}
+        activeGroup={activeGroup}
+        setActiveGroup={setActiveGroup}
       />
 
       {/* mobile top bar */}
@@ -526,9 +797,14 @@ function App() {
             currentSectionMeta={currentSectionMeta}
             totalCategories={categories.length}
             totalItems={totalItems}
+            totalLearned={totalLearned}
             sections={sections}
             activeSection={activeSection}
             onSelectSection={handleSelectSection}
+            activeGroup={activeGroup}
+            setActiveGroup={setActiveGroup}
+            categories={categories}
+            learnedMap={learnedMap}
           />
 
           {loading && (
@@ -555,7 +831,7 @@ function App() {
           )}
 
           {!loading && !error && (
-            categories.map((cat) => (
+            displayedCategories.map((cat) => (
               <CategorySection
                 key={cat.id}
                 category={cat}
@@ -564,12 +840,14 @@ function App() {
                 toggle={toggle}
                 registerRef={registerRef}
                 language={currentSectionMeta.language}
+                learnedMap={learnedMap}
+                toggleLearned={toggleLearned}
               />
             ))
           )}
 
           <footer className="mt-16 border-t border-hairline pt-6 pb-2 text-center font-mono text-xs text-muted">
-            built for reading, not logging in.
+            built for reading and tracking mastery · no account needed.
           </footer>
         </div>
       </main>
