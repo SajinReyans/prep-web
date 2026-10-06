@@ -43,5 +43,20 @@
     "searchPlaceholder": "search python strings, lists, tuples…",
     "language": "python",
     "dataFile": "python.json"
+  },
+  {
+    "id": "react",
+    "name": "React.js",
+    "slug": "react",
+    "shortName": "React",
+    "logo": "atom",
+    "tagline": "Complete React course: Fundamentals to Production",
+    "heroPrefix": "course · 31 modules · no account needed",
+    "heroTitle": "Complete React.js Course: All 31 Chapters with syntax, code & diagrams.",
+    "heroSubtitle": "Preserving every lesson, explanation, syntax block, code example, output, responsive table, callout box, and interactive flow diagram with persistent Learned tracking.",
+    "badgeNote": "★ marks essential core concepts",
+    "searchPlaceholder": "search react topics, hooks, props, state…",
+    "language": "jsx",
+    "dataFile": "react.json"
   }
 ]

@@ -3,6 +3,20 @@ const { useState, useEffect, useMemo, useRef, useCallback } = React;
 // ---------- Fallback Section Metadata ----------
 const DEFAULT_SECTIONS = [
   {
+    id: "react",
+    name: "React.js",
+    slug: "react",
+    shortName: "React",
+    logo: "atom",
+    tagline: "Complete React course: Fundamentals to Production",
+    heroPrefix: "comprehensive course · 31 modules · no account needed",
+    heroTitle: "Complete React.js Course: All 31 Chapters with syntax, code & diagrams.",
+    heroSubtitle: "Thirty-one modules covering everything from Fundamentals to Production. Preserving all explanations, syntax, runnable examples, responsive tables, callout notes, and interactive flow diagrams with persistent Learned tracking.",
+    badgeNote: "★ marks essential core concepts",
+    searchPlaceholder: "search react topics, hooks, props, state…",
+    language: "jsx"
+  },
+  {
     id: "python",
     name: "Python",
     slug: "python",
@@ -117,14 +131,30 @@ function useLearnedItems() {
 function matches(item, category, query) {
   if (!query) return true;
   const q = query.toLowerCase();
-  return (
+  if (
     item.title.toLowerCase().includes(q) ||
     item.explain.toLowerCase().includes(q) ||
     (item.syntax && item.syntax.toLowerCase().includes(q)) ||
     (item.code && item.code.toLowerCase().includes(q)) ||
     (item.output && item.output.toLowerCase().includes(q)) ||
     category.title.toLowerCase().includes(q)
-  );
+  ) return true;
+
+  if (item.blocks && Array.isArray(item.blocks)) {
+    for (let i = 0; i < item.blocks.length; i++) {
+      const b = item.blocks[i];
+      if (b.content && b.content.toLowerCase().includes(q)) return true;
+      if (b.text && b.text.toLowerCase().includes(q)) return true;
+      if (b.code && b.code.toLowerCase().includes(q)) return true;
+      if (b.title && b.title.toLowerCase().includes(q)) return true;
+      if (b.steps && b.steps.some((s) => s.toLowerCase().includes(q))) return true;
+      if (b.headers && b.headers.some((h) => h.toLowerCase().includes(q))) return true;
+      if (b.rows && b.rows.some((r) => r.some((c) => c.toLowerCase().includes(q)))) return true;
+      if (b.items && b.items.some((it) => it.toLowerCase().includes(q))) return true;
+    }
+  }
+
+  return false;
 }
 
 // ---------- UI Components ----------
@@ -195,12 +225,220 @@ function CodeBlock({ code, output, language }) {
   );
 }
 
+function CalloutIcon({ variant }) {
+  if (variant === "warning") {
+    return (
+      <svg className="h-4 w-4 text-[#ff5f57] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+        <line x1="12" y1="9" x2="12" y2="13"/>
+        <line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+    );
+  }
+  if (variant === "tip") {
+    return (
+      <svg className="h-4 w-4 text-spark flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2l2.2 6.8H21l-5.6 4.1L17.6 20 12 15.9 6.4 20l2.2-7.1L3 8.8h6.8z"/>
+      </svg>
+    );
+  }
+  if (variant === "note") {
+    return (
+      <svg className="h-4 w-4 text-mint flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="16" x2="12" y2="12"/>
+        <line x1="12" y1="8" x2="12.01" y2="8"/>
+      </svg>
+    );
+  }
+  return (
+    <svg className="h-4 w-4 text-violet flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="16" x2="12" y2="12"/>
+      <line x1="12" y1="8" x2="12.01" y2="8"/>
+    </svg>
+  );
+}
+
+function LessonBlocks({ blocks, language }) {
+  if (!blocks || !blocks.length) return null;
+
+  return (
+    <div className="space-y-3.5 pt-2">
+      {blocks.map((block, idx) => {
+        if (block.type === "text") {
+          return (
+            <p key={idx} className="text-[13px] leading-relaxed text-paper/90 whitespace-pre-line font-sans">
+              {block.content}
+            </p>
+          );
+        }
+
+        if (block.type === "heading") {
+          return (
+            <div key={idx} className="pt-3 pb-1 border-b border-hairline/40 flex items-center gap-2">
+              <span className="font-mono text-xs font-bold text-violet">#</span>
+              <h4 className="font-display text-sm font-semibold text-paper tracking-wide">
+                {block.text}
+              </h4>
+            </div>
+          );
+        }
+
+        if (block.type === "syntax") {
+          return (
+            <div key={idx} className="flex flex-wrap items-center gap-2 rounded-lg border border-spark/30 bg-ink/80 px-3.5 py-2 font-mono text-xs">
+              <span className="rounded bg-spark/15 px-1.5 py-0.5 text-[10px] uppercase font-bold tracking-wider text-spark">Syntax</span>
+              <code className="text-spark font-medium break-all">{block.code}</code>
+            </div>
+          );
+        }
+
+        if (block.type === "code") {
+          return (
+            <div key={idx} className="my-2">
+              {block.caption && (
+                <div className="mb-1 font-mono text-[11px] text-muted flex items-center gap-1.5">
+                  <span className="text-mint font-semibold">›</span>
+                  <span>{block.caption}</span>
+                </div>
+              )}
+              <CodeBlock code={block.code} language={block.language || language} />
+            </div>
+          );
+        }
+
+        if (block.type === "output") {
+          return (
+            <div key={idx} className="overflow-hidden rounded-lg border border-hairline bg-surface/50 p-3">
+              <div className="mb-1 font-mono text-[10px] uppercase tracking-wider text-muted font-semibold flex items-center gap-1.5">
+                <span className="h-1.5 w-1.5 rounded-full bg-mint"></span>
+                Output
+              </div>
+              <pre className="overflow-x-auto font-mono text-[12px] leading-relaxed text-mint whitespace-pre">{block.content}</pre>
+            </div>
+          );
+        }
+
+        if (block.type === "callout") {
+          const variantClasses = {
+            warning: "border-red-500/40 bg-red-950/20 text-red-200",
+            tip: "border-spark/40 bg-spark/10 text-amber-100",
+            important: "border-violet/40 bg-violet/10 text-violet-100",
+            note: "border-mint/40 bg-mint/10 text-emerald-100"
+          }[block.variant || "important"] || "border-violet/40 bg-violet/10 text-violet-100";
+
+          return (
+            <div key={idx} className={`rounded-xl border p-3.5 transition-all ${variantClasses}`}>
+              <div className="flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-wider mb-1.5 text-paper">
+                <CalloutIcon variant={block.variant} />
+                <span>{block.title}</span>
+              </div>
+              <div className="text-[13px] leading-relaxed whitespace-pre-line text-paper/90 font-sans">
+                {block.content}
+              </div>
+            </div>
+          );
+        }
+
+        if (block.type === "diagram") {
+          if (block.diagramType === "tree") {
+            return (
+              <div key={idx} className="overflow-hidden rounded-lg border border-hairline bg-ink/90 p-3.5">
+                <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-muted flex items-center gap-1.5 font-semibold">
+                  <span className="text-violet">✦</span>
+                  Structure Diagram
+                </div>
+                <pre className="overflow-x-auto font-mono text-xs leading-relaxed text-mint whitespace-pre">{block.raw}</pre>
+              </div>
+            );
+          }
+
+          return (
+            <div key={idx} className="rounded-xl border border-hairline bg-ink/70 p-3.5">
+              {block.title && (
+                <div className="mb-3 font-mono text-xs font-semibold text-spark flex items-center gap-2">
+                  <span className="text-mint">⚡</span>
+                  <span>{block.title}</span>
+                </div>
+              )}
+              <div className="flex flex-col sm:flex-row flex-wrap items-center gap-2 justify-start">
+                {block.steps.map((step, sIdx) => (
+                  <React.Fragment key={sIdx}>
+                    <div className="flex items-center gap-2 rounded-lg border border-hairline bg-surface-raised px-3 py-1.5 text-xs font-mono text-paper shadow-sm">
+                      <span className="flex h-4 w-4 items-center justify-center rounded-full bg-violet/20 text-[10px] font-bold text-violet">{sIdx + 1}</span>
+                      <span>{step}</span>
+                    </div>
+                    {sIdx < block.steps.length - 1 && (
+                      <span className="text-spark font-mono font-bold text-sm transform sm:rotate-0 rotate-90 my-0.5 sm:my-0">→</span>
+                    )}
+                  </React.Fragment>
+                ))}
+              </div>
+            </div>
+          );
+        }
+
+        if (block.type === "table") {
+          return (
+            <div key={idx} className="overflow-x-auto rounded-xl border border-hairline bg-surface/40 my-3">
+              <table className="w-full text-left text-xs font-mono">
+                {block.headers && block.headers.length > 0 && (
+                  <thead className="border-b border-hairline bg-surface text-muted uppercase text-[10px] tracking-wider">
+                    <tr>
+                      {block.headers.map((h, hIdx) => (
+                        <th key={hIdx} className="px-3.5 py-2 font-semibold text-paper">{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                )}
+                <tbody className="divide-y divide-hairline/60">
+                  {block.rows.map((row, rIdx) => (
+                    <tr key={rIdx} className="hover:bg-white/[0.02] transition-colors">
+                      {row.map((cell, cIdx) => (
+                        <td key={cIdx} className="px-3.5 py-2 text-paper/90 whitespace-normal leading-normal">{cell}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          );
+        }
+
+        if (block.type === "list") {
+          return (
+            <div key={idx} className="rounded-lg border border-hairline/60 bg-surface/30 p-3 my-2">
+              {block.title && (
+                <div className="font-mono text-xs font-medium text-paper mb-2">{block.title}</div>
+              )}
+              <ul className="space-y-1.5">
+                {block.items.map((it, itIdx) => (
+                  <li key={itIdx} className="flex items-start gap-2 text-xs text-muted">
+                    <span className="text-mint font-bold mt-0.5">•</span>
+                    <span className="text-paper/90 leading-relaxed font-sans">{it}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        }
+
+        return null;
+      })}
+    </div>
+  );
+}
+
 function EntryCard({ item, isOpen, onToggle, language, isLearned, onToggleLearned }) {
+  const hasBlocks = item.blocks && item.blocks.length > 0;
+
   return (
     <div
       id={item.id}
       className={
         "rounded-xl border transition-all duration-150 " +
+        (isOpen && hasBlocks ? "md:col-span-2 " : "") +
         (isLearned
           ? (isOpen
               ? "border-mint/60 bg-[#0e211d]/90 shadow-[0_0_20px_rgba(95,217,184,0.08)]"
@@ -271,7 +509,7 @@ function EntryCard({ item, isOpen, onToggle, language, isLearned, onToggleLearne
             type="button"
             onClick={onToggle}
             aria-expanded={isOpen}
-            aria-label="Expand code example"
+            aria-label="Expand lesson details"
             className="focus-ring p-1 rounded-md text-muted hover:text-paper hover:bg-white/5 transition-colors"
           >
             <svg
@@ -285,14 +523,20 @@ function EntryCard({ item, isOpen, onToggle, language, isLearned, onToggleLearne
       </div>
 
       {isOpen && (
-        <div className="px-4 pb-4">
-          {item.syntax && (
-            <div className="mb-2.5 flex flex-wrap items-center gap-2 rounded-lg border border-hairline/80 bg-ink/70 px-3 py-2 font-mono text-xs">
-              <span className="text-[10px] uppercase tracking-wider text-muted/70 font-semibold">Syntax:</span>
-              <code className="text-spark font-medium break-all">{item.syntax}</code>
-            </div>
+        <div className="px-4 pb-4 border-t border-hairline/40 pt-3">
+          {hasBlocks ? (
+            <LessonBlocks blocks={item.blocks} language={language} />
+          ) : (
+            <React.Fragment>
+              {item.syntax && (
+                <div className="mb-2.5 flex flex-wrap items-center gap-2 rounded-lg border border-hairline/80 bg-ink/70 px-3 py-2 font-mono text-xs">
+                  <span className="text-[10px] uppercase tracking-wider text-muted/70 font-semibold">Syntax:</span>
+                  <code className="text-spark font-medium break-all">{item.syntax}</code>
+                </div>
+              )}
+              {item.code && <CodeBlock code={item.code} output={item.output} language={language} />}
+            </React.Fragment>
           )}
-          <CodeBlock code={item.code} output={item.output} language={language} />
         </div>
       )}
     </div>
@@ -347,8 +591,9 @@ function CategorySection({ category, query, openIds, toggle, registerRef, langua
 }
 
 function SectionSwitcher({ sections, activeSection, onSelectSection }) {
+  const cols = sections.length >= 4 ? "grid-cols-4" : (sections.length >= 3 ? "grid-cols-3" : "grid-cols-2");
   return (
-    <div className={"grid gap-1 rounded-xl border border-hairline bg-ink p-1.5 " + (sections.length >= 3 ? "grid-cols-3" : "grid-cols-2")}>
+    <div className={"grid gap-1 rounded-xl border border-hairline bg-ink p-1.5 " + cols}>
       {sections.map((sec) => {
         const isActive = activeSection === sec.id;
         return (
@@ -388,8 +633,22 @@ function Sidebar({
 }) {
   const totalItems = categories.reduce((sum, c) => sum + c.items.length, 0);
 
-  // Group categories if available (e.g. Strings, Lists, Tuples in Python)
+  // Group categories if available (e.g. React or Python modules)
   const groupedCategories = useMemo(() => {
+    if (activeSection === "react") {
+      const groups = [
+        "Fundamentals",
+        "UI & Interaction",
+        "Effects & Routing",
+        "State & Hooks",
+        "Internals & Optimization",
+        "Architecture & Production"
+      ];
+      return groups.map((grp) => ({
+        groupName: grp,
+        items: categories.filter((c) => c.group === grp)
+      })).filter((g) => g.items.length > 0);
+    }
     if (activeSection !== "python") {
       return [{ groupName: null, items: categories }];
     }
@@ -585,6 +844,48 @@ function Hero({
         </div>
       </div>
 
+      {/* React Sub-Module Filters */}
+      {activeSection === "react" && (
+        <div className="mt-5 flex flex-wrap items-center gap-2">
+          <span className="font-mono text-xs text-muted/80 mr-1">Filter Module:</span>
+          {[
+            { id: "all", label: "All Chapters (31)" },
+            { id: "Fundamentals", label: "Fundamentals" },
+            { id: "UI & Interaction", label: "UI & Interaction" },
+            { id: "Effects & Routing", label: "Effects & Routing" },
+            { id: "State & Hooks", label: "State & Hooks" },
+            { id: "Internals & Optimization", label: "Internals & Optimization" },
+            { id: "Architecture & Production", label: "Production & Debugging" }
+          ].map((grp) => {
+            const isSel = activeGroup === grp.id;
+            const count = grp.id === "all"
+              ? categories.reduce((sum, c) => sum + c.items.length, 0)
+              : categories.filter((c) => c.group === grp.id).reduce((sum, c) => sum + c.items.length, 0);
+            const learned = grp.id === "all"
+              ? categories.reduce((sum, c) => sum + c.items.filter((it) => learnedMap[it.id]).length, 0)
+              : categories.filter((c) => c.group === grp.id).reduce((sum, c) => sum + c.items.filter((it) => learnedMap[it.id]).length, 0);
+
+            return (
+              <button
+                key={grp.id}
+                onClick={() => setActiveGroup(grp.id)}
+                className={
+                  "focus-ring flex items-center gap-2 rounded-lg px-3 py-1.5 font-mono text-xs transition-all " +
+                  (isSel
+                    ? "bg-paper text-ink font-semibold shadow"
+                    : "border border-hairline bg-surface/70 text-muted hover:border-hairline hover:bg-surface-hover hover:text-paper")
+                }
+              >
+                <span>{grp.label}</span>
+                <span className={"rounded px-1.5 py-0.2 text-[10px] " + (isSel ? "bg-ink/15 text-ink font-bold" : "bg-ink text-muted")}>
+                  {learned > 0 ? `${learned}/${count}` : count}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      )}
+
       {/* Python Sub-Module Filters (Strings, Lists, Tuples) */}
       {activeSection === "python" && (
         <div className="mt-5 flex flex-wrap items-center gap-2">
@@ -647,7 +948,8 @@ function App() {
     if (hash.includes("javascript") || window.location.search.includes("javascript")) return "javascript";
     if (hash.includes("numpy") || window.location.search.includes("numpy")) return "numpy";
     if (hash.includes("python") || window.location.search.includes("python")) return "python";
-    return "python"; // Default to Python so new sections appear first
+    if (hash.includes("react") || window.location.search.includes("react")) return "react";
+    return "react"; // Default to React so new React course appears first
   };
 
   const [activeSection, setActiveSection] = useState(getInitialSection);
@@ -685,6 +987,8 @@ function App() {
         setActiveSection("javascript");
       } else if (hash.startsWith("#python")) {
         setActiveSection("python");
+      } else if (hash.startsWith("#react")) {
+        setActiveSection("react");
       }
     };
     window.addEventListener("hashchange", onHashChange);
@@ -699,9 +1003,9 @@ function App() {
     if (el) sectionRefs.current[id] = el;
   }, []);
 
-  // Filter categories by activeGroup (for Python)
+  // Filter categories by activeGroup (for React and Python)
   const displayedCategories = useMemo(() => {
-    if (activeSection !== "python" || activeGroup === "all") {
+    if ((activeSection !== "python" && activeSection !== "react") || activeGroup === "all") {
       return categories;
     }
     return categories.filter((c) => c.group === activeGroup);

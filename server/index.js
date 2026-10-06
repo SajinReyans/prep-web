@@ -9,10 +9,12 @@ const sectionsPath = path.join(__dirname, "sections.json");
 const jsDataPath = path.join(__dirname, "data.json");
 const numpyDataPath = path.join(__dirname, "numpy.json");
 const pythonDataPath = path.join(__dirname, "python.json");
+const reactDataPath = path.join(__dirname, "react.json");
 
 function getSectionDataPath(sectionId) {
   if (sectionId === "numpy") return numpyDataPath;
   if (sectionId === "python") return pythonDataPath;
+  if (sectionId === "react" || sectionId === "reactjs") return reactDataPath;
   return jsDataPath;
 }
 
